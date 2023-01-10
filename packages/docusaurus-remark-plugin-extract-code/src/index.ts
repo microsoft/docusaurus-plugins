@@ -20,7 +20,7 @@ const plugin: Plugin<[PluginOptions?]> = (options = {}) => {
     let snippet = 0;
     return (root, file) => {
         const { history } = file;
-        const fpath = history[history.length - 1] || "unknown";
+        const fpath = file.path || history[history.length - 1] || "unknown";
         const fbase = basename(fpath);
         visit(root, "code", (node: Code) => {
             const { lang, meta, value } = node;
