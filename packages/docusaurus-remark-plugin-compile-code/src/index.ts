@@ -2,32 +2,22 @@
 import visit from "unist-util-visit";
 import type { Code } from "mdast";
 import type { Plugin } from "unified";
-import type { Node, Parent } from "unist";
 import {
     ensureDirSync,
     writeFileSync,
     existsSync,
-    exists,
     readJSONSync,
     removeSync,
-    remove,
     writeJSONSync,
 } from "fs-extra";
-import { join, basename, dirname, resolve } from "path";
-import { LangOptions, PluginOptions } from "./options";
+import { join, resolve } from "path";
+import { LangOptions, LangResult, PluginOptions } from "./options";
 import hashCode from "./hash";
 import { spawnSync } from "child_process";
 
 const RESULT_FILE = "result.json";
 
-interface SpawnResult {
-    code: number | null;
-    stdout: string;
-    stderr: string;
-    error?: string;
-}
-
-function readCachedResult(cwd: string): SpawnResult | undefined {
+function readCachedResult(cwd: string): LangResult | undefined {
     const isProd = process.env.NODE_ENV === "production";
     if (!isProd) return undefined;
 
@@ -35,7 +25,7 @@ function readCachedResult(cwd: string): SpawnResult | undefined {
     const cached = join(cwd, RESULT_FILE);
     if (existsSync(cached)) {
         try {
-            const res = readJSONSync(cached) as SpawnResult;
+            const res = readJSONSync(cached) as LangResult;
             return res;
         } catch (e) {
             // invalid file, delete folder
@@ -49,7 +39,26 @@ function compileCode(
     cwd: string,
     source: string,
     langOptions: LangOptions
-): SpawnResult | undefined {
+): LangResult | undefined {
+    const { extension, lang } = langOptions;
+    let result = readCachedResult(cwd);
+    if (result) return result;
+
+    result = compileCodeNodeCache(cwd, source, langOptions);
+
+    // cache on disk
+    if (result) {
+        ensureDirSync(cwd);
+        writeJSONSync(join(cwd, RESULT_FILE), result, { spaces: 2 });
+    }
+    return result;
+}
+
+function compileCodeNodeCache(
+    cwd: string,
+    source: string,
+    langOptions: LangOptions
+): LangResult | undefined {
     const {
         extension,
         timeout,
@@ -57,9 +66,18 @@ function compileCode(
         lang,
         command,
         nodeBin,
+        compile,
     } = langOptions;
-    let result = readCachedResult(cwd);
-    if (result) return result;
+
+    if (compile) {
+        try {
+            return compile(source, langOptions);
+        } catch (e) {
+            return {
+                error: e + "",
+            };
+        }
+    }
 
     const ifn = `input.${extension || lang}`;
     const iargs = [...args, ifn];
@@ -78,14 +96,12 @@ function compileCode(
         cwd,
     });
     if (res.error) console.error(res.error);
-    result = {
+    const result: LangResult = {
         code: res.status,
         stdout: res.stdout?.toString() || "",
         stderr: res.stderr?.toString() || "",
         error: res.error ? "error while running tool" : undefined,
     };
-    // cache on disk
-    if (result) writeJSONSync(join(cwd, RESULT_FILE), result, { spaces: 2 });
     return result;
 }
 
@@ -94,7 +110,7 @@ const plugin: Plugin<[PluginOptions?]> = (options = undefined) => {
         outputPath = "./.docusaurus/docusaurus-remark-plugin-compile-code/",
         langs = [],
     } = options || {};
-    return async (root, file) => {
+    return async (root) => {
         visit(root, "code", (node: Code, nodeIndex, parent) => {
             const { lang, meta, value } = node;
             const langOptions = langs.find((o) => o.lang === lang);

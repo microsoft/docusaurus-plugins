@@ -1,6 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`extract-code plugin works on snippet file 1`] = `
+exports[`extract-code plugin works on compile file 1`] = `
+"Some snippets
+
+\`\`\`echo
+foo
+\`\`\`
+
+    foo
+"
+`;
+
+exports[`extract-code plugin works on nodebin file 1`] = `
 "Some snippets
 
 \`\`\`ts

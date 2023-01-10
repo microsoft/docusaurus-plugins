@@ -1,3 +1,10 @@
+export interface LangResult {
+    code?: number | null;
+    stdout?: string;
+    stderr?: string;
+    error?: string;
+}
+
 export interface LangOptions {
     lang: string;
     version?: string;
@@ -7,6 +14,8 @@ export interface LangOptions {
     extension?: string;
     outputLang?: string;
     outputMeta?: string;
+
+    compile?: (source: string, langOptions: LangOptions) => LangResult;
 
     nodeBin?: string;
     npmPackage?: string;

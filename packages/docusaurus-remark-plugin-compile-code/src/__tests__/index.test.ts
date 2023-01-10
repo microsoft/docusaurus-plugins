@@ -28,12 +28,24 @@ const options: PluginOptions = {
             nodeBin: "tsc",
             npmPackage: "typescript",
         },
+        {
+            lang: "echo",
+            version: "0.0.0",
+            compile: (source, langOptions) => ({
+                code: 0,
+                stdout: source
+            })
+        },
     ],
 };
 
 describe("extract-code plugin", () => {
-    it("works on snippet file", async () => {
-        const result = await processFixture("snippets", options);
+    it("works on compile file", async () => {
+        const result = await processFixture("compile", options);
+        expect(result).toMatchSnapshot();
+    });
+    it("works on nodebin file", async () => {
+        const result = await processFixture("nodebin", options);
         expect(result).toMatchSnapshot();
     });
 });
