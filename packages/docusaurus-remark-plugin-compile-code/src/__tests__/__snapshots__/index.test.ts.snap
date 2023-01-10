@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`extract-code plugin works on snippet file 1`] = `
+"Some snippets
+
+\`\`\`ts
+let x = 0
+\`\`\`
+
+next, broken
+
+\`\`\`ts
+sadfj asd fasdf
+\`\`\`
+"
+`;
