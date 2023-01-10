@@ -6,7 +6,7 @@ import type {
 } from "@docusaurus/types";
 import type { PluginOptions, Options } from "./options";
 
-export default function pluginGoogleAnalytics(
+export default function pluginApplicationInsights(
   _context: LoadContext,
   options: PluginOptions
 ): Plugin {
