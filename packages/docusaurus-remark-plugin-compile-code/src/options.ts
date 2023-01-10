@@ -1,6 +1,6 @@
 export interface LangOptions {
     lang: string;
-    version: string;
+    version?: string;
     command: string;
     args?: string[];
     timeout?: number;
