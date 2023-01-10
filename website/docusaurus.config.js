@@ -3,9 +3,10 @@
 
 const lightCodeTheme = require("prism-react-renderer/themes/github");
 const darkCodeTheme = require("prism-react-renderer/themes/dracula");
+const { configure } = require("docusaurus-plugin-rise4fun");
 
 /** @type {import('@docusaurus/types').Config} */
-const config = {
+const config = configure({
     title: "Rise4Fun plugins for Docusaurus",
     tagline: "Rise4Fun plugins for Docusaurus",
     url: "https://microsoft.github.io",
@@ -82,7 +83,6 @@ const config = {
                         ],
                     },
                 ],
-                copyright: `Copyright © ${new Date().getFullYear()} Microsoft. Built with Docusaurus.`,
             },
             prism: {
                 theme: lightCodeTheme,
@@ -98,6 +98,6 @@ const config = {
             },
         ],
     ],
-};
+});
 
 module.exports = config;
