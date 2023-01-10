@@ -66,7 +66,7 @@ function compileCode(
     ensureDirSync(cwd);
     writeFileSync(join(cwd, ifn), source);
 
-    // generate command
+    // compile tool
     let cmd: string = command || "";
     if (nodeBin) {
         cmd = "node";
