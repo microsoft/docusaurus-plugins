@@ -34,7 +34,10 @@ const config = {
       ({
         docs: {
           sidebarPath: require.resolve("./sidebars.js"),
-          remarkPlugins: [require("remark-cli-output")],
+          remarkPlugins: [
+            [require("@docusaurus/remark-plugin-npm2yarn"), { sync: true }],
+            require("remark-cli-output"),
+          ],
         },
         blog: false,
         theme: {
