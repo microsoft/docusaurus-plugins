@@ -1,5 +1,5 @@
 # Remark plugin extract code
 
-## Motivation:
+## Usage
 
-Extract code snippets to file to integrate into test suite during CI
+See [docusaurus-remark-plugin-extract-code documentation](https://microsoft.github.io/microsoft/docusaurus-plugins-rise4fun/docs/plugins/remark-plugin-extract-code).

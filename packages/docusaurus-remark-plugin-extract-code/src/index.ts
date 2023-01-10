@@ -10,6 +10,7 @@ type PluginOptions = {
     outputPath?: string;
     langs?: string[];
 };
+const NO_EXTRACT_META = "no-extract";
 
 const plugin: Plugin<[PluginOptions?]> = (options = {}) => {
     const { outputPath = "./snippets", langs = [] } = options;
@@ -22,11 +23,15 @@ const plugin: Plugin<[PluginOptions?]> = (options = {}) => {
         const fpath = history[history.length - 1] || "unknown";
         const fbase = basename(fpath);
         visit(root, "code", (node: Code) => {
-            const { lang, value } = node;
-            if (lang && langs.indexOf(lang) > -1) {
+            const { lang, meta, value } = node;
+            if (
+                lang &&
+                langs.indexOf(lang) > -1 &&
+                !meta?.indexOf(NO_EXTRACT_META)
+            ) {
                 const fn = join(outputPath, `${fbase}.${snippet}.${lang}`);
-                ensureDirSync(dirname(fn))
-                writeFileSync(fn, value, { encoding: "utf8",  });
+                ensureDirSync(dirname(fn));
+                writeFileSync(fn, value, { encoding: "utf8" });
                 snippet++;
             }
         });
