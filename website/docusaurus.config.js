@@ -34,6 +34,7 @@ const config = {
       ({
         docs: {
           sidebarPath: require.resolve("./sidebars.js"),
+          remarkPlugins: [require("remark-cli-output")],
         },
         blog: false,
         theme: {
@@ -52,14 +53,13 @@ const config = {
           alt: "My Site Logo",
           src: "img/logo.svg",
         },
-        items: [
-        ],
+        items: [],
       },
       footer: {
         style: "dark",
         links: [
           {
-            title: "Docs"
+            title: "Docs",
           },
           {
             title: "More",
