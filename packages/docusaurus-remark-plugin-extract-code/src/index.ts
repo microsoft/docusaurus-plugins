@@ -13,12 +13,15 @@ type PluginOptions = {
 const NO_EXTRACT_META = "no-extract";
 
 const plugin: Plugin<[PluginOptions?]> = (options = {}) => {
-    const { outputPath = "./snippets", langs = [] } = options;
+    const {
+        outputPath = "./.docusaurus/docusaurus-remark-plugin-extract-code/snippets",
+        langs = [],
+    } = options;
 
     ensureDirSync(outputPath);
 
-    let snippet = 0;
     return (root, file) => {
+        let snippet = 0;
         const { history } = file;
         const fpath = file.path || history[history.length - 1] || "unknown";
         const fbase = basename(fpath);
@@ -29,7 +32,11 @@ const plugin: Plugin<[PluginOptions?]> = (options = {}) => {
                 langs.indexOf(lang) > -1 &&
                 !meta?.indexOf(NO_EXTRACT_META)
             ) {
-                const fn = join(outputPath, `${fbase}.${snippet}.${lang}`);
+                const fn = join(
+                    outputPath,
+                    lang,
+                    `${fbase}.${snippet}.${lang}`
+                );
                 ensureDirSync(dirname(fn));
                 writeFileSync(fn, value, { encoding: "utf8" });
                 snippet++;

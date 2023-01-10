@@ -37,7 +37,7 @@ const config = {
                     beforeDefaultRemarkPlugins: [
                         [
                             require("docusaurus-remark-plugin-extract-code"),
-                            { outputPath: "snippets", langs: ["js"] },
+                            { langs: ["js"] },
                         ],
                     ],
                     remarkPlugins: [
