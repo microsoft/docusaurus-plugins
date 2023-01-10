@@ -2,6 +2,7 @@
 import visit from "unist-util-visit";
 import type { Code } from "mdast";
 import type { Plugin } from "unified";
+import type { Node, Parent } from "unist";
 import {
     ensureDirSync,
     writeFileSync,
@@ -12,7 +13,7 @@ import {
     remove,
     writeJSONSync,
 } from "fs-extra";
-import { join, basename, dirname } from "path";
+import { join, basename, dirname, resolve } from "path";
 import { LangOptions, PluginOptions } from "./options";
 import hashCode from "./hash";
 import { spawnSync } from "child_process";
@@ -27,6 +28,9 @@ interface SpawnResult {
 }
 
 function readCachedResult(cwd: string): SpawnResult | undefined {
+    const isProd = process.env.NODE_ENV === "production";
+    if (!isProd) return undefined;
+
     // cache lookup
     const cached = join(cwd, RESULT_FILE);
     if (existsSync(cached)) {
@@ -46,26 +50,42 @@ function compileCode(
     source: string,
     langOptions: LangOptions
 ): SpawnResult | undefined {
-    const { extension, timeout, args = [], lang } = langOptions;
+    const {
+        extension,
+        timeout,
+        args = [],
+        lang,
+        command,
+        nodeBin,
+    } = langOptions;
     let result = readCachedResult(cwd);
-    if (!result) {
-        ensureDirSync(cwd);
-        const ifn = `input.${extension || lang}`;
-        const iargs = [...args, ifn];
-        writeFileSync(join(cwd, ifn), source);
-        const res = spawnSync(cwd, iargs, {
-            timeout,
-        });
-        result = {
-            code: res.status,
-            stdout: res.stdout?.toString() || "",
-            stderr: res.stderr?.toString() || "",
-            error: res.error?.message,
-        };
-        // cache on disk
-        if (result)
-            writeJSONSync(join(cwd, RESULT_FILE), result, { spaces: 2 });
+    if (result) return result;
+
+    const ifn = `input.${extension || lang}`;
+    const iargs = [...args, ifn];
+    ensureDirSync(cwd);
+    writeFileSync(join(cwd, ifn), source);
+
+    // generate command
+    let cmd: string = command || "";
+    if (nodeBin) {
+        cmd = "node";
+        iargs.unshift(resolve(join("node_modules", ".bin", nodeBin)));
     }
+    writeFileSync(join(cwd, "run.sh"), `${cmd} ${iargs.join(" ")}`);
+    const res = spawnSync(cmd, iargs, {
+        timeout,
+        cwd,
+    });
+    if (res.error) console.error(res.error);
+    result = {
+        code: res.status,
+        stdout: res.stdout?.toString() || "",
+        stderr: res.stderr?.toString() || "",
+        error: res.error ? "error while running tool" : undefined,
+    };
+    // cache on disk
+    if (result) writeJSONSync(join(cwd, RESULT_FILE), result, { spaces: 2 });
     return result;
 }
 
@@ -75,44 +95,30 @@ const plugin: Plugin<[PluginOptions?]> = (options = undefined) => {
         langs = [],
     } = options || {};
     return async (root, file) => {
-        const { history } = file;
-        const fpath = file.path || history[history.length - 1] || "unknown";
         visit(root, "code", (node: Code, nodeIndex, parent) => {
             const { lang, meta, value } = node;
             const langOptions = langs.find((o) => o.lang === lang);
             if (!lang || !langOptions) return;
 
-            const { outputLang = null, outputMeta = null } = langOptions;
+            const { outputMeta, outputLang } = langOptions;
             const hash = hashCode(value, meta || "", langOptions);
             const cwd = join(outputPath, lang, hash);
             const res = compileCode(cwd, value, langOptions);
-            if (parent && res?.stdout) {
-                const out: Code = {
+            const out: string = [
+                res?.stdout,
+                res?.stderr ? `-- error\n${res.stderr}` : undefined,
+                res?.error,
+            ]
+                .filter((s) => !!s)
+                .join("\n");
+            if (parent)
+                parent.children.splice(++nodeIndex, 0, <Code>{
                     type: "code",
                     lang: outputLang,
                     meta: outputMeta,
-                    value: res.stdout,
-                };
-                parent.children.splice(nodeIndex++, 0, out);
-            }
-            if (parent && res?.stderr) {
-                const out: Code = {
-                    type: "code",
-                    lang: outputLang,
-                    meta: outputMeta,
-                    value: res.stderr,
-                };
-                parent.children.splice(nodeIndex++, 0, out);
-            }
-            if (parent && res?.error) {
-                const out: Code = {
-                    type: "code",
-                    lang: outputLang,
-                    meta: outputMeta,
-                    value: res.error,
-                };
-                parent.children.splice(nodeIndex++, 0, out);
-            }
+                    value: out,
+                });
+            return nodeIndex + 1;
         });
     };
 };

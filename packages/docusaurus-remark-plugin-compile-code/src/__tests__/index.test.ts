@@ -25,8 +25,8 @@ const options: PluginOptions = {
         {
             lang: "ts",
             version: "0.0.0",
-            command: "yarn",
-            args: ["run", "tsc"],
+            nodeBin: "tsc",
+            npmPackage: "typescript",
         },
     ],
 };
