@@ -34,14 +34,16 @@ const config = {
             ({
                 docs: {
                     sidebarPath: require.resolve("./sidebars.js"),
+                    beforeDefaultRemarkPlugins: [
+                        [
+                            require("docusaurus-remark-plugin-extract-code"),
+                            { outputPath: "snippets", langs: ["js"] },
+                        ],
+                    ],
                     remarkPlugins: [
                         [
                             require("@docusaurus/remark-plugin-npm2yarn"),
                             { sync: true },
-                        ],
-                        [
-                            require("docusaurus-remark-plugin-extract-code"),
-                            { outputPath: "snippets", langs: ["js"] },
                         ],
                     ],
                 },
