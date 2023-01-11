@@ -25,6 +25,8 @@ export function configure(
     configuration: Config,
     options: PluginOptions = {}
 ): Config {
+    const { appInsights } = options;
+
     // injecting legal terms
     const themeConfig: ThemeConfig =
         configuration.themeConfig || (configuration.themeConfig = {});
@@ -66,13 +68,16 @@ export function configure(
     const presets = configuration.presets || (configuration.presets = []);
 
     // inject app insights
-    if (options.appInsights)
-        injectPlugin(appInsightPlugin, options.appInsights);
+    if (appInsights)
+        injectPlugin(appInsightPlugin, {
+            disableCookiesUsage: true,
+            ...appInsights,
+        });
 
     // inject remark plugins
     injectRemarkPlugin(npm2yarnPlugin, { sync: true });
 
-    console.log(configuration)
+    console.log(configuration);
     return configuration;
 
     function injectPlugin(plugin: any, object: object) {

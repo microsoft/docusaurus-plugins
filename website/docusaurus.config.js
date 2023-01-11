@@ -90,7 +90,7 @@ const config = configure(
     },
     {
         appInsights: {
-            instrumentationKey: "foobar",
+            instrumentationKey: "ec147bad-05d9-4959-922d-e5fc3dd0930b",
         },
     }
 );
