@@ -1,5 +1,5 @@
-export type PluginOptions = {
+export type ApplicationInsightsOptions = {
   instrumentationKey: string;
 };
 
-export type Options = Partial<PluginOptions>;
+export type Options = Partial<ApplicationInsightsOptions>;

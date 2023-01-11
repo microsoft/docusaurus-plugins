@@ -7,28 +7,11 @@ import type {
     ThemeConfig,
 } from "@docusaurus/types";
 import type { PluginOptions, Options } from "./options";
+import appInsightPlugin from "docusaurus-plugin-application-insights";
 
 const repo = process.env.GITHUB_REPOSITORY;
 const sha = process.env.GITHUB_SHA;
 const releaseTag = process.env.RELEASE_VERSION;
-
-export default function pluginRise4fun(
-    _context: LoadContext,
-    options: PluginOptions
-): Plugin {
-    return {
-        name: "docusaurus-plugin-rise4fun",
-    };
-}
-
-const pluginOptionsSchema = Joi.object<PluginOptions>({});
-
-export function validateOptions({
-    validate,
-    options,
-}: OptionValidationContext<Options, PluginOptions>): PluginOptions {
-    return validate(pluginOptionsSchema, options);
-}
 
 export type { PluginOptions, Options };
 
@@ -37,7 +20,10 @@ export type { PluginOptions, Options };
  * @param configuration
  * @returns
  */
-export function configure(configuration: Config): Config {
+export function configure(
+    configuration: Config,
+    options: PluginOptions = {}
+): Config {
     // injecting legal terms
     const themeConfig: ThemeConfig =
         configuration.themeConfig || (configuration.themeConfig = {});
@@ -74,6 +60,12 @@ export function configure(configuration: Config): Config {
 
     // patch copyrigth
     footer.copyright = `${link}Copyright © ${new Date().getFullYear()} Microsoft Corporation.`;
+
+    // inject app insights
+    if (options.appInsights) {
+        const plugins = configuration.plugins || (configuration.plugins = []);
+        plugins.push([appInsightPlugin as any, options.appInsights]);
+    }
 
     return configuration;
 }
