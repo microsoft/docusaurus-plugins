@@ -1,4 +1,17 @@
+import { ApplicationInsights } from "@microsoft/applicationinsights-web";
 import type { ClientModule } from "@docusaurus/types";
+
+let appInsights: ApplicationInsights;
+if (typeof window !== "undefined") {
+    const config = (window as any).appInsightsConfig;
+    if (config) {
+        appInsights = new ApplicationInsights({
+            config,
+        });
+        appInsights.loadAppInsights();
+        appInsights.trackPageView();
+    }
+}
 
 const clientModule: ClientModule = {
     onRouteDidUpdate({ location, previousLocation }) {
@@ -8,12 +21,10 @@ const clientModule: ClientModule = {
                 location.search !== previousLocation.search ||
                 location.hash !== previousLocation.hash)
         ) {
-            if (!window.appInsights)
-                console.error(`window.appInsights not founsd`);
-            else
-                window.appInsights.trackPageView(
-                    location.pathname + location.search + location.hash
-                );
+            // don't log hash, leave for client side data
+            appInsights?.trackPageView({
+                name: location.pathname + location.search,
+            });
         }
     },
 };
