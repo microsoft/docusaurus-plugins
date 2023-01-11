@@ -92,6 +92,24 @@ const config = configure(
         appInsights: {
             instrumentationKey: "ec147bad-05d9-4959-922d-e5fc3dd0930b",
         },
+        compileCode: {
+            langs: [
+                {
+                    lang: "ts",
+                    version: "0.0.0",
+                    nodeBin: "tsc",
+                    npmPackage: "typescript",
+                },
+                {
+                    lang: "echo",
+                    version: "0.0.0",
+                    compile: (source, langOptions) => ({
+                        code: 0,
+                        stdout: source,
+                    }),
+                },
+            ],
+        },
     }
 );
 

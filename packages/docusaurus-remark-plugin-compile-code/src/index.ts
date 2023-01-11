@@ -11,7 +11,7 @@ import {
     writeJSONSync,
 } from "fs-extra";
 import { join, resolve } from "path";
-import { LangOptions, LangResult, PluginOptions } from "./options";
+import { LangOptions, LangResult, PluginOptions } from "./types";
 import hashCode from "./hash";
 import { spawnSync } from "child_process";
 

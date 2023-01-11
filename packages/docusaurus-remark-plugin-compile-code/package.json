@@ -3,6 +3,7 @@
     "version": "0.1.0",
     "description": "Run tool and show output.",
     "main": "lib/index.js",
+    "types": "src/types.d.ts",
     "publishConfig": {
         "access": "public"
     },

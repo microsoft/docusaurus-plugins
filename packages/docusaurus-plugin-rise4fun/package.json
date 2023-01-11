@@ -1,35 +1,36 @@
 {
-  "name": "docusaurus-plugin-rise4fun",
-  "version": "1.0.0",
-  "description": "Docusaurus plugin for Microsoft Research RiSE projects.",
-  "main": "lib/index.js",
-  "types": "lib/index.d.ts",
-  "publishConfig": {
-    "access": "public"
-  },
-  "scripts": {
-    "clear": "rm -Rf lib",
-    "build": "tsc --build",
-    "watch": "tsc --build --watch"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/microsoft/docusaurus-plugins-rise4fun.git",
-    "directory": "packages/docusaurus-plugin-rise4fun"
-  },
-  "license": "MIT",
-  "dependencies": {
-    "@docusaurus/core": "^2.2.0",
-    "@docusaurus/types": "^2.2.0",
-    "@docusaurus/utils-validation": "^2.2.0",
-    "@docusaurus/remark-plugin-npm2yarn": "^2.2.0",
-    "docusaurus-plugin-application-insights": "*",
-    "tslib": "^2.4.0"
-  },
-  "engines": {
-    "node": ">=16.14"
-  },
-  "devDependencies": {
-    "typescript": "^4.9.4"
-  }
+    "name": "docusaurus-plugin-rise4fun",
+    "version": "1.0.0",
+    "description": "Docusaurus plugin for Microsoft Research RiSE projects.",
+    "main": "lib/index.js",
+    "types": "lib/index.d.ts",
+    "publishConfig": {
+        "access": "public"
+    },
+    "scripts": {
+        "clear": "rm -Rf lib",
+        "build": "tsc --build",
+        "watch": "tsc --build --watch"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/microsoft/docusaurus-plugins-rise4fun.git",
+        "directory": "packages/docusaurus-plugin-rise4fun"
+    },
+    "license": "MIT",
+    "dependencies": {
+        "@docusaurus/core": "^2.2.0",
+        "@docusaurus/types": "^2.2.0",
+        "@docusaurus/utils-validation": "^2.2.0",
+        "@docusaurus/remark-plugin-npm2yarn": "^2.2.0",
+        "docusaurus-plugin-application-insights": "*",
+        "docusaurus-remark-plugin-compile-code": "*",
+        "tslib": "^2.4.0"
+    },
+    "engines": {
+        "node": ">=16.14"
+    },
+    "devDependencies": {
+        "typescript": "^4.9.4"
+    }
 }

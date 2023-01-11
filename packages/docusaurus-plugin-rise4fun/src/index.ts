@@ -1,14 +1,8 @@
-import { Joi } from "@docusaurus/utils-validation";
-import type {
-    LoadContext,
-    Plugin,
-    OptionValidationContext,
-    Config,
-    ThemeConfig,
-} from "@docusaurus/types";
+import type { Config, ThemeConfig } from "@docusaurus/types";
 import type { PluginOptions, Options } from "./options";
 import appInsightPlugin from "docusaurus-plugin-application-insights";
 import npm2yarnPlugin from "@docusaurus/remark-plugin-npm2yarn";
+import compileCodePlugin from "docusaurus-remark-plugin-compile-code";
 
 const repo = process.env.GITHUB_REPOSITORY;
 const sha = process.env.GITHUB_SHA;
@@ -25,7 +19,7 @@ export function configure(
     configuration: Config,
     options: PluginOptions = {}
 ): Config {
-    const { appInsights } = options;
+    const { appInsights, compileCode } = options;
 
     // injecting legal terms
     const themeConfig: ThemeConfig =
@@ -76,6 +70,7 @@ export function configure(
 
     // inject remark plugins
     injectRemarkPlugin(npm2yarnPlugin, { sync: true });
+    if (compileCode) injectRemarkPlugin(compileCodePlugin, compileCode);
 
     console.log(configuration);
     return configuration;
@@ -85,7 +80,7 @@ export function configure(
     }
 
     function injectRemarkPlugin(remarkPlugin: any, options: object) {
-        const entry = [remarkPlugin, { sync: true }];
+        const entry = [remarkPlugin, options];
         plugins
             .map((plugin: any) => plugin.remarkPlugins)
             .filter((rps) => !!rps)

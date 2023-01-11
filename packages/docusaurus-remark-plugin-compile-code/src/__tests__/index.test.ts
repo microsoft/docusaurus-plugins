@@ -10,7 +10,7 @@ import vfile from "to-vfile";
 import mdx from "remark-mdx";
 import remark from "remark";
 import plugin from "../index";
-import { PluginOptions } from "../options";
+import type { PluginOptions } from "../types";
 
 const processFixture = async (name: string, options: PluginOptions) => {
     const filePath = path.join(__dirname, "__fixtures__", `${name}.md`);
@@ -33,8 +33,8 @@ const options: PluginOptions = {
             version: "0.0.0",
             compile: (source, langOptions) => ({
                 code: 0,
-                stdout: source
-            })
+                stdout: source,
+            }),
         },
     ],
 };

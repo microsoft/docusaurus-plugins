@@ -1,5 +1,5 @@
 import { createHash } from "crypto";
-import { LangOptions } from "./options";
+import { LangOptions } from "./types";
 
 export default function hashCode(
     source: string,
