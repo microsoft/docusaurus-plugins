@@ -7,9 +7,12 @@ npm install docusaurus-plugin-application-insights
 ```
 
 ```js
-plugings: [
-    ...,
-    ["docusaurus-plugin-application-insights", {
-        instrumentationKey: "YOUR INSTRUMENTATION KEY HERE"
-    }]
-]
+const config = {
+    plugins: [
+        ...,
+        ["docusaurus-plugin-application-insights", {
+            instrumentationKey: "YOUR INSTRUMENTATION KEY HERE"
+        }]
+    ]
+}
+```
