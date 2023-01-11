@@ -8,6 +8,7 @@ import type {
 } from "@docusaurus/types";
 import type { PluginOptions, Options } from "./options";
 import appInsightPlugin from "docusaurus-plugin-application-insights";
+import npm2yarnPlugin from "@docusaurus/remark-plugin-npm2yarn";
 
 const repo = process.env.GITHUB_REPOSITORY;
 const sha = process.env.GITHUB_SHA;
@@ -61,11 +62,44 @@ export function configure(
     // patch copyrigth
     footer.copyright = `${link}Copyright © ${new Date().getFullYear()} Microsoft Corporation.`;
 
+    const plugins = configuration.plugins || (configuration.plugins = []);
+    const presets = configuration.presets || (configuration.presets = []);
+
     // inject app insights
-    if (options.appInsights) {
-        const plugins = configuration.plugins || (configuration.plugins = []);
-        plugins.push([appInsightPlugin as any, options.appInsights]);
+    if (options.appInsights)
+        injectPlugin(appInsightPlugin, options.appInsights);
+
+    // inject remark plugins
+    injectRemarkPlugin(npm2yarnPlugin, { sync: true });
+
+    console.log(configuration)
+    return configuration;
+
+    function injectPlugin(plugin: any, object: object) {
+        plugins.push([plugin, options.appInsights]);
     }
 
-    return configuration;
+    function injectRemarkPlugin(remarkPlugin: any, options: object) {
+        const entry = [remarkPlugin, { sync: true }];
+        plugins
+            .map((plugin: any) => plugin.remarkPlugins)
+            .filter((rps) => !!rps)
+            .push(entry);
+        presets
+            .filter((preset) => Array.isArray(preset))
+            .map((preset: any) => preset[1])
+            .filter((config) => !!config)
+            .forEach((config) => {
+                config.remarkPlugins?.push(entry);
+                pushRemarkPlugin(config.docs, entry);
+                pushRemarkPlugin(config.blog, entry);
+                pushRemarkPlugin(config.pages, entry);
+            });
+    }
+
+    function pushRemarkPlugin(node: any, entry: any) {
+        if (!node) return;
+        const ps = node.remarkPlugins || (node.remarkPlugins = []);
+        ps.push(entry);
+    }
 }

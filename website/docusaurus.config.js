@@ -42,12 +42,7 @@ const config = configure(
                                 { langs: ["js"] },
                             ],
                         ],
-                        remarkPlugins: [
-                            [
-                                require("@docusaurus/remark-plugin-npm2yarn"),
-                                { sync: true },
-                            ],
-                        ],
+                        remarkPlugins: [],
                     },
                     blog: false,
                     theme: {
