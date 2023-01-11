@@ -8,7 +8,7 @@
         "nx": "15.4.5"
     },
     "scripts": {
-      "clear": "nx run-many --target=clear && nx reset",
-      "build": "nx run-many --target=build"
+        "clear": "nx run-many --target=clear && nx reset",
+        "build": "nx run-many --target=build"
     }
 }

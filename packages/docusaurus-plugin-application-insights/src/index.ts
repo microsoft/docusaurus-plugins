@@ -5,6 +5,7 @@ import type {
     OptionValidationContext,
 } from "@docusaurus/types";
 import type { ApplicationInsightsOptions, Options } from "./options";
+import { resolve } from "node:path";
 
 export default function pluginApplicationInsights(
     _context: LoadContext,
@@ -15,7 +16,7 @@ export default function pluginApplicationInsights(
         name: "docusaurus-plugin-application-insights",
 
         getClientModules() {
-            return isProd ? ["./analytics"] : [];
+            return isProd ? [resolve(__dirname, "./analytics")] : [];
         },
 
         injectHtmlTags() {
