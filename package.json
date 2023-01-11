@@ -1,6 +1,14 @@
 {
-  "private": true,
-  "workspaces": [
-    "packages/*"
-  ]
+    "private": true,
+    "workspaces": [
+        "packages/*",
+        "website"
+    ],
+    "devDependencies": {
+        "nx": "15.4.5"
+    },
+    "scripts": {
+      "clear": "nx run-many --target=clear",
+      "build": "nx run-many --target=build"
+    }
 }

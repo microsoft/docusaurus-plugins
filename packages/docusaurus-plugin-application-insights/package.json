@@ -8,6 +8,7 @@
     "access": "public"
   },
   "scripts": {
+    "clear": "rm -Rf lib",
     "build": "tsc --build",
     "watch": "tsc --build --watch"
   },
