@@ -1,4 +1,11 @@
-# GitHub Actions
+# Deployment
+
+Now that we have a web site running locally, it is time to setup the deployment.
+
+We start by adding a GitHub Action to build and push the compiled web site to the `gh-pages` branch;
+then setup the GitHub Pages on the project.
+
+## GitHub Action
 
 Now that you've got the website building locally, it's time to setup a build script in GitHub Actions
 to prepare for automatic deployment on every successful commit/build.
@@ -63,3 +70,15 @@ jobs:
 ```
 
 Once a build passed, don't forget to enable GitHub Pages in your GitHub repository settings.
+
+Navigate to the **Actions** tab in your GitHub repository home page and you should see this action running.
+Once the run is done, and if everything goes right, the action will upload the compiled web site in the `gh_pages` branch.
+
+## GitHub Pages
+
+Navigate to the **Settings** page, then **Pages** tab, and enable pages from the `gh-pages` branch. This will trigger
+a deployment build and your web site should be live within minutes. Yay!
+
+:::tip
+Copy the GitHub Pages url and set it as the repository web address.
+:::
