@@ -27,7 +27,7 @@ export default function pluginApplicationInsights(
                 headTags: [
                     {
                         tagName: "script",
-                        innerHTML: `window.appInsightsOptions = ${JSON.stringify(
+                        innerHTML: `window.appInsightsConfig = ${JSON.stringify(
                             options
                         )};`,
                     },
