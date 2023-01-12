@@ -55,8 +55,7 @@ const config = configure(
                     links: [
                         {
                             title: "Docs",
-                            items: [
-                            ],
+                            items: [],
                         },
                         {
                             title: "More",
