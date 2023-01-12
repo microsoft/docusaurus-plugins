@@ -36,7 +36,7 @@ const config = configure(
             /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
             ({
                 navbar: {
-                    title: "Rise4Fun plugins",
+                    title: "rise4fun",
                     logo: {
                         alt: "Rise4fun Logo",
                         src: "img/logo.svg",
