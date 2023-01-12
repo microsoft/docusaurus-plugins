@@ -25,6 +25,16 @@ export function configure(
     const themeConfig: ThemeConfig =
         configuration.themeConfig || (configuration.themeConfig = {});
     const footer: any = themeConfig.footer || (themeConfig.footer = {});
+    if (!themeConfig.organizationName)
+        themeConfig.organizationName = "Microsoft";
+    if (!themeConfig.url) themeConfig.url = "https://microsoft.github.io";
+    if (!themeConfig.baseUrl)
+        themeConfig.baseUrl = "/" + themeConfig.projectName;
+    if (!themeConfig.i18n)
+        themeConfig.i18n = {
+            defaultLocale: "en",
+            locales: ["en"],
+        };
     const links = footer.links || (footer.links = []);
     links.push({
         title: "Legal",
