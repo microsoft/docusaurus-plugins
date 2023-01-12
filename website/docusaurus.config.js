@@ -8,15 +8,14 @@ const { configure } = require("@rise4fun/docusaurus-plugin-rise4fun");
 /** @type {import('@docusaurus/types').Config} */
 const config = configure(
     {
-        title: "Rise4Fun plugins for Docusaurus",
-        tagline: "Rise4Fun plugins for Docusaurus",
+        title: "rise4fun",
+        tagline: "Awesome Documentation for Programming Language Tools.",
         url: "https://microsoft.github.io",
         baseUrl: "/docusaurus-plugins-rise4fun",
         onBrokenLinks: "throw",
         onBrokenMarkdownLinks: "warn",
         favicon: "img/favicon.ico",
-        projectName: "docusaurus-plugins-rise4fun", // Usually your repo name.
-
+        projectName: "docusaurus-plugins-rise4fun",
         presets: [
             [
                 "classic",
@@ -56,6 +55,14 @@ const config = configure(
                     links: [
                         {
                             title: "Docs",
+                            items: [
+                                {
+                                    type: "doc",
+                                    position: "left",
+                                    docId: "intro",
+                                    label: "Intro",
+                                },
+                            ],
                         },
                         {
                             title: "More",
