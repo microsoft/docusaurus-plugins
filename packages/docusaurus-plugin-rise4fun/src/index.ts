@@ -2,13 +2,12 @@ import type { Config, ThemeConfig } from "@docusaurus/types";
 import type { PluginOptions, Options } from "./options";
 import appInsightPlugin from "@rise4fun/docusaurus-plugin-application-insights";
 import npm2yarnPlugin from "@docusaurus/remark-plugin-npm2yarn";
-import compileCodePlugin from "@rise4fun/docusaurus-remark-plugin-compile-code";
+import compileCodePlugin from "@rise4fun/fdocusaurus-remark-plugin-compile-code";
 const mathPlugin = require("remark-math");
 const katexPlugin = require("rehype-katex");
 
 const repo = process.env.GITHUB_REPOSITORY;
 const sha = process.env.GITHUB_SHA;
-const releaseTag = process.env.RELEASE_VERSION;
 
 export type { PluginOptions, Options };
 
@@ -63,9 +62,7 @@ export function configure(
 
     // github versioning
     let link = "";
-    if (repo && releaseTag)
-        link = `<a href=https://github.com/${repo}/releases/tag/${releaseTag} target="_blank" rel="noopener noreferrer">version: ${releaseTag}</a> | `;
-    else if (repo && sha) {
+    if (repo && sha) {
         link = `<a href=https://github.com/${repo}/commit/${sha} target="_blank" rel="noopener noreferrer">${sha.slice(
             0,
             8
@@ -105,8 +102,7 @@ export function configure(
     if (mermaid !== false) {
         injectTheme("@docusaurus/theme-mermaid");
         markdown.mermaid = true;
-        if (typeof mermaid === "object")
-            themeConfig.mermaid = mermaid
+        if (typeof mermaid === "object") themeConfig.mermaid = mermaid;
     }
 
     if (compileCode) injectRemarkPlugin(compileCodePlugin, compileCode);
