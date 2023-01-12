@@ -20,7 +20,8 @@ export function configure(
     configuration: Config,
     options: PluginOptions = {}
 ): Config {
-    const { appInsights, compileCode, math, npm2yarn, mermaid } = options;
+    const { appInsights, compileCode, math, npm2yarn, mermaid, legal } =
+        options;
 
     // injecting legal terms
     const themeConfig: ThemeConfig =
@@ -42,35 +43,36 @@ export function configure(
             locales: ["en"],
         };
     const links = footer.links || (footer.links = []);
-    links.push({
-        title: "Legal",
-        items: [
-            {
-                label: "Privacy & Cookies",
-                href: "https://go.microsoft.com/fwlink/?LinkId=521839",
-            },
-            {
-                label: "Terms of Use",
-                href: "https://www.microsoft.com/en-us/legal/intellectualproperty/copyright",
-            },
-            {
-                label: "Trademarks",
-                href: "https://www.microsoft.com/en-us/legal/intellectualproperty/trademarks/usage/general",
-            },
-        ],
-    });
+    if (legal !== false) {
+        links.push({
+            title: "Legal",
+            items: [
+                {
+                    label: "Privacy & Cookies",
+                    href: "https://go.microsoft.com/fwlink/?LinkId=521839",
+                },
+                {
+                    label: "Terms of Use",
+                    href: "https://www.microsoft.com/en-us/legal/intellectualproperty/copyright",
+                },
+                {
+                    label: "Trademarks",
+                    href: "https://www.microsoft.com/en-us/legal/intellectualproperty/trademarks/usage/general",
+                },
+            ],
+        });
+        // patch copyrigth
+        footer.copyright = `Copyright © ${new Date().getFullYear()} Microsoft Corporation.`;
+    }
 
     // github versioning
-    let link = "";
     if (repo && sha) {
-        link = `<a href=https://github.com/${repo}/commit/${sha} target="_blank" rel="noopener noreferrer">${sha.slice(
+        const link = `<a href=https://github.com/${repo}/commit/${sha} target="_blank" rel="noopener noreferrer">${sha.slice(
             0,
             8
         )}</a> | `;
+        footer.copyright = link + footer.copyright;
     }
-
-    // patch copyrigth
-    footer.copyright = `${link}Copyright © ${new Date().getFullYear()} Microsoft Corporation.`;
 
     const plugins = configuration.plugins || (configuration.plugins = []);
     const presets = configuration.presets || (configuration.presets = []);

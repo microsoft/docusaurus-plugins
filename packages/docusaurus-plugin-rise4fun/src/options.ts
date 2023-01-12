@@ -2,6 +2,10 @@ import type { ApplicationInsightsOptions } from "@rise4fun/docusaurus-plugin-app
 import type { PluginOptions as CompileCodePluginOptions } from "@rise4fun/docusaurus-remark-plugin-compile-code";
 export type PluginOptions = {
     /**
+     * Inject Microsoft legal links
+     */
+    legal?: boolean;
+    /**
      * Application Insights configuration to enable analytics
      */
     appInsights?: ApplicationInsightsOptions;
