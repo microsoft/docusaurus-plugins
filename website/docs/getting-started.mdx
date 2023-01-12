@@ -152,7 +152,7 @@ underneath with the TypeScript compiler output. This output was computed at buil
 console.llog("typo!")
 ```
 
-### Custom tool
+#### Custom tool
 
 To support custom scenario, you can provide a `compile` function
 and wire it up as you please.
@@ -191,3 +191,10 @@ underneath with the capitalized text.
 ```echo
 hello
 ```
+
+#### Caching
+
+Running your tool on all snippets on every build of the documentation might slow your build to a grind
+so it's important to setup caching in GitHub Actions.
+
+TODO
