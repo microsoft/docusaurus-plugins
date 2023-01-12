@@ -111,7 +111,6 @@ export function configure(
 
     if (compileCode) injectRemarkPlugin(compileCodePlugin, compileCode);
 
-    console.log(configuration);
     return configuration;
 
     function injectStylesheet(sheet: {
