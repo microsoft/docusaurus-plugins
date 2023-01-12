@@ -2,7 +2,7 @@ import type { Config, ThemeConfig } from "@docusaurus/types";
 import type { PluginOptions, Options } from "./options";
 import appInsightPlugin from "@rise4fun/docusaurus-plugin-application-insights";
 import npm2yarnPlugin from "@docusaurus/remark-plugin-npm2yarn";
-import compileCodePlugin from "@rise4fun/fdocusaurus-remark-plugin-compile-code";
+import compileCodePlugin from "@rise4fun/docusaurus-remark-plugin-compile-code";
 const mathPlugin = require("remark-math");
 const katexPlugin = require("rehype-katex");
 

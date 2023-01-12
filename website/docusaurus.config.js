@@ -56,12 +56,6 @@ const config = configure(
                         {
                             title: "Docs",
                             items: [
-                                {
-                                    type: "doc",
-                                    position: "left",
-                                    docId: "intro",
-                                    label: "Intro",
-                                },
                             ],
                         },
                         {
