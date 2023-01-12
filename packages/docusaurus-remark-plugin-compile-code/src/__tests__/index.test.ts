@@ -24,13 +24,10 @@ const options: PluginOptions = {
     langs: [
         {
             lang: "ts",
-            version: "0.0.0",
             nodeBin: "tsc",
-            npmPackage: "typescript",
         },
         {
             lang: "echo",
-            version: "0.0.0",
             compile: (source, langOptions) => ({
                 code: 0,
                 stdout: source,

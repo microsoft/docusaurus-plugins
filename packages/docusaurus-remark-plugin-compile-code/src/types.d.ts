@@ -7,7 +7,6 @@ export interface LangResult {
 
 export interface LangOptions {
     lang: string;
-    version?: string;
     command?: string;
     args?: string[];
     timeout?: number;
@@ -18,7 +17,6 @@ export interface LangOptions {
     compile?: (source: string, langOptions: LangOptions) => LangResult;
 
     nodeBin?: string;
-    npmPackage?: string;
 }
 
 export type PluginOptions = {
