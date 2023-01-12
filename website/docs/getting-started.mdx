@@ -26,7 +26,7 @@ cd website
 yarn start
 ```
 
-Open http://localhost:3000 and follow the tutorial. At this point, you already have a functional documentation
+Open [http://localhost:3000](http://localhost:3000) and follow the tutorial. At this point, you already have a functional documentation
 web site. Let's enable rise4fun plugins.
 
 ## Rise4fun plugins
@@ -48,12 +48,11 @@ const { configure } = require("docusaurus-plugin-rise4fun");
 const config = configure(
     {
         ...
-}, 
-// highlight-start
-// rise4fun specific configuration
-{
-
 }
+// highlight-start
+    // rise4fun configuration
+    , {
+
+})
 // highlight-end
-)
 ```
