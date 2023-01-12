@@ -195,7 +195,7 @@ hello
 ## GitHub Actions
 
 Now that you've got the website building locally, it's time to setup a build script in GitHub Actions
-to prepare for automatic deployment.
+to prepare for automatic deployment on every successful commit/build.
 
 Add a root level `package.json` file that declares the `website` folder as a `yarn` workspace (and the `packages` folder).
 
@@ -246,4 +246,7 @@ jobs:
               with:
                   github_token: ${{ secrets.GITHUB_TOKEN }}
                   publish_dir: website/build
+                  force_orphan: true
 ```
+
+Once a build passed, don't forget to enable GitHub Pages in your GitHub repository settings.
