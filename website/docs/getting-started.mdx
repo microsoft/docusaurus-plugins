@@ -114,7 +114,6 @@ const config = configure({ ... }, {
 })
 ```
 
-
 #### Tools published on npm
 
 Let's take the TypeScript compiler as an example. First, start by adding `typescript` to your project
@@ -126,30 +125,31 @@ yarn add typescript
 then add a `compileCode` language entry that will run all `ts` code section through the `tsc` node executable.
 
 ```js title="website/docusaurus.config.js"
-    compileCode: {
-        langs: [
-// highlight-start
-            {
+compileCode: {
+    langs: [
+        // highlight-start
+        {
             lang: "ts",
-            nodeBin: "tsc"
-        }
-// highlight-end
-    ]}
+            nodeBin: "tsc",
+        },
+        // highlight-end
+    ];
+}
 ```
 
 Let's take a look at this example in action.
 
-```markdown
+````markdown
     ```ts showLineNumbers
     console.llog("typo!")
     ```
-```
+````
 
 When rendered in the docs, this snippet looks like any other code snippe. But you'll also notice an additional box
 underneath with the TypeScript compiler output. This output was computed at build time.
 
 ```ts showLineNumbers
-console.llog("typo!")
+console.llog("typo!");
 ```
 
 #### Custom tool
@@ -178,13 +178,13 @@ into the output.
 
 Let's take a look at this example in action.
 
-```markdown
+````markdown
     ```echo
     hello
     ```
-```
+````
 
-When rendered in the docs, this snippet looks like any other code snippe. 
+When rendered in the docs, this snippet looks like any other code snippe.
 But you'll also notice an additional box
 underneath with the capitalized text.
 
@@ -192,9 +192,58 @@ underneath with the capitalized text.
 hello
 ```
 
-#### Caching
+## GitHub Actions
 
-Running your tool on all snippets on every build of the documentation might slow your build to a grind
-so it's important to setup caching in GitHub Actions.
+Now that you've got the website building locally, it's time to setup a build script in GitHub Actions
+to prepare for automatic deployment.
 
-TODO
+Add a root level `package.json` file that declares the `website` folder as a `yarn` workspace (and the `packages` folder).
+
+```json title="package.json"
+{
+    "private": true,
+    "workspaces": ["packages/*", "website"],
+    "scripts": {
+        "build": "cd website && yarn build"
+    }
+}
+```
+
+Add `.github/workflows/build.yml` to your project
+
+```yml title=".github/workflows/build.yml"
+name: Build and Deploy
+on:
+    workflow_dispatch:
+    push:
+    pull_request:
+jobs:
+    build:
+        name: Build and Deployment
+        runs-on: ubuntu-latest
+        env:
+            GITHUB_REPOSITORY: ${{ github.repository }}
+            GITHUB_REF: ${{ github.ref }}
+            GITHUB_SHA: ${{ github.sha }}
+        steps:
+            - uses: actions/checkout@v3
+
+            - uses: actions/setup-node@v3
+              with:
+                  node-version: 18.x
+                  cache: yarn
+                  cache-dependency-path: yarn.lock
+
+            - name: yarn install
+              run: yarn install --frozen-lockfile
+
+            - name: Build all
+              run: yarn build
+
+            - name: Deploy to GitHub Pages
+              uses: peaceiris/actions-gh-pages@v3
+              if: ${{ github.ref == 'refs/heads/main' }}
+              with:
+                  github_token: ${{ secrets.GITHUB_TOKEN }}
+                  publish_dir: website/build
+```
