@@ -1,0 +1,101 @@
+---
+sidebar_position: 2
+---
+
+# (Pre-)compiling code snippets
+
+This configuration allows to extract code snippets and run them through your tool at build time, then insert the
+output in the generated web site. As long as your tool can run in a GitHub Action container, this feature allows to easily
+inline the output of your tool.
+
+```js title="website/docusaurus.config.js"
+...
+const config = configure({ ... }, {
+// highlight-start
+    compileCode: {
+        langs: [{
+            lang: "...",
+            ...
+        }, ...]
+    }
+// highlight-end
+})
+```
+
+## Tools published on npm
+
+Let's take the TypeScript compiler as an example. First, start by adding `typescript` to your project
+
+```basn npm2yarn
+yarn add typescript
+```
+
+then add a `compileCode` language entry that will run all `ts` code section through the `tsc` node executable.
+
+```js title="website/docusaurus.config.js"
+compileCode: {
+    langs: [
+        // highlight-start
+        {
+            lang: "ts",
+            nodeBin: "tsc",
+        },
+        // highlight-end
+    ];
+}
+```
+
+Let's take a look at this example in action.
+
+````markdown
+    ```ts showLineNumbers
+    console.llog("typo!")
+    ```
+````
+
+When rendered in the docs, this snippet looks like any other code snippe. But you'll also notice an additional box
+underneath with the TypeScript compiler output. This output was computed at build time.
+
+```ts showLineNumbers
+console.llog("typo!");
+```
+
+## Custom tool
+
+To support custom scenario, you can provide a `compile` function
+and wire it up as you please.
+
+In this example, we create a `echo` tool that copies the capitalized input source
+into the output.
+
+```js title="website/docusaurus.config.js"
+    compileCode: {
+        langs: [
+        ...,
+// highlight-start
+        {
+            lang: "echo",
+            compile: (source, langOptions) => ({
+                code: 0,
+                stdout: source.toUppercase(),
+            }),
+        }
+// highlight-end
+    ]}
+```
+
+Let's take a look at this example in action.
+
+````markdown
+```echo
+hello
+```
+````
+
+When rendered in the docs, this snippet looks like any other code snippe.
+But you'll also notice an additional box
+underneath with the capitalized text.
+
+```echo
+hello
+```

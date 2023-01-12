@@ -1,0 +1,22 @@
+---
+sidebar_position: 3
+---
+
+# Analytics
+
+You can track page views using **Microsoft Application Insights** in the deployed web site.
+There are many other analytics platforms supported by Docusaurus through other [plugins](https://docusaurus.io/docs/next/api/plugins).
+
+Insert your [application insights web configuration](https://github.com/microsoft/ApplicationInsights-JS#snippet-configuration-options) in the `docusaurus.config.js` file with, at least,
+the `instrumentationKey`. **By default, cookies are disabled.**
+
+```js title="website/docusaurus.config.js"
+...
+const config = configure({ ... }, {
+// highlight-start
+    appInsights: {
+        instrumentationKey: "YOUR KEY HERE"
+    }
+// highlight-end
+})
+```

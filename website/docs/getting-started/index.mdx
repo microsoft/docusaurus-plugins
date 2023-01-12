@@ -1,0 +1,63 @@
+---
+sidebar_position: 2
+---
+
+# Getting Started
+
+Rise4fun leverages Docusaurus 2.0 (`2.2.0`) along with a few custom plugins.
+
+In this page, we'll show you how to create your first Docusaurus web site and
+enable the rise4fun plugins in it.
+
+## Docusaurus
+
+[Docusaurus](https://docusaurus.io/) is a framework to build optimized documentation web sites.
+It has an extensive documentation which we recommend taking a peek later on. For simplicity,
+the installation tutorial is repeated here:
+
+Install [Node.js](https://nodejs.org/en/download/) and [yarn](https://yarnpkg.com/), open a terminal on your project root
+and create a new Docusaurus site:
+
+```bash
+npm install -g yarn
+npx create-docusaurus@latest website classic
+```
+
+## Rise4fun configuration
+
+Install the rise4fun plugin.
+
+```bash npm2yarn
+npm install @rise4fun/docusaurus-plugin-rise4fun
+```
+
+Open `website/docusaurus.config.js` and update it as follows.
+
+```js title="website/docusaurus.config.js"
+// highlight-next-line
+const { configure } = require("docusaurus-plugin-rise4fun");
+
+/** @type {import('@docusaurus/types').Config} */
+// highlight-next-line
+const config = configure(
+    {
+        ...
+}
+// highlight-start
+    // rise4fun configuration
+    , {
+
+})
+// highlight-end
+```
+
+## Start authoring!
+
+Start the site
+
+```bash
+cd website
+yarn start
+```
+
+Open [http://localhost:3000](http://localhost:3000) and you'll see your web site running, yay!

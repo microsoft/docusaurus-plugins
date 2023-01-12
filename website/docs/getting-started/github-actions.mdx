@@ -1,0 +1,65 @@
+# GitHub Actions
+
+Now that you've got the website building locally, it's time to setup a build script in GitHub Actions
+to prepare for automatic deployment on every successful commit/build.
+
+Add a root level `package.json` file that declares the `website` folder as a `yarn` workspace (and the `packages` folder).
+
+```json title="package.json"
+{
+    "private": true,
+    "workspaces": ["packages/*", "website"],
+    "scripts": {
+        "build": "cd website && yarn build"
+    }
+}
+```
+
+Add `.github/workflows/build.yml` to your project
+
+```yml title=".github/workflows/build.yml"
+name: Build and Deploy
+on:
+    workflow_dispatch:
+    push:
+    pull_request:
+jobs:
+    build:
+        name: Build and Deployment
+        runs-on: ubuntu-latest
+        env:
+            GITHUB_REPOSITORY: ${{ github.repository }}
+            GITHUB_REF: ${{ github.ref }}
+            GITHUB_SHA: ${{ github.sha }}
+        steps:
+            - uses: actions/checkout@v3
+
+            - name: Cache ris4fun compile code
+                id: docusaurus-rise4fun-compile-code
+                uses: actions/cache@v3
+                with:
+                path: website/.docusaurus/docusaurus-remark-plugin-compile-code/
+                key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
+
+            - uses: actions/setup-node@v3
+              with:
+                  node-version: 18.x
+                  cache: yarn
+                  cache-dependency-path: yarn.lock
+
+            - name: yarn install
+              run: yarn install --frozen-lockfile
+
+            - name: Build all
+              run: yarn build
+
+            - name: Deploy to GitHub Pages
+              uses: peaceiris/actions-gh-pages@v3
+              if: ${{ github.ref == 'refs/heads/main' }}
+              with:
+                  github_token: ${{ secrets.GITHUB_TOKEN }}
+                  publish_dir: website/build
+                  force_orphan: true
+```
+
+Once a build passed, don't forget to enable GitHub Pages in your GitHub repository settings.
