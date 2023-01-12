@@ -49,7 +49,14 @@ const config = configure(
                         alt: "Rise4fun Logo",
                         src: "img/logo.svg",
                     },
-                    items: [],
+                    items: [
+                        {
+                            type: "doc",
+                            position: "left",
+                            docId: "intro",
+                            label: "Docs",
+                        },
+                    ],
                 },
                 footer: {
                     style: "dark",
