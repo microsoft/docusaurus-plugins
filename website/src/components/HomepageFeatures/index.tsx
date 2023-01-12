@@ -10,7 +10,7 @@ type FeatureItem = {
 
 const FeatureList: FeatureItem[] = [
     {
-        title: "Easy to Use",
+        title: "Built on Docusaurus",
         Svg: require("@site/static/img/undraw_docusaurus_mountain.svg").default,
         description: (
             <>
@@ -21,17 +21,31 @@ const FeatureList: FeatureItem[] = [
         ),
     },
     {
-        title: "Battery included",
+        title: "Battery included for CS",
+        Svg: require("@site/static/img/undraw_docusaurus_tree.svg").default,
+        description: (
+            <>Out of the box, accessibility, analytics, math, diagrams.</>
+        ),
+    },
+    {
+        title: "Test Every Code Snippet",
         Svg: require("@site/static/img/undraw_docusaurus_tree.svg").default,
         description: (
             <>
-                Out of the box, accessibility, analytics, math, tool execution.
-                Focus on the content instead.
+                Automatically run your tool on every code snippet in your
+                automated build.
             </>
         ),
     },
     {
-        title: "Built for GitHub Actions and Pages",
+        title: "Live Code Editing",
+        Svg: require("@site/static/img/undraw_docusaurus_tree.svg").default,
+        description: (
+            <>Seamlessly run your tool on client with a rich coding experience.</>
+        ),
+    },
+    {
+        title: "Deploy to GitHub Pages",
         Svg: require("@site/static/img/undraw_docusaurus_react.svg").default,
         description: (
             <>
