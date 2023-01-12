@@ -55,7 +55,20 @@ const config = configure(
                     links: [
                         {
                             title: "Docs",
-                            items: [],
+                            items: [
+                                {
+                                    label: "Introduction",
+                                    to: "/docs/intro",
+                                },
+                                {
+                                    label: "Getting Started",
+                                    to: "/docs/getting-started",
+                                },
+                                {
+                                    label: "Plugins",
+                                    to: "/docs/plugins",
+                                },
+                            ],
                         },
                         {
                             title: "More",
