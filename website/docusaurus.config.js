@@ -3,7 +3,7 @@
 
 const lightCodeTheme = require("prism-react-renderer/themes/github");
 const darkCodeTheme = require("prism-react-renderer/themes/dracula");
-const { configure } = require("docusaurus-plugin-rise4fun");
+const { configure } = require("@rise4fun/docusaurus-plugin-rise4fun");
 
 /** @type {import('@docusaurus/types').Config} */
 const config = configure(
@@ -24,13 +24,6 @@ const config = configure(
                 ({
                     docs: {
                         sidebarPath: require.resolve("./sidebars.js"),
-                        beforeDefaultRemarkPlugins: [
-                            [
-                                require("docusaurus-remark-plugin-extract-code"),
-                                { langs: ["js"] },
-                            ],
-                        ],
-                        remarkPlugins: [],
                     },
                     blog: false,
                     theme: {

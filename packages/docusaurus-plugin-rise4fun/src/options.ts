@@ -1,5 +1,5 @@
-import type { ApplicationInsightsOptions } from "docusaurus-plugin-application-insights";
-import type { PluginOptions as CompileCodePluginOptions } from "docusaurus-remark-plugin-compile-code";
+import type { ApplicationInsightsOptions } from "@rise4fun/docusaurus-plugin-application-insights";
+import type { PluginOptions as CompileCodePluginOptions } from "@rise4fun/docusaurus-remark-plugin-compile-code";
 export type PluginOptions = {
     /**
      * Application Insights configuration to enable analytics
