@@ -24,7 +24,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: website/.docusaurus/docusaurus-remark-plugin-compile-code/
-          key: ${{ runner.os }}-outputs
+          key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
 
       - uses: actions/setup-node@v3
         with:
