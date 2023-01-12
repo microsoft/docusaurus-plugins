@@ -70,15 +70,6 @@ const config = configure(
                                 },
                             ],
                         },
-                        {
-                            title: "More",
-                            items: [
-                                {
-                                    label: "GitHub",
-                                    href: "https://github.com/microsoft/docusaurus-plugins-rise4fun",
-                                },
-                            ],
-                        },
                     ],
                 },
                 prism: {
