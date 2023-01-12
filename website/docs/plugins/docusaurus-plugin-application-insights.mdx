@@ -1,18 +1,53 @@
+---
+sidebar_position: 2
+---
+
 # Application Insights plugin
 
 This plugin lets you track page views using [Microsoft Application Insights](https://www.npmjs.com/package/@microsoft/applicationinsights-web).
+
+This plugin is only active in production mode.
+
+## Rise4fun configuration
+
+This plugin is automatically injected once you provide the [Application Insights](https://azuremarketplace.microsoft.com/en-us/marketplace/apps/Microsoft.AppInsights?exp=ubp8) intrumentation key
+in the rise4fun `appInsights` options.
+By default, cookies are disabled but you can override any default by providing
+a [application-insights-web configuration](https://github.com/microsoft/ApplicationInsights-JS#snippet-configuration-options) object.
+
+```js title="docusaurus.config.js"
+const config = configure({
+    ...
+}, {
+    // rise4fun configuration
+    ...
+    // highlight-start
+    appInsights: {
+        instrumentationKey: "YOUR INSTRUMENTATION KEY HERE"
+    }
+    // highlight-end
+})
+```
+
+## Usage outside rise4fun
+
+Install the plugin
 
 ```bash npm2yarn
 npm install docusaurus-plugin-application-insights
 ```
 
+Add the plugin to your plugin list along with the [application-insights-web configuration](https://github.com/microsoft/ApplicationInsights-JS#snippet-configuration-options) object.
+
 ```js
 const config = {
     plugins: [
         ...,
+        // highlight-start
         ["docusaurus-plugin-application-insights", {
             instrumentationKey: "YOUR INSTRUMENTATION KEY HERE"
         }]
+        // highlight-end
     ]
 }
 ```
