@@ -21,13 +21,15 @@ export function configure(
     configuration: Config,
     options: PluginOptions = {}
 ): Config {
-    const { appInsights, compileCode, math, npm2yarn } = options;
+    const { appInsights, compileCode, math, npm2yarn, mermaid } = options;
 
     // injecting legal terms
     const themeConfig: ThemeConfig =
         configuration.themeConfig || (configuration.themeConfig = {});
     const stylesheets =
         configuration.stylesheets || (configuration.stylesheets = []);
+    const markdown = configuration.markdown || (configuration.markdown = {});
+    const themes = configuration.themes || (configuration.themes = []);
     const footer: any = themeConfig.footer || (themeConfig.footer = {});
 
     if (!themeConfig.organizationName)
@@ -84,8 +86,7 @@ export function configure(
         });
 
     //  npm2yarn
-    if (npm2yarn !== false)
-        injectRemarkPlugin(npm2yarnPlugin, { sync: true }); // npm/yarn
+    if (npm2yarn !== false) injectRemarkPlugin(npm2yarnPlugin, { sync: true }); // npm/yarn
 
     // math
     if (math !== false) {
@@ -97,7 +98,15 @@ export function configure(
             integrity:
                 "sha384-odtC+0UGzzFL/6PNoE8rX/SPcQDXBJ+uRepguP4QkPCm2LBxH3FA3y+fKSiJ+AmM",
             crossorigin: "anonymous",
-        });    
+        });
+    }
+
+    // mermaid
+    if (mermaid !== false) {
+        injectTheme("@docusaurus/theme-mermaid");
+        markdown.mermaid = true;
+        if (typeof mermaid === "object")
+            themeConfig.mermaid = mermaid
     }
 
     if (compileCode) injectRemarkPlugin(compileCodePlugin, compileCode);
@@ -114,8 +123,12 @@ export function configure(
         stylesheets.push(sheet);
     }
 
-    function injectPlugin(plugin: any, object: object) {
-        plugins.push([plugin, options.appInsights]);
+    function injectTheme(theme: any, options?: object) {
+        themes.push(options ? [theme, options] : theme);
+    }
+
+    function injectPlugin(plugin: any, options?: object) {
+        plugins.push(options ? [plugin, options] : plugin);
     }
 
     function injectRemarkPlugin(remarkPlugin: any, options?: object) {

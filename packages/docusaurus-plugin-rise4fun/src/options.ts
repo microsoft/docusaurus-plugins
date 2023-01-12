@@ -14,6 +14,10 @@ export type PluginOptions = {
      * Sets as false to disable injecting `math`, `katex` plugins
      */
     math?: boolean;
+    /**
+     * Sets as false to disable mermaid diagrams. Set as mermaid configuration for customizations.
+     */
+    mermaid?: boolean | object;
 };
 
 export type Options = Partial<PluginOptions>;

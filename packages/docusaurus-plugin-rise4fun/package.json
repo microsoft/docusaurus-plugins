@@ -21,6 +21,7 @@
     "dependencies": {
         "@docusaurus/core": "^2.2.0",
         "@docusaurus/remark-plugin-npm2yarn": "^2.2.0",
+        "@docusaurus/theme-mermaid": "^2.2.0",
         "@docusaurus/types": "^2.2.0",
         "@docusaurus/utils-validation": "^2.2.0",
         "docusaurus-plugin-application-insights": "*",
