@@ -14,7 +14,6 @@ import { join, resolve } from "path";
 import { LangOptions, LangResult, PluginOptions } from "./types";
 import hashCode from "./hash";
 import { spawnSync } from "child_process";
-
 const RESULT_FILE = "result.json";
 
 function readCachedResult(cwd: string): LangResult | undefined {
@@ -105,6 +104,11 @@ function compileCodeNodeCache(
     return result;
 }
 
+function parseMeta(meta: string = "") {
+    const skip = / skip /i.test(meta);
+    return { skip };
+}
+
 const plugin: Plugin<[PluginOptions?]> = (options = undefined) => {
     const {
         outputPath = "./.docusaurus/docusaurus-remark-plugin-compile-code/",
@@ -117,18 +121,21 @@ const plugin: Plugin<[PluginOptions?]> = (options = undefined) => {
             const { lang, meta, value } = node;
             const langOptions = langs.find((o) => o.lang === lang);
             if (!lang || !langOptions) return;
+            const { skip } = parseMeta(meta || "");
+            if (skip) return;
 
             const { outputMeta, outputLang } = langOptions;
             const hash = hashCode(value, meta || "", langOptions);
             const cwd = join(outputPath, lang, hash);
             const res = compileCode(cwd, value, langOptions, cache);
-            const out: string = [
-                res?.stdout,
-                res?.stderr ? `-- error\n${res.stderr}` : undefined,
-                res?.error,
-            ]
-                .filter((s) => !!s)
-                .join("\n");
+            const out: string =
+                [
+                    res?.stdout,
+                    res?.stderr ? `-- error\n${res.stderr}` : undefined,
+                    res?.error,
+                ]
+                    .filter((s) => !!s)
+                    .join("\n") || "no output";
             if (parent)
                 parent.children.splice(++nodeIndex, 0, <Code>{
                     type: "code",
