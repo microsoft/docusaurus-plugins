@@ -47,6 +47,14 @@ const config = configure(
 // highlight-end
 ```
 
+Rise4fun enables various plugins automatically:
+
+-   [math rendering](https://docusaurus.io/docs/markdown-features/math-equations)
+-   [npm + yarn tab snippets](https://docusaurus.io/docs/markdown-features/code-blocks#npm2yarn-remark-plugin)
+-   [diagrams](https://docusaurus.io/docs/markdown-features/diagrams)
+
+We'll see in the next section how to enable more features.
+
 ## Start authoring!
 
 Start the site
@@ -57,3 +65,30 @@ yarn start
 ```
 
 Open [http://localhost:3000](http://localhost:3000) and you'll see your web site running, yay!
+
+## Configuring...
+
+So you are documenting a programming language tool, and you would like to run your snippets through the tool and show the output.
+
+### Compile code
+
+...
+
+### Analytics with Application Insights
+
+This section shows how to enable Microsoft Application Insights analytics in the deployed web site.
+(There are many other analytics platforms supported by Docusaurus through other plugins.)
+
+Insert your [application insights web configuration](https://github.com/microsoft/ApplicationInsights-JS#snippet-configuration-options) in the `docusaurus.config.js` file with, at least,
+the `instrumentationKey`. By default, cookies are disabled.
+
+```js title="website/docusaurus.config.js"
+...
+const config = configure({ ... }, {
+// highlight-start
+    appInsights: {
+        instrumentationKey: "YOUR KEY HERE"
+    }
+// highlight-end
+})
+```
