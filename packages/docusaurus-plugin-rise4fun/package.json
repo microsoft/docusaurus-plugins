@@ -1,5 +1,5 @@
 {
-    "name": "docusaurus-plugin-rise4fun",
+    "name": "@rise4fun/docusaurus-plugin-rise4fun",
     "version": "1.0.0",
     "description": "Docusaurus plugin for Microsoft Research RiSE projects.",
     "main": "lib/index.js",
@@ -24,8 +24,8 @@
         "@docusaurus/theme-mermaid": "^2.2.0",
         "@docusaurus/types": "^2.2.0",
         "@docusaurus/utils-validation": "^2.2.0",
-        "docusaurus-plugin-application-insights": "*",
-        "docusaurus-remark-plugin-compile-code": "*",
+        "@rise4fun/docusaurus-plugin-application-insights": "*",
+        "@rise4fun/docusaurus-remark-plugin-compile-code": "*",
         "hast-util-is-element": "1.1.0",
         "rehype-katex": "5",
         "remark-math": "3",

@@ -1,5 +1,5 @@
 {
-    "name": "docusaurus-remark-plugin-extract-code",
+    "name": "@rise4fun/docusaurus-remark-plugin-extract-code",
     "version": "0.1.0",
     "description": "Extract code snippets to files.",
     "main": "lib/index.js",

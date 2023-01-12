@@ -1,5 +1,5 @@
 {
-    "name": "docusaurus-remark-plugin-compile-code",
+    "name": "@rise4fun/docusaurus-remark-plugin-compile-code",
     "version": "0.1.0",
     "description": "Run tool and show output.",
     "main": "lib/index.js",
