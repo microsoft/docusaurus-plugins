@@ -31,6 +31,8 @@ export function configure(
     const markdown = configuration.markdown || (configuration.markdown = {});
     const themes = configuration.themes || (configuration.themes = []);
     const footer: any = themeConfig.footer || (themeConfig.footer = {});
+    const navbar: any =
+        themeConfig.navbar || (themeConfig.navbar = { items: [] });
 
     if (!themeConfig.organizationName)
         themeConfig.organizationName = "Microsoft";
@@ -108,6 +110,17 @@ export function configure(
     }
 
     if (compileCode) injectRemarkPlugin(compileCodePlugin, compileCode);
+
+    if (
+        repo &&
+        !navbar.items.find((i: any) => i.className === "header-github-link")
+    )
+        navbar.items.push({
+            href: `https://github.com/${repo}`,
+            position: "right",
+            className: "header-github-link",
+            "aria-label": "GitHub repository",
+        });
 
     return configuration;
 
