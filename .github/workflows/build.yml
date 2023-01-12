@@ -19,6 +19,13 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Cache ris4fun compile code
+        id: docusaurus-rise4fun-compile-code
+        uses: actions/cache@v3
+        with:
+          path: website/.docusaurus/docusaurus-remark-plugin-compile-code/
+          key: ${{ runner.os }}-outputs
+
       - uses: actions/setup-node@v3
         with:
           node-version: 18.x

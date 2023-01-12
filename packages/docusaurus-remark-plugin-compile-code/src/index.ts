@@ -38,16 +38,16 @@ function readCachedResult(cwd: string): LangResult | undefined {
 function compileCode(
     cwd: string,
     source: string,
-    langOptions: LangOptions
+    langOptions: LangOptions,
+    cache: boolean
 ): LangResult | undefined {
-    const { extension, lang } = langOptions;
-    let result = readCachedResult(cwd);
+    let result = cache && readCachedResult(cwd);
     if (result) return result;
 
     result = compileCodeNodeCache(cwd, source, langOptions);
 
     // cache on disk
-    if (result) {
+    if (result && cache) {
         ensureDirSync(cwd);
         writeJSONSync(join(cwd, RESULT_FILE), result, { spaces: 2 });
     }
@@ -109,7 +109,9 @@ const plugin: Plugin<[PluginOptions?]> = (options = undefined) => {
     const {
         outputPath = "./.docusaurus/docusaurus-remark-plugin-compile-code/",
         langs = [],
+        cache = process.env.NODE_ENV === "production",
     } = options || {};
+
     return async (root) => {
         visit(root, "code", (node: Code, nodeIndex, parent) => {
             const { lang, meta, value } = node;
@@ -119,7 +121,7 @@ const plugin: Plugin<[PluginOptions?]> = (options = undefined) => {
             const { outputMeta, outputLang } = langOptions;
             const hash = hashCode(value, meta || "", langOptions);
             const cwd = join(outputPath, lang, hash);
-            const res = compileCode(cwd, value, langOptions);
+            const res = compileCode(cwd, value, langOptions, cache);
             const out: string = [
                 res?.stdout,
                 res?.stderr ? `-- error\n${res.stderr}` : undefined,

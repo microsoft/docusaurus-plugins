@@ -25,4 +25,5 @@ export type PluginOptions = {
     outputPath?: string;
     langs: LangOptions[];
     concurrency?: number;
+    cache?: boolean;
 };
