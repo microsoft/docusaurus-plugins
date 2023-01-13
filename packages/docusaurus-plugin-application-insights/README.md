@@ -1,4 +1,4 @@
-# `docusaurus-plugin-application-insights`
+# `@rise4fun/docusaurus-plugin-application-insights`
 
 Microsoft Application Insigts for Docusaurus and rise4fun.
 
