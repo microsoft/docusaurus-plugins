@@ -18,9 +18,7 @@ exports[`extract-code plugin works on nodebin file 1`] = `
 let x = 0
 \`\`\`
 
-\`\`\`
-
-\`\`\`
+    no output
 
 next, broken
 
@@ -28,10 +26,7 @@ next, broken
 sadfj asd fasdf
 \`\`\`
 
-\`\`\`
-input.ts(1,1): error TS1434: Unexpected keyword or identifier.
-input.ts(1,7): error TS1434: Unexpected keyword or identifier.
-
-\`\`\`
+    input.ts(1,1): error TS1434: Unexpected keyword or identifier.
+    input.ts(1,7): error TS1434: Unexpected keyword or identifier.
 "
 `;

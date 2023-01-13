@@ -7,11 +7,20 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "Launch Program",
+            "name": "docusaurus start",
             "skipFiles": ["<node_internals>/**"],
             "cwd": "${workspaceFolder}/website",
             "program": "node_modules/.bin/docusaurus",
             "args": ["start"]
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "docusaurus build",
+            "skipFiles": ["<node_internals>/**"],
+            "cwd": "${workspaceFolder}/website",
+            "program": "node_modules/.bin/docusaurus",
+            "args": ["build"]
         }
     ]
 }

@@ -118,23 +118,27 @@ const plugin: Plugin<[PluginOptions?]> = (options = undefined) => {
     } = options || {};
 
     return async (root) => {
+        const visited = new Set<Code>(); // visit called twice on async
         const todo: {
             node: Code;
             parent: Parent | undefined;
         }[] = [];
         // collect all nodes
-        visit(root, "code", (node: Code, nodeIndex, parent) =>
-            todo.push({ node, parent })
-        );
+        visit(root, "code", (node: Code, _, parent) => {
+            if (!visited.has(node)) {
+                visited.add(node);
+                todo.push({ node, parent });
+            }
+        });
 
         // render
         for (const { node, parent } of todo) {
-            if (!parent) return;
+            if (!parent) continue;
             const { lang, meta, value } = node;
             const langOptions = langs.find((o) => o.lang === lang);
-            if (!lang || !langOptions) return;
+            if (!lang || !langOptions) continue;
             const { skip } = parseMeta(meta || "");
-            if (skip) return;
+            if (skip) continue;
 
             const { outputMeta, outputLang } = langOptions;
             const hash = hashCode(value, meta || "", langOptions);
@@ -142,15 +146,16 @@ const plugin: Plugin<[PluginOptions?]> = (options = undefined) => {
             const res = await compileCode(cwd, value, langOptions, cache);
             const out: string =
                 [
-                    res?.stdout,
-                    res?.stderr ? `-- error\n${res.stderr}` : undefined,
+                    res?.stdout?.trimEnd(),
+                    res?.stderr
+                        ? `-- error\n${res.stderr.trimEnd()}`
+                        : undefined,
                     res?.error,
                 ]
                     .filter((s) => !!s)
                     .join("\n") || "no output";
 
             const nodeIndex = parent.children.indexOf(node);
-            console.log({ parent, node, nodeIndex });
             parent.children.splice(nodeIndex + 1, 0, <Code>{
                 type: "code",
                 lang: outputLang,
