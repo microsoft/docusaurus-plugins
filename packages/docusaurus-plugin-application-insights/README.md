@@ -1,6 +1,6 @@
 # `docusaurus-plugin-application-insights`
 
-Microsoft Application Insigts for Docusaurus.
+Microsoft Application Insigts for Docusaurus and rise4fun.
 
 ## Usage
 

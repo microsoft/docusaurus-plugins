@@ -1,6 +1,6 @@
-# `docusaurus-plugin-rise4fun`
+# rise4fun Docusarus plugin
 
-Docusaurs plugin for Microsoft Research Rise4fun web sites.
+Docusaurs plugin for Microsoft Research Rise4fun web sites
 
 ## Usage
 
