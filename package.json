@@ -10,5 +10,10 @@
     "scripts": {
         "clear": "nx run-many --target=clear && nx reset",
         "build": "nx run-many --target=build"
+    },
+    "release": {
+        "branches": [
+            "main"
+        ]
     }
 }
