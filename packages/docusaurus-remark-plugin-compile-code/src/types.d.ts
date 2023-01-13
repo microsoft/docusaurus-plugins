@@ -5,7 +5,12 @@ export interface LangResult {
     error?: string;
 }
 
-export type CompileFunction = (source: string, langOptions: LangOptions) => Promise<LangResult>;
+export interface SnippetOptions {
+    meta: string
+    cwd: string
+}
+
+export type CompileFunction = (source: string, options: LangOptions & SnippetOptions) => Promise<LangResult>;
 
 export interface LangOptions {
     lang: string;

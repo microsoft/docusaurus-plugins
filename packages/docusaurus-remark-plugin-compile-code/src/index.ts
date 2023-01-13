@@ -38,17 +38,18 @@ function readCachedResult(cwd: string): LangResult | undefined {
 async function compileCode(
     cwd: string,
     source: string,
+    meta: string,
     langOptions: LangOptions,
     cache: boolean
 ): Promise<LangResult | undefined> {
     let result = cache && readCachedResult(cwd);
     if (result) return result;
 
-    result = await compileCodeNodeCache(cwd, source, langOptions);
+    ensureDirSync(cwd);
+    result = await compileCodeNodeCache(cwd, source, meta, langOptions);
 
     // cache on disk
     if (result && cache) {
-        ensureDirSync(cwd);
         writeJSONSync(join(cwd, RESULT_FILE), result, { spaces: 2 });
     }
     return result;
@@ -57,6 +58,7 @@ async function compileCode(
 async function compileCodeNodeCache(
     cwd: string,
     source: string,
+    meta: string,
     langOptions: LangOptions
 ): Promise<LangResult | undefined> {
     const {
@@ -71,7 +73,11 @@ async function compileCodeNodeCache(
 
     if (compile) {
         try {
-            return await compile(source, langOptions);
+            return await compile(source, {
+                ...langOptions,
+                meta,
+                cwd,
+            });
         } catch (e) {
             return {
                 error: e + "",
@@ -143,7 +149,13 @@ const plugin: Plugin<[PluginOptions?]> = (options = undefined) => {
             const { outputMeta, outputLang } = langOptions;
             const hash = hashCode(value, meta || "", langOptions);
             const cwd = join(outputPath, lang, hash);
-            const res = await compileCode(cwd, value, langOptions, cache);
+            const res = await compileCode(
+                cwd,
+                value,
+                meta || "",
+                langOptions,
+                cache
+            );
             const out: string =
                 [
                     res?.stdout?.trimEnd(),
