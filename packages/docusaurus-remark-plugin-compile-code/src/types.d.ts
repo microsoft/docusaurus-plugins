@@ -5,6 +5,8 @@ export interface LangResult {
     error?: string;
 }
 
+export type CompileFunction = (source: string, langOptions: LangOptions) => Promise<LangResult>;
+
 export interface LangOptions {
     lang: string;
     version?: string;
@@ -15,7 +17,7 @@ export interface LangOptions {
     outputLang?: string;
     outputMeta?: string;
 
-    compile?: (source: string, langOptions: LangOptions) => LangResult;
+    compile?: CompileFunction;
 
     nodeBin?: string;
     npmPackage?: string;

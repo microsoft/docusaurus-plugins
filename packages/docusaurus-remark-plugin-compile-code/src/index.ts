@@ -2,6 +2,7 @@
 import visit from "unist-util-visit";
 import type { Code } from "mdast";
 import type { Plugin } from "unified";
+import type { Parent } from "unist";
 import {
     ensureDirSync,
     writeFileSync,
@@ -34,16 +35,16 @@ function readCachedResult(cwd: string): LangResult | undefined {
     return undefined;
 }
 
-function compileCode(
+async function compileCode(
     cwd: string,
     source: string,
     langOptions: LangOptions,
     cache: boolean
-): LangResult | undefined {
+): Promise<LangResult | undefined> {
     let result = cache && readCachedResult(cwd);
     if (result) return result;
 
-    result = compileCodeNodeCache(cwd, source, langOptions);
+    result = await compileCodeNodeCache(cwd, source, langOptions);
 
     // cache on disk
     if (result && cache) {
@@ -53,11 +54,11 @@ function compileCode(
     return result;
 }
 
-function compileCodeNodeCache(
+async function compileCodeNodeCache(
     cwd: string,
     source: string,
     langOptions: LangOptions
-): LangResult | undefined {
+): Promise<LangResult | undefined> {
     const {
         extension,
         timeout,
@@ -70,7 +71,7 @@ function compileCodeNodeCache(
 
     if (compile) {
         try {
-            return compile(source, langOptions);
+            return await compile(source, langOptions);
         } catch (e) {
             return {
                 error: e + "",
@@ -117,7 +118,18 @@ const plugin: Plugin<[PluginOptions?]> = (options = undefined) => {
     } = options || {};
 
     return async (root) => {
-        visit(root, "code", (node: Code, nodeIndex, parent) => {
+        const todo: {
+            node: Code;
+            parent: Parent | undefined;
+        }[] = [];
+        // collect all nodes
+        visit(root, "code", (node: Code, nodeIndex, parent) =>
+            todo.push({ node, parent })
+        );
+
+        // render
+        for (const { node, parent } of todo) {
+            if (!parent) return;
             const { lang, meta, value } = node;
             const langOptions = langs.find((o) => o.lang === lang);
             if (!lang || !langOptions) return;
@@ -127,7 +139,7 @@ const plugin: Plugin<[PluginOptions?]> = (options = undefined) => {
             const { outputMeta, outputLang } = langOptions;
             const hash = hashCode(value, meta || "", langOptions);
             const cwd = join(outputPath, lang, hash);
-            const res = compileCode(cwd, value, langOptions, cache);
+            const res = await compileCode(cwd, value, langOptions, cache);
             const out: string =
                 [
                     res?.stdout,
@@ -136,15 +148,16 @@ const plugin: Plugin<[PluginOptions?]> = (options = undefined) => {
                 ]
                     .filter((s) => !!s)
                     .join("\n") || "no output";
-            if (parent)
-                parent.children.splice(++nodeIndex, 0, <Code>{
-                    type: "code",
-                    lang: outputLang,
-                    meta: outputMeta,
-                    value: out,
-                });
-            return nodeIndex + 1;
-        });
+
+            const nodeIndex = parent.children.indexOf(node);
+            console.log({ parent, node, nodeIndex });
+            parent.children.splice(nodeIndex + 1, 0, <Code>{
+                type: "code",
+                lang: outputLang,
+                meta: outputMeta,
+                value: out,
+            });
+        }
     };
 };
 
