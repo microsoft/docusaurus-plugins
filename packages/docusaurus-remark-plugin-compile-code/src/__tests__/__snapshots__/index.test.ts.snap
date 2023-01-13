@@ -3,7 +3,7 @@
 exports[`extract-code plugin works on compile file 1`] = `
 "Some snippets
 
-\`\`\`echo
+\`\`\`lisp
 foo
 \`\`\`
 

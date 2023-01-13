@@ -28,6 +28,7 @@ const options: PluginOptions = {
         },
         {
             lang: "echo",
+            prism: "lisp",
             compile: async (source, langOptions) => ({
                 code: 0,
                 stdout: source,

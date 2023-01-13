@@ -33,6 +33,7 @@ export function configure(
     const footer: any = themeConfig.footer || (themeConfig.footer = {});
     const navbar: any =
         themeConfig.navbar || (themeConfig.navbar = { items: [] });
+    const prism: any = themeConfig.prism || (themeConfig.prism = {});
 
     if (!themeConfig.organizationName)
         themeConfig.organizationName = "Microsoft";
@@ -109,7 +110,19 @@ export function configure(
         if (typeof mermaid === "object") themeConfig.mermaid = mermaid;
     }
 
-    if (compileCode) injectRemarkPlugin(compileCodePlugin, compileCode);
+    // additional languages
+    const additionalLanguages: string[] =
+        prism.additionalLanguages || (prism.additionalLanguages = []);
+    const extraPrismLanguages: Set<string> = new Set(["lisp"]);
+    if (compileCode) {
+        injectBeforeDefaultRemarkPlugin(compileCodePlugin, compileCode);
+        compileCode.langs.forEach(({ prism }) => {
+            if (prism) extraPrismLanguages.add(prism);
+        });
+    }
+    Array.from(extraPrismLanguages.values())
+        .filter((l) => additionalLanguages.indexOf(l) < 0)
+        .forEach((l) => additionalLanguages.push(l));
 
     if (
         repo &&
@@ -162,6 +175,25 @@ export function configure(
     function pushRemarkPlugin(node: any, entry: any) {
         if (!node) return;
         const ps = node.remarkPlugins || (node.remarkPlugins = []);
+        ps.push(entry);
+    }
+
+    function injectBeforeDefaultRemarkPlugin(remarkPlugin: any, options?: object) {
+        const entry = options ? [remarkPlugin, options] : remarkPlugin;
+        presets
+            .filter((preset) => Array.isArray(preset))
+            .map((preset: any) => preset[1])
+            .filter((config) => !!config)
+            .forEach((config) => {
+                pushBeforeDefaultRemarkPlugin(config.docs, entry);
+                pushBeforeDefaultRemarkPlugin(config.blog, entry);
+                pushBeforeDefaultRemarkPlugin(config.pages, entry);
+            });
+    }
+
+    function pushBeforeDefaultRemarkPlugin(node: any, entry: any) {
+        if (!node) return;
+        const ps = node.beforeDefaultRemarkPlugins || (node.beforeDefaultRemarkPlugins = []);
         ps.push(entry);
     }
 

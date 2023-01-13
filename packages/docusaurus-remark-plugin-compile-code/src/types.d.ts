@@ -14,6 +14,7 @@ export type CompileFunction = (source: string, options: LangOptions & SnippetOpt
 
 export interface LangOptions {
     lang: string;
+    prism?: string;
     version?: string;
     command?: string;
     args?: string[];

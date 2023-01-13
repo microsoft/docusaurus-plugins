@@ -146,7 +146,7 @@ const plugin: Plugin<[PluginOptions?]> = (options = undefined) => {
             const { skip } = parseMeta(meta || "");
             if (skip) continue;
 
-            const { outputMeta, outputLang } = langOptions;
+            const { outputMeta, outputLang, prism } = langOptions;
             const hash = hashCode(value, meta || "", langOptions);
             const cwd = join(outputPath, lang, hash);
             const res = await compileCode(
@@ -168,6 +168,8 @@ const plugin: Plugin<[PluginOptions?]> = (options = undefined) => {
                     .join("\n") || "no output";
 
             const nodeIndex = parent.children.indexOf(node);
+            if (prism)
+                node.lang = prism
             parent.children.splice(nodeIndex + 1, 0, <Code>{
                 type: "code",
                 lang: outputLang,
