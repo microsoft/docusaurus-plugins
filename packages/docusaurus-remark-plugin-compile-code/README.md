@@ -1,4 +1,4 @@
-# Remark plugin compile code
+# `@rise4fun/docusaurus-remark-plugin-compile-code`
 
 Plugin to run a tool against code snippets.
 
