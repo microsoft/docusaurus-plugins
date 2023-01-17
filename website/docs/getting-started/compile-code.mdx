@@ -22,7 +22,7 @@ const config = configure({ ... }, {
 })
 ```
 
-## Tools published on npm
+### Tools published on npm
 
 Let's take the TypeScript compiler as an example. First, start by adding `typescript` to your project
 
@@ -58,6 +58,46 @@ underneath with the TypeScript compiler output. This output was computed at buil
 
 ```ts showLineNumbers ignoreErrors
 console.llog("typo!");
+```
+
+### node.js script
+
+A `command` parameter ending in `.js` or `.mjs` will automatically
+be executed through node.js. 
+Each snippet will be run in its individual process.
+
+The example below execute the [Z3](https://github.com/Z3Prover/z3) constraint solver.
+
+```js
+    {
+        lang: "z3wasm",
+        extension: "z3",
+        inputLang: "lisp",
+        command: "./langs/z3.mjs",
+    },
+```
+
+where `z3.mjs` is a node script that reads `input.z3`, `options.json` from the current working directory,
+executes Z3 and prints the result to the console.
+
+````markdown
+```z3asm
+(declare-const a Int)
+(declare-fun f (Int Bool) Int)
+(assert (< a 10))
+(assert (< (f a true) 100))
+(check-sat)
+```
+````
+
+And now rendered...
+
+```z3wasm
+(declare-const a Int)
+(declare-fun f (Int Bool) Int)
+(assert (< a 10))
+(assert (< (f a true) 100))
+(check-sat)
 ```
 
 ## Custom tool
@@ -115,11 +155,11 @@ will be ignored.
     },
 ```
 
-```markdown
+````markdown
 ```ts check
 let x = 0
 ```
-```
+````
 
 ### `inputLang`
 

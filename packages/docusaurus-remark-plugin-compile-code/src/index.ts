@@ -106,12 +106,19 @@ async function compileCodeNodeCache(
         const iargs = [...args, ifn];
         ensureDirSync(cwd);
         writeFileSync(join(cwd, ifn), source);
+        writeJSONSync(join(cwd, "options.json"), {
+            ...langOptions,
+            meta,
+        });
 
         // compile tool
         let cmd: string = command || "";
         if (nodeBin) {
-            cmd = "node";
             iargs.unshift(resolve(join("node_modules", ".bin", nodeBin)));
+            cmd = "node";
+        } else if (/\.m?js/.test(cmd)) {
+            iargs.unshift(resolve(cmd));
+            cmd = "node";
         }
         writeFileSync(join(cwd, "run.sh"), `${cmd} ${iargs.join(" ")}`);
         const res = spawnSync(cmd, iargs, {
@@ -119,8 +126,12 @@ async function compileCodeNodeCache(
             cwd,
         });
         let error = res.error?.message || "";
-        if (!ignoreReturnCode && res.status !== successReturnCode)
-            error += `\nreturn code: ${res.status}`;
+        if (
+            !ignoreReturnCode &&
+            res.status !== successReturnCode &&
+            !res.stderr
+        )
+            error += `\exit code: ${res.status}`;
         const result: LangResult = {
             stdout: res.stdout?.toString() || "",
             stderr: res.stderr?.toString() || "",
@@ -194,29 +205,26 @@ const plugin: Plugin<[PluginOptions?]> = (options = undefined) => {
                 langOptions,
                 cache
             );
-            const out: string =
-                [
-                    res?.stdout?.trimEnd(),
-                    res?.stderr
-                        ? `-- error\n${res.stderr.trimEnd()}`
-                        : undefined,
-                    res?.error,
-                ]
-                    .filter((s) => !!s)
-                    .join("\n") || "no output";
-
-            const nodeIndex = parent.children.indexOf(node);
-            if (inputLang) node.lang = inputLang;
-            parent.children.splice(nodeIndex + 1, 0, <Code>{
-                type: "code",
-                lang: outputLang,
-                meta: outputMeta,
-                value: out,
-            });
+            const out: (string | undefined)[] = [
+                res?.stdout?.trimEnd(),
+                res?.stderr ? `-- error\n${res.stderr.trimEnd()}` : undefined,
+                res?.error,
+            ].filter((s) => !!s);
+            if (out?.length) {
+                const nodeIndex = parent.children.indexOf(node);
+                if (inputLang) node.lang = inputLang;
+                parent.children.splice(nodeIndex + 1, 0, <Code>{
+                    type: "code",
+                    lang: outputLang,
+                    meta: outputMeta + ` title="Output"`,
+                    value: out.join("\n"),
+                });
+            }
 
             if (!ignoreErrors && res?.error) {
                 errors++;
                 console.error(`${vfile.path}: ${res.error}`);
+                console.debug(value);
             }
         }
 
