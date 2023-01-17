@@ -130,8 +130,9 @@ async function compileCodeNodeCache(
 }
 
 function parseMeta(meta: string = "") {
-    const skip = / skip /i.test(meta);
-    return { skip };
+    const skip = /\wskipw/i.test(meta);
+    const ignoreErrors = /\wignore-?errors\w/i.test(meta);
+    return { skip, ignoreErrors };
 }
 
 const plugin: Plugin<[PluginOptions?]> = (options = undefined) => {
@@ -166,11 +167,18 @@ const plugin: Plugin<[PluginOptions?]> = (options = undefined) => {
                     (!o.langMeta || (meta || "").indexOf(o.langMeta) > -1)
             );
             if (!lang || !langOptions) continue;
-            const { skip } = parseMeta(meta || "");
+            const { skip, ignoreErrors: ignoreErrorsMeta } = parseMeta(
+                meta || ""
+            );
             if (skip) continue;
 
-            const { outputMeta, outputLang, inputLang, ignoreErrors } =
-                langOptions;
+            const {
+                outputMeta,
+                outputLang,
+                inputLang,
+                ignoreErrors: ignoreErrorsLang,
+            } = langOptions;
+            const ignoreErrors = ignoreErrorsLang || ignoreErrorsMeta;
             const hash = hashCode(value, meta || "", langOptions);
             const cwd = join(outputPath, lang, hash);
             const res = await compileCode(

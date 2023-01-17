@@ -6,6 +6,6 @@ let x = 0
 
 next, broken
 
-```ts
+```ts ignore-errors
 sadfj asd fasdf
 ```
