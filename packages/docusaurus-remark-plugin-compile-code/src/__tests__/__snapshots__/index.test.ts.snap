@@ -11,6 +11,29 @@ foo
 "
 `;
 
+exports[`extract-code plugin works on meta file 1`] = `
+"Testing meta
+
+\`\`\`fail skip foo
+don't run this
+\`\`\`
+
+next, broken
+
+\`\`\`fail ignore-errors foo
+ignore errors
+\`\`\`
+
+    Error: fail
+
+missing lang meta
+
+\`\`\`fail
+fail
+\`\`\`
+"
+`;
+
 exports[`extract-code plugin works on nodebin file 1`] = `
 "Some snippets
 
@@ -22,11 +45,13 @@ let x = 0
 
 next, broken
 
-\`\`\`ts
+\`\`\`ts ignore-errors
 sadfj asd fasdf
 \`\`\`
 
     input.ts(1,1): error TS1434: Unexpected keyword or identifier.
     input.ts(1,7): error TS1434: Unexpected keyword or identifier.
+
+    return code: 2
 "
 `;

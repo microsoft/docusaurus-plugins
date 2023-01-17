@@ -27,10 +27,16 @@ const options: PluginOptions = {
             nodeBin: "tsc",
         },
         {
+            lang: "fail",
+            langMeta: "foo",
+            compile: async (source, langOptions) => {
+                throw new Error("fail");
+            },
+        },
+        {
             lang: "echo",
             inputLang: "lisp",
             compile: async (source, langOptions) => ({
-                code: 0,
                 stdout: source,
             }),
         },
@@ -44,6 +50,10 @@ describe("extract-code plugin", () => {
     });
     it("works on nodebin file", async () => {
         const result = await processFixture("nodebin", options);
+        expect(result).toMatchSnapshot();
+    });
+    it("works on meta file", async () => {
+        const result = await processFixture("meta", options);
         expect(result).toMatchSnapshot();
     });
 });

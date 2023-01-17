@@ -112,7 +112,6 @@ async function compileCodeNodeCache(
             timeout,
             cwd,
         });
-        if (res.error) console.error(res.error);
         let error = res.error?.message || "";
         if (!ignoreReturnCode && res.status !== successReturnCode)
             error += `\nreturn code: ${res.status}`;
@@ -131,8 +130,8 @@ async function compileCodeNodeCache(
 }
 
 function parseMeta(meta: string = "") {
-    const skip = / skip /i.test(meta);
-    const ignoreErrors = / ignore-?errors /i.test(meta);
+    const skip = /\s?skip\s?/i.test(meta);
+    const ignoreErrors = /\s?ignore-?errors\s?/i.test(meta);
     return { skip, ignoreErrors };
 }
 
