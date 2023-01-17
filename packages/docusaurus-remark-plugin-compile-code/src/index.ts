@@ -54,7 +54,7 @@ async function compileCode(
 
     const { prefix } = langOptions;
     const psource =
-        !prefix || source.indexOf(prefix + "\n") > -1
+        !prefix || source.indexOf(prefix) > -1
             ? source
             : prefix + "\n\n" + source;
 

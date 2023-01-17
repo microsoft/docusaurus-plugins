@@ -7,6 +7,8 @@ exports[`extract-code plugin works on compile file 1`] = `
 foo
 \`\`\`
 
+    prefix
+
     foo
 "
 `;
@@ -31,6 +33,20 @@ missing lang meta
 \`\`\`fail
 fail
 \`\`\`
+
+prefix
+
+\`\`\`lisp prefix
+
+\`\`\`
+
+    prefix
+
+\`\`\`lisp prefix
+prefix
+\`\`\`
+
+    prefix
 "
 `;
 
@@ -41,8 +57,6 @@ exports[`extract-code plugin works on nodebin file 1`] = `
 let x = 0
 \`\`\`
 
-    no output
-
 next, broken
 
 \`\`\`ts ignore-errors
@@ -51,7 +65,5 @@ sadfj asd fasdf
 
     input.ts(1,1): error TS1434: Unexpected keyword or identifier.
     input.ts(1,7): error TS1434: Unexpected keyword or identifier.
-
-    return code: 2
 "
 `;
