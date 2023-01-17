@@ -99,3 +99,53 @@ underneath with the capitalized text.
 ```echo
 hello
 ```
+
+## Tool configuration flags
+
+### `langMeta`
+
+An additional meta filter for selecting snippet. If this field is preset, snippet without the meta (case sensitive) 
+will be ignored.
+
+```js title="website/docusaurus.config.js"
+    ...
+    {
+        lang: "ts",
+        langMeta: "check",
+    },
+```
+
+```markdown
+```ts check
+let x = 0
+```
+```
+
+### `inputLang`
+
+After processing the source, replace the `lang` value 
+with `inputLang`, so that it gets syntax colored with that language.
+
+## pre-snippet configuration meta
+
+The following meta tags can be used to customize the behavior of each snippet.
+
+### `skip`
+
+Completely ignore snippet.
+
+````markdown
+```echo skip
+just ignore me
+```
+````
+
+### `ignore-errors`
+
+Don't fail the rendering step if errors occur.
+
+````markdown
+```ts ignore-errors
+console.lllllog("yup, there's a typo")
+```
+````
