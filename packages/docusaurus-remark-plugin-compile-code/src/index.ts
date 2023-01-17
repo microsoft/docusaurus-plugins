@@ -160,12 +160,17 @@ const plugin: Plugin<[PluginOptions?]> = (options = undefined) => {
         for (const { node, parent } of todo) {
             if (!parent) continue;
             const { lang, meta, value } = node;
-            const langOptions = langs.find((o) => o.lang === lang);
+            const langOptions = langs.find(
+                (o) =>
+                    o.lang === lang &&
+                    (!o.langMeta || (meta || "").indexOf(o.langMeta) > -1)
+            );
             if (!lang || !langOptions) continue;
             const { skip } = parseMeta(meta || "");
             if (skip) continue;
 
-            const { outputMeta, outputLang, prism, ignoreErrors } = langOptions;
+            const { outputMeta, outputLang, inputLang, ignoreErrors } =
+                langOptions;
             const hash = hashCode(value, meta || "", langOptions);
             const cwd = join(outputPath, lang, hash);
             const res = await compileCode(
@@ -187,7 +192,7 @@ const plugin: Plugin<[PluginOptions?]> = (options = undefined) => {
                     .join("\n") || "no output";
 
             const nodeIndex = parent.children.indexOf(node);
-            if (prism) node.lang = prism;
+            if (inputLang) node.lang = inputLang;
             parent.children.splice(nodeIndex + 1, 0, <Code>{
                 type: "code",
                 lang: outputLang,

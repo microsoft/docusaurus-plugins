@@ -29,10 +29,14 @@ export interface LangOptions {
      */
     lang: string;
     /**
+     * Required string in meta to filter snippets within a language
+     */
+    langMeta?: string;
+    /**
      * Replace language with the `prism` language for syntax coloring
      * after processing
      */
-    prism?: string;
+    inputLang?: string;
     /**
      * Version of the tool, used when hashing pre-compiled solution
      */
