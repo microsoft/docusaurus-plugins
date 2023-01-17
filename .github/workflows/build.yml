@@ -38,6 +38,9 @@ jobs:
       - name: Build all
         run: yarn build
 
+      - name: Test all
+        run: yarn test
+
       - name: semantic release prep
         run: yarn add -D -W semantic-release semantic-release-monorepo @semantic-release/git
         if: github.ref == 'refs/heads/main'

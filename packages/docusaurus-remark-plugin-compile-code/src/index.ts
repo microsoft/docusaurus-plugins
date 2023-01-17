@@ -21,6 +21,7 @@ import {
 } from "./types";
 import hashCode from "./hash";
 import { spawnSync } from "child_process";
+
 const RESULT_FILE = "result.json";
 
 function readCachedResult(cwd: string): LangResult | undefined {
@@ -130,8 +131,8 @@ async function compileCodeNodeCache(
 }
 
 function parseMeta(meta: string = "") {
-    const skip = /\wskipw/i.test(meta);
-    const ignoreErrors = /\wignore-?errors\w/i.test(meta);
+    const skip = / skip /i.test(meta);
+    const ignoreErrors = / ignore-?errors /i.test(meta);
     return { skip, ignoreErrors };
 }
 
@@ -210,7 +211,7 @@ const plugin: Plugin<[PluginOptions?]> = (options = undefined) => {
 
             if (!ignoreErrors && res?.error) {
                 errors++;
-                console.error(`${vfile.name}: ${res?.error}`);
+                console.error(`${vfile.path}: ${res.error}`);
             }
         }
 
