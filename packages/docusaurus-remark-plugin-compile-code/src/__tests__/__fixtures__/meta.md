@@ -15,3 +15,13 @@ missing lang meta
 ```fail
 fail
 ```
+
+prefix
+
+```echo prefix
+
+```
+
+```echo prefix
+prefix
+```

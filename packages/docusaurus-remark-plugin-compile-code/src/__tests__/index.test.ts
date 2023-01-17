@@ -35,6 +35,7 @@ const options: PluginOptions = {
         },
         {
             lang: "echo",
+            prefix: "prefix",
             inputLang: "lisp",
             compile: async (source, langOptions) => ({
                 stdout: source,

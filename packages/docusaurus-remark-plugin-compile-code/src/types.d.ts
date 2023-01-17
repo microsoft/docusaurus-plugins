@@ -33,6 +33,10 @@ export interface LangOptions {
      */
     langMeta?: string;
     /**
+     * Prefix all sources with this string (if not present)
+     */
+    prefix?: string;
+    /**
      * Replace language with the `prism` language for syntax coloring
      * after processing
      */

@@ -52,8 +52,14 @@ async function compileCode(
     let result = cache && readCachedResult(cwd);
     if (result) return result;
 
+    const { prefix } = langOptions;
+    const psource =
+        !prefix || source.indexOf(prefix + "\n") > -1
+            ? source
+            : prefix + "\n\n" + source;
+
     ensureDirSync(cwd);
-    result = await compileCodeNodeCache(cwd, source, meta, langOptions);
+    result = await compileCodeNodeCache(cwd, psource, meta, langOptions);
 
     // cache on disk
     if (result && cache) {
