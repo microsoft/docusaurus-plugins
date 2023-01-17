@@ -26,7 +26,7 @@ const config = configure({ ... }, {
 
 Let's take the TypeScript compiler as an example. First, start by adding `typescript` to your project
 
-```basn npm2yarn
+```bash npm2yarn
 yarn add typescript
 ```
 
@@ -48,15 +48,15 @@ compileCode: {
 Let's take a look at this example in action.
 
 ````markdown
-    ```ts showLineNumbers
+    ```ts showLineNumbers ignoreErrors
     console.llog("typo!")
     ```
 ````
 
-When rendered in the docs, this snippet looks like any other code snippe. But you'll also notice an additional box
+When rendered in the docs, this snippet looks like any other code snippet. But you'll also notice an additional box
 underneath with the TypeScript compiler output. This output was computed at build time.
 
-```ts showLineNumbers
+```ts showLineNumbers ignoreErrors
 console.llog("typo!");
 ```
 

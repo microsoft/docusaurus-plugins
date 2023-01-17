@@ -92,8 +92,7 @@ const config = configure(
                 },
                 {
                     lang: "echo",
-                    compile: async (source, langOptions) => ({
-                        code: 0,
+                    compile: async (source) => ({
                         stdout: source.toUpperCase(),
                     }),
                 },
