@@ -12,7 +12,13 @@ import {
     writeJSONSync,
 } from "fs-extra";
 import { join, resolve } from "path";
-import { LangOptions, LangResult, PluginOptions } from "./types";
+import {
+    CustomLangOptions,
+    LangOptions,
+    LangResult,
+    PluginOptions,
+    ToolLangOptions,
+} from "./types";
 import hashCode from "./hash";
 import { spawnSync } from "child_process";
 const RESULT_FILE = "result.json";
@@ -61,16 +67,10 @@ async function compileCodeNodeCache(
     meta: string,
     langOptions: LangOptions
 ): Promise<LangResult | undefined> {
-    const {
-        extension,
-        timeout,
-        args = [],
-        lang,
-        command,
-        nodeBin,
-        compile,
-    } = langOptions;
+    const { timeout, lang } = langOptions;
 
+    // custom function
+    const { compile } = langOptions as CustomLangOptions;
     if (compile) {
         try {
             return await compile(source, {
@@ -85,30 +85,48 @@ async function compileCodeNodeCache(
         }
     }
 
-    const ifn = `input.${extension || lang}`;
-    const iargs = [...args, ifn];
-    ensureDirSync(cwd);
-    writeFileSync(join(cwd, ifn), source);
+    // Tool
+    const {
+        extension,
+        command,
+        nodeBin,
+        args = [],
+        successReturnCode = 0,
+        ignoreReturnCode,
+    } = langOptions as ToolLangOptions;
+    if (command || nodeBin) {
+        const ifn = `input.${extension || lang}`;
+        const iargs = [...args, ifn];
+        ensureDirSync(cwd);
+        writeFileSync(join(cwd, ifn), source);
 
-    // compile tool
-    let cmd: string = command || "";
-    if (nodeBin) {
-        cmd = "node";
-        iargs.unshift(resolve(join("node_modules", ".bin", nodeBin)));
+        // compile tool
+        let cmd: string = command || "";
+        if (nodeBin) {
+            cmd = "node";
+            iargs.unshift(resolve(join("node_modules", ".bin", nodeBin)));
+        }
+        writeFileSync(join(cwd, "run.sh"), `${cmd} ${iargs.join(" ")}`);
+        const res = spawnSync(cmd, iargs, {
+            timeout,
+            cwd,
+        });
+        if (res.error) console.error(res.error);
+        let error = res.error?.message || "";
+        if (!ignoreReturnCode && res.status !== successReturnCode)
+            error += `\nreturn code: ${res.status}`;
+        const result: LangResult = {
+            stdout: res.stdout?.toString() || "",
+            stderr: res.stderr?.toString() || "",
+            error,
+        };
+        return result;
     }
-    writeFileSync(join(cwd, "run.sh"), `${cmd} ${iargs.join(" ")}`);
-    const res = spawnSync(cmd, iargs, {
-        timeout,
-        cwd,
-    });
-    if (res.error) console.error(res.error);
-    const result: LangResult = {
-        code: res.status,
-        stdout: res.stdout?.toString() || "",
-        stderr: res.stderr?.toString() || "",
-        error: res.error ? "error while running tool" : undefined,
+
+    // unknown configuration
+    return {
+        error: "invalid configuration",
     };
-    return result;
 }
 
 function parseMeta(meta: string = "") {
@@ -123,7 +141,8 @@ const plugin: Plugin<[PluginOptions?]> = (options = undefined) => {
         cache = process.env.NODE_ENV === "production",
     } = options || {};
 
-    return async (root) => {
+    return async (root, vfile) => {
+        let errors = 0;
         const visited = new Set<Code>(); // visit called twice on async
         const todo: {
             node: Code;
@@ -146,7 +165,7 @@ const plugin: Plugin<[PluginOptions?]> = (options = undefined) => {
             const { skip } = parseMeta(meta || "");
             if (skip) continue;
 
-            const { outputMeta, outputLang, prism } = langOptions;
+            const { outputMeta, outputLang, prism, ignoreErrors } = langOptions;
             const hash = hashCode(value, meta || "", langOptions);
             const cwd = join(outputPath, lang, hash);
             const res = await compileCode(
@@ -168,15 +187,21 @@ const plugin: Plugin<[PluginOptions?]> = (options = undefined) => {
                     .join("\n") || "no output";
 
             const nodeIndex = parent.children.indexOf(node);
-            if (prism)
-                node.lang = prism
+            if (prism) node.lang = prism;
             parent.children.splice(nodeIndex + 1, 0, <Code>{
                 type: "code",
                 lang: outputLang,
                 meta: outputMeta,
                 value: out,
             });
+
+            if (!ignoreErrors && res?.error) {
+                errors++;
+                console.error(`${vfile.name}: ${res?.error}`);
+            }
         }
+
+        if (errors) throw new Error("errors while compile code snippets");
     };
 };
 
