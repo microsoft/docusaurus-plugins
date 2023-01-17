@@ -116,8 +116,8 @@ export function configure(
     const extraPrismLanguages: Set<string> = new Set(["lisp"]);
     if (compileCode) {
         injectBeforeDefaultRemarkPlugin(compileCodePlugin, compileCode);
-        compileCode.langs.forEach(({ prism }) => {
-            if (prism) extraPrismLanguages.add(prism);
+        compileCode.langs.forEach(({ inputLang }) => {
+            if (inputLang) extraPrismLanguages.add(inputLang);
         });
     }
     Array.from(extraPrismLanguages.values())
@@ -178,7 +178,10 @@ export function configure(
         ps.push(entry);
     }
 
-    function injectBeforeDefaultRemarkPlugin(remarkPlugin: any, options?: object) {
+    function injectBeforeDefaultRemarkPlugin(
+        remarkPlugin: any,
+        options?: object
+    ) {
         const entry = options ? [remarkPlugin, options] : remarkPlugin;
         presets
             .filter((preset) => Array.isArray(preset))
@@ -193,7 +196,9 @@ export function configure(
 
     function pushBeforeDefaultRemarkPlugin(node: any, entry: any) {
         if (!node) return;
-        const ps = node.beforeDefaultRemarkPlugins || (node.beforeDefaultRemarkPlugins = []);
+        const ps =
+            node.beforeDefaultRemarkPlugins ||
+            (node.beforeDefaultRemarkPlugins = []);
         ps.push(entry);
     }
 

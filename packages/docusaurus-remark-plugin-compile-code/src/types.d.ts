@@ -96,7 +96,7 @@ export interface CustomLangOptions extends LangOptions {
 
 export type PluginOptions = {
     outputPath?: string;
-    langs: LangOptions[];
+    langs: (ToolLangOptions | CustomLangOptions)[];
     concurrency?: number;
     cache?: boolean;
 };
