@@ -25,7 +25,7 @@ import { PluginOptions } from "./types";
   console.log(lgs)  
  */
 
-const languages: Record<string, string> = {
+const PRISM_LANGUAGES: Record<string, string> = {
     meta: "NO_TITLE",
     markup: "Markup",
     html: "Markup",
@@ -315,7 +315,7 @@ function toAttributeValue(s: string | undefined) {
 }
 
 const plugin: Plugin<[PluginOptions?]> = (options = undefined) => {
-    const {} = options || {};
+    const { languages } = options || {};
 
     return async (root, vfile) => {
         let needsImport = false;
@@ -355,7 +355,12 @@ const plugin: Plugin<[PluginOptions?]> = (options = undefined) => {
                     type: "jsx",
                     value: `<Tab value={${JSON.stringify(
                         lang
-                    )}} label={${toAttributeValue(title || languages[lang || ""] || undefined)}}>`,
+                    )}} label={${toAttributeValue(
+                        title ||
+                            languages?.[lang || ""] ||
+                            PRISM_LANGUAGES[lang || ""] ||
+                            undefined
+                    )}}>`,
                 });
                 mdx.push({ ...c });
                 mdx.push({
