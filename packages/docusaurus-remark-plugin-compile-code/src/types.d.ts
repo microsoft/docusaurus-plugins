@@ -1,3 +1,5 @@
+import type { Node } from "unist";
+
 export interface LangResult {
     /**
      * console standard output
@@ -11,6 +13,10 @@ export interface LangResult {
      * Tool runtime exception or invalid status code
      */
     error?: string;
+    /**
+     * Extra markdown node to be added after the output
+     */
+    nodes?: Node[]
 }
 
 export interface SnippetOptions {

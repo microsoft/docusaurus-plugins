@@ -189,6 +189,7 @@ const plugin: Plugin<[PluginOptions?]> = (options = undefined) => {
             );
             if (skip) continue;
 
+            let nextIndex = parent.children.indexOf(node) + 1;
             const {
                 outputMeta,
                 outputLang,
@@ -205,20 +206,25 @@ const plugin: Plugin<[PluginOptions?]> = (options = undefined) => {
                 langOptions,
                 cache
             );
+            const { stdout, stderr, error, nodes} = res || {}
             const out: (string | undefined)[] = [
-                res?.stdout?.trimEnd(),
-                res?.stderr ? `-- error\n${res.stderr.trimEnd()}` : undefined,
-                res?.error,
+                stdout?.trimEnd(),
+                stderr ? `-- error\n${stderr.trimEnd()}` : undefined,
+                error,
             ].filter((s) => !!s);
             if (out?.length) {
-                const nodeIndex = parent.children.indexOf(node);
                 if (inputLang) node.lang = inputLang;
-                parent.children.splice(nodeIndex + 1, 0, <Code>{
+                parent.children.splice(nextIndex++, 0, <Code>{
                     type: "code",
                     lang: outputLang,
                     meta: outputMeta + ` title="Output"`,
                     value: out.join("\n"),
                 });
+            }
+
+            if (nodes?.length) {
+                parent.children.splice(nextIndex, 0, ...nodes)
+                nextIndex += nodes.length
             }
 
             if (!ignoreErrors && res?.error) {

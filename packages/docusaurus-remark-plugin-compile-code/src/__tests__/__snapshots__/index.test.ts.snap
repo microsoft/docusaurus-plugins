@@ -67,3 +67,22 @@ sadfj asd fasdf
     input.ts(1,7): error TS1434: Unexpected keyword or identifier.
 "
 `;
+
+exports[`extract-code plugin works on nodes file 1`] = `
+"Some snippets reflected in files
+
+\`\`\`echonode
+foo
+\`\`\`
+
+    extra --> foo
+
+\`\`\`json
+{
+  "lang": "echonode",
+  "meta": "",
+  "cwd": ".docusaurus/docusaurus-remark-plugin-compile-code/echonode/15c18188e8e42d94e4918be26812eeecda6b3bdc"
+}
+\`\`\`
+"
+`;

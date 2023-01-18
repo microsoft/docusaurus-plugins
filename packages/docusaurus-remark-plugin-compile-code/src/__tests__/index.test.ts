@@ -41,6 +41,23 @@ const options: PluginOptions = {
                 stdout: source,
             }),
         },
+        {
+            lang: "echonode",
+            compile: async (source, langOptions) => ({
+                nodes: [
+                    {
+                        type: "code",
+                        meta: "extra",
+                        value: "extra --> " + source,
+                    },
+                    {
+                        type: "code",
+                        lang: "json",
+                        value: JSON.stringify(langOptions, null, 2),
+                    },
+                ],
+            }),
+        },
     ],
 };
 
@@ -55,6 +72,10 @@ describe("extract-code plugin", () => {
     });
     it("works on meta file", async () => {
         const result = await processFixture("meta", options);
+        expect(result).toMatchSnapshot();
+    });
+    it("works on nodes file", async () => {
+        const result = await processFixture("nodes", options);
         expect(result).toMatchSnapshot();
     });
 });
