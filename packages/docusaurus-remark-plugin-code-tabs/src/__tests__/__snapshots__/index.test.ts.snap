@@ -7,11 +7,11 @@ import TabItem from '@theme/TabItem';
 
 Some snippets
 
-<Tabs>
+<Tabs groupId={"group"}>
 
 <Tab value={"js"} label={undefined}>
 
-\`\`\`js tabs
+\`\`\`js tabs=group
 jsvalue
 \`\`\`
 
@@ -29,11 +29,11 @@ tsvalue
 
 And a paragraph and another tabs group
 
-<Tabs>
+<Tabs groupId={"group"}>
 
 <Tab value={"yml"} label={undefined}>
 
-\`\`\`yml tabs
+\`\`\`yml tabs=group
 jsvalue
 \`\`\`
 
@@ -58,11 +58,11 @@ import TabItem from '@theme/TabItem';
 
 Some snippets
 
-<Tabs>
+<Tabs groupId={"default"}>
 
-<Tab value={"js"} label={undefined}>
+<Tab value={"js"} label={"JavaScript!"}>
 
-\`\`\`js tabs
+\`\`\`js tabs title="JavaScript!"
 js
 \`\`\`
 

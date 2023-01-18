@@ -1,6 +1,6 @@
 Some snippets
 
-```js tabs
+```js tabs title="JavaScript!"
 js
 ```
 

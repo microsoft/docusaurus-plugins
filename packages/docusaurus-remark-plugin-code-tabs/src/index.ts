@@ -2,7 +2,6 @@
 import visit from "unist-util-visit";
 import type { Code, Root } from "mdast";
 import type { Plugin } from "unified";
-import type { Parent } from "unist";
 import { parse } from "node:querystring";
 import { PluginOptions } from "./types";
 
@@ -28,6 +27,15 @@ function injectImport(root: Root, jsx: string) {
     }
 }
 
+function toAttributeValue(s: string | undefined) {
+    if (!s) return s;
+    try {
+        const j = JSON.parse(s);
+        if (typeof j === "string") s = j;
+    } catch {}
+    return JSON.stringify(s);
+}
+
 const plugin: Plugin<[PluginOptions?]> = (options = undefined) => {
     const {} = options || {};
 
@@ -39,8 +47,8 @@ const plugin: Plugin<[PluginOptions?]> = (options = undefined) => {
             if (!parent || visited.has(node)) return;
             visited.add(node);
 
-            const meta = parseMeta<{ tabs: string }>(node);
-            if (meta.tabs === undefined) return;
+            const { tabs } = parseMeta<{ tabs: string }>(node);
+            if (tabs === undefined) return;
 
             const codes = [node];
             // collect all code blocks with tabs in this sequence
@@ -57,17 +65,19 @@ const plugin: Plugin<[PluginOptions?]> = (options = undefined) => {
             const mdx = [
                 {
                     type: "jsx",
-                    value: "<Tabs>",
+                    value: `<Tabs groupId={${JSON.stringify(
+                        tabs || "default"
+                    )}}>`,
                 },
             ];
             codes.forEach((c) => {
                 const { lang = "", meta: metastring = "", value } = c;
-                const meta = parseMeta(c) as { title?: string };
+                const { title } = parseMeta(c) as { title?: string };
                 mdx.push({
                     type: "jsx",
                     value: `<Tab value={${JSON.stringify(
                         lang
-                    )}} label={${JSON.stringify(meta.title)}}>`,
+                    )}} label={${toAttributeValue(title)}}>`,
                 });
                 mdx.push({ ...c });
                 mdx.push({
@@ -84,7 +94,7 @@ const plugin: Plugin<[PluginOptions?]> = (options = undefined) => {
             needsImport = true;
 
             // tell visitor to continue on the next node
-            const nextIndex =  startIndex + (mdx.length - codes.length) + 1;
+            const nextIndex = startIndex + (mdx.length - codes.length) + 1;
             return nextIndex;
         });
 

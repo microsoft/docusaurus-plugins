@@ -1,6 +1,6 @@
 Some snippets
 
-```js tabs
+```js tabs=group
 jsvalue
 ```
 
@@ -10,7 +10,7 @@ tsvalue
 
 And a paragraph and another tabs group
 
-```yml tabs
+```yml tabs=group
 jsvalue
 ```
 

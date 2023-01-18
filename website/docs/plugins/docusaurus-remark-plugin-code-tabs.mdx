@@ -4,27 +4,99 @@ sidebar_position: 4
 
 # Remark plugin code-tabs
 
-## Motivation
+Groups sequences of code section into a single tabbed element 
+using [Docusaurus tabs](https://docusaurus.io/docs/markdown-features/tabs).
 
-Groups sequence of code section into a single tabbed element using Docusaurus tabs.
+## Configuration
 
-This plugin is enabled by default when using rise4fun plugins.
+This remark plugin is automatically injected by the rise4fun plugins.
 
 ## Usage
 
 Place code section that need to be group in a sequence,
 and add `tabs` to the meta of the first code section.
 
-```markdown
-These snippets should be groupped in tabs.
+````markdown
+These snippets should be grouped in tabs.
 
 ```js tabs
-const add = (a, b) => a + b
+const add = (a, b) => a + b;
 ```
 
 ```ts
-const add = (a: number, b: number) => a + b
+const add = (a: number, b: number) => a + b;
+```
+````
+
+### Rendered example
+
+These snippets should be grouped in tabs.
+
+```js tabs
+const add = (a, b) => a + b;
 ```
 
+```ts
+const add = (a: number, b: number) => a + b;
 ```
 
+## Grouping
+
+Any paragraph will break the sequence and start a new group.
+If you provide a string for `tabs` (`tabs=group`), it will be used as a 
+custom group sync id.
+
+````markdown
+These snippets should be grouped in tabs.
+
+```js tabs=group
+const add = (a, b) => a + b;
+```
+
+```ts
+const add = (a: number, b: number) => a + b;
+```
+
+Start a new group now.
+
+```js tabs=group
+const sub = (a, b) => a - b;
+```
+
+```ts
+const sub = (a: number, b: number) => a - b;
+```
+````
+
+### Rendered example
+
+These snippets should be grouped in tabs.
+
+```js tabs=group
+const add = (a, b) => a + b;
+```
+
+```ts
+const add = (a: number, b: number) => a + b;
+```
+
+Start a new group now.
+
+```js tabs=group
+const sub = (a, b) => a - b;
+```
+
+```ts
+const sub = (a: number, b: number) => a - b;
+```
+
+
+## Coniguration without rise4fun
+
+Install the plugin
+
+```bash npm2yarn
+npm install @rise4fun/docusaurus-remark-code-tabs
+```
+
+and add to your `docusaurus.configuration.js` file as other remark plugins.
