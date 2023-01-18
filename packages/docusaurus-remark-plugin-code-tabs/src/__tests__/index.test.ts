@@ -26,4 +26,8 @@ describe("code-tabs plugin", () => {
         const result = await processFixture("twotabs", options);
         expect(result).toMatchSnapshot();
     });
+    it("works on groups file", async () => {
+        const result = await processFixture("groups", options);
+        expect(result).toMatchSnapshot();
+    });
 });

@@ -84,7 +84,8 @@ const plugin: Plugin<[PluginOptions?]> = (options = undefined) => {
             needsImport = true;
 
             // tell visitor to continue on the next node
-            return startIndex + 1;
+            const nextIndex =  startIndex + (mdx.length - codes.length) + 1;
+            return nextIndex;
         });
 
         // add import as final step
