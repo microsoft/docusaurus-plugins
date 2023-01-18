@@ -4,12 +4,29 @@ sidebar_position: 4
 
 # Remark plugin code-tabs
 
-Groups sequences of code section into a single tabbed element 
+Groups sequences of code section into a single tabbed element
 using [Docusaurus tabs](https://docusaurus.io/docs/markdown-features/tabs).
 
 ## Configuration
 
 This remark plugin is automatically injected by the rise4fun plugins.
+If you are providing new language code that are not covered by prims, you can provide map of names.
+
+```js title="docusaurus.config.js"
+const config = configure({
+    ...
+}, {
+    // rise4fun configuration
+    ...
+    // highlight-start
+    codeTabs: {
+        languages: {
+            yacl: "Yet another cool language"
+        }
+    }
+    // highlight-end
+})
+```
 
 ## Usage
 
@@ -43,7 +60,7 @@ const add = (a: number, b: number) => a + b;
 ## Grouping
 
 Any paragraph will break the sequence and start a new group.
-If you provide a string for `tabs` (`tabs=group`), it will be used as a 
+If you provide a string for `tabs` (`tabs=group`), it will be used as a
 custom group sync id.
 
 ````markdown
@@ -90,8 +107,7 @@ const sub = (a, b) => a - b;
 const sub = (a: number, b: number) => a - b;
 ```
 
-
-## Coniguration without rise4fun
+## Configuration without rise4fun
 
 Install the plugin
 
