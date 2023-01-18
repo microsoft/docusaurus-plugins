@@ -9,7 +9,7 @@ Some snippets
 
 <Tabs groupId={"group"}>
 
-<Tab value={"js"} label={undefined}>
+<Tab value={"js"} label={"JavaScript"}>
 
 \`\`\`js tabs=group
 jsvalue
@@ -17,7 +17,7 @@ jsvalue
 
 </Tab>
 
-<Tab value={"ts"} label={undefined}>
+<Tab value={"ts"} label={"TypeScript"}>
 
 \`\`\`ts
 tsvalue
@@ -31,7 +31,7 @@ And a paragraph and another tabs group
 
 <Tabs groupId={"group"}>
 
-<Tab value={"yml"} label={undefined}>
+<Tab value={"yml"} label={"YAML"}>
 
 \`\`\`yml tabs=group
 jsvalue
@@ -39,7 +39,7 @@ jsvalue
 
 </Tab>
 
-<Tab value={"cs"} label={undefined}>
+<Tab value={"cs"} label={"C#"}>
 
 \`\`\`cs
 tsvalue
@@ -68,7 +68,7 @@ js
 
 </Tab>
 
-<Tab value={"ts"} label={undefined}>
+<Tab value={"ts"} label={"TypeScript"}>
 
 \`\`\`ts
 ts
