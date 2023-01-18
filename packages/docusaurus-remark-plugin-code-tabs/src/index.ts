@@ -4,6 +4,7 @@ import type { Code, Root } from "mdast";
 import type { Plugin } from "unified";
 import type { Parent } from "unist";
 import { parse } from "node:querystring";
+import { PluginOptions } from "./types";
 
 function parseMeta<T>(node: Code) {
     return parse(node.meta || "", " ") as T;
@@ -27,7 +28,7 @@ function injectImport(root: Root, jsx: string) {
     }
 }
 
-const plugin: Plugin<[{}?]> = (options = undefined) => {
+const plugin: Plugin<[PluginOptions?]> = (options = undefined) => {
     const {} = options || {};
 
     return async (root, vfile) => {
@@ -68,28 +69,7 @@ const plugin: Plugin<[{}?]> = (options = undefined) => {
                         lang
                     )}} label={${JSON.stringify(meta.title)}}>`,
                 });
-                mdx.push({
-                    type: "element",
-                    tagName: "pre",
-                    properties: {},
-                    children: [
-                        {
-                            type: "element",
-                            tagName: "code",
-                            properties: {
-                                className: `language-${lang}`,
-                                metastring,
-                                ...meta,
-                            },
-                            children: [
-                                {
-                                    type: "text",
-                                    value: value,
-                                },
-                            ],
-                        },
-                    ],
-                } as any);
+                mdx.push({ ...c });
                 mdx.push({
                     type: "jsx",
                     value: "</Tab>",

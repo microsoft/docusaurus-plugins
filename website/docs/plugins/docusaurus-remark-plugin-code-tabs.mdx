@@ -1,0 +1,30 @@
+---
+sidebar_position: 4
+---
+
+# Remark plugin code-tabs
+
+## Motivation
+
+Groups sequence of code section into a single tabbed element using Docusaurus tabs.
+
+This plugin is enabled by default when using rise4fun plugins.
+
+## Usage
+
+Place code section that need to be group in a sequence,
+and add `tabs` to the meta of the first code section.
+
+```markdown
+These snippets should be groupped in tabs.
+
+```js tabs
+const add = (a, b) => a + b
+```
+
+```ts
+const add = (a: number, b: number) => a + b
+```
+
+```
+

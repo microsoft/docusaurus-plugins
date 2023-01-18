@@ -3,6 +3,8 @@ import type { PluginOptions, Options } from "./options";
 import appInsightPlugin from "@rise4fun/docusaurus-plugin-application-insights";
 import npm2yarnPlugin from "@docusaurus/remark-plugin-npm2yarn";
 import compileCodePlugin from "@rise4fun/docusaurus-remark-plugin-compile-code";
+import codeTabsPlugin from "@rise4fun/docusaurus-remark-plugin-code-tabs";
+
 const mathPlugin = require("remark-math");
 const katexPlugin = require("rehype-katex");
 
@@ -20,7 +22,7 @@ export function configure(
     configuration: Config,
     options: PluginOptions = {}
 ): Config {
-    const { appInsights, compileCode, math, npm2yarn, mermaid, legal } =
+    const { appInsights, compileCode, math, npm2yarn, mermaid, legal, codeTabs } =
         options;
 
     // injecting legal terms
@@ -120,6 +122,11 @@ export function configure(
             if (inputLang) extraPrismLanguages.add(inputLang);
         });
     }
+
+    if (codeTabs !== false) {
+        injectBeforeDefaultRemarkPlugin(codeTabsPlugin, {});
+    }
+
     Array.from(extraPrismLanguages.values())
         .filter((l) => additionalLanguages.indexOf(l) < 0)
         .forEach((l) => additionalLanguages.push(l));

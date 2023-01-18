@@ -15,9 +15,13 @@ export type PluginOptions = {
      */
     npm2yarn?: boolean;
     /**
-     * Sets as false to disable injecting `math`, `katex` plugins
+     * Set as false to disable injecting `math`, `katex` plugins
      */
     math?: boolean;
+    /**
+     * Set as false to disable code tabs
+     */
+    codeTabs?: boolean;
     /**
      * Sets as false to disable mermaid diagrams. Set as mermaid configuration for customizations.
      */
