@@ -339,6 +339,11 @@ const plugin: Plugin<[PluginOptions?]> = (options = undefined) => {
                 nodeIndex++;
             }
 
+            if (codes.length == 1) {
+                // no tabs needed
+                return;
+            }
+
             // collapse code into a mdx tree
             const mdx = [
                 {
