@@ -1,0 +1,81 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`code-tabs plugin works on groups file 1`] = `
+"import Tabs from '@theme/Tabs';
+
+import TabItem from '@theme/TabItem';
+
+Some snippets
+
+<Tabs groupId={"group"}>
+
+<Tab value={"js"} label={"JavaScript"}>
+
+\`\`\`js tabs=group
+jsvalue
+\`\`\`
+
+</Tab>
+
+<Tab value={"ts"} label={"TypeScript"}>
+
+\`\`\`ts
+tsvalue
+\`\`\`
+
+</Tab>
+
+</Tabs>
+
+And a paragraph and another tabs group
+
+<Tabs groupId={"group"}>
+
+<Tab value={"yml"} label={"YAML"}>
+
+\`\`\`yml tabs=group
+jsvalue
+\`\`\`
+
+</Tab>
+
+<Tab value={"cs"} label={"C#"}>
+
+\`\`\`cs
+tsvalue
+\`\`\`
+
+</Tab>
+
+</Tabs>
+"
+`;
+
+exports[`code-tabs plugin works on twotabs file 1`] = `
+"import Tabs from '@theme/Tabs';
+
+import TabItem from '@theme/TabItem';
+
+Some snippets
+
+<Tabs groupId={"default"}>
+
+<Tab value={"js"} label={"JavaScript!"}>
+
+\`\`\`js tabs title="JavaScript!"
+js
+\`\`\`
+
+</Tab>
+
+<Tab value={"ts"} label={"TypeScript"}>
+
+\`\`\`ts
+ts
+\`\`\`
+
+</Tab>
+
+</Tabs>
+"
+`;

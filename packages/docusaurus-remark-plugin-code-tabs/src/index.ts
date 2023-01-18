@@ -1,0 +1,394 @@
+/// <refere
+import visit from "unist-util-visit";
+import type { Code, Root } from "mdast";
+import type { Plugin } from "unified";
+import { parse } from "node:querystring";
+import { PluginOptions } from "./types";
+
+/**
+ * 
+  const version = v1.20.0
+  const url = `https://raw.githubusercontent.com/PrismJS/prism/${version}/components.js`;
+  const response = await fetch(url);
+  const text = await response.text();
+  eval(text);
+  const lgs = {}
+  Object.entries(components.languages).map(
+    ([code, { title = "NO_TITLE", alias = [] }]) => {
+      alias = typeof alias === `string` ? [alias] : alias;
+      lgs[code] = title;
+      if (typeof alias === "string")
+         lgs[alias] = title;
+      else alias.forEach(a => lgs[a] = title)
+    }
+  );
+  console.log(lgs)  
+ */
+
+const PRISM_LANGUAGES: Record<string, string> = {
+    meta: "NO_TITLE",
+    markup: "Markup",
+    html: "Markup",
+    xml: "Markup",
+    svg: "Markup",
+    mathml: "Markup",
+    css: "CSS",
+    clike: "C-like",
+    javascript: "JavaScript",
+    js: "JavaScript",
+    abap: "ABAP",
+    abnf: "Augmented Backus–Naur form",
+    actionscript: "ActionScript",
+    ada: "Ada",
+    antlr4: "ANTLR4",
+    g4: "ANTLR4",
+    apacheconf: "Apache Configuration",
+    apl: "APL",
+    applescript: "AppleScript",
+    aql: "AQL",
+    arduino: "Arduino",
+    arff: "ARFF",
+    asciidoc: "AsciiDoc",
+    adoc: "AsciiDoc",
+    asm6502: "6502 Assembly",
+    aspnet: "ASP.NET (C#)",
+    autohotkey: "AutoHotkey",
+    autoit: "AutoIt",
+    bash: "Bash",
+    shell: "Bash",
+    basic: "BASIC",
+    batch: "Batch",
+    bbcode: "BBcode",
+    shortcode: "BBcode",
+    bison: "Bison",
+    bnf: "Backus–Naur form",
+    rbnf: "Backus–Naur form",
+    brainfuck: "Brainfuck",
+    brightscript: "BrightScript",
+    bro: "Bro",
+    c: "C",
+    concurnas: "Concurnas",
+    conc: "Concurnas",
+    csharp: "C#",
+    cs: "C#",
+    dotnet: "C#",
+    cpp: "C++",
+    cil: "CIL",
+    coffeescript: "CoffeeScript",
+    coffee: "CoffeeScript",
+    cmake: "CMake",
+    clojure: "Clojure",
+    crystal: "Crystal",
+    csp: "Content-Security-Policy",
+    "css-extras": "CSS Extras",
+    d: "D",
+    dart: "Dart",
+    dax: "DAX",
+    diff: "Diff",
+    django: "Django/Jinja2",
+    jinja2: "Django/Jinja2",
+    "dns-zone-file": "DNS zone file",
+    "dns-zone": "DNS zone file",
+    docker: "Docker",
+    dockerfile: "Docker",
+    ebnf: "Extended Backus–Naur form",
+    eiffel: "Eiffel",
+    ejs: "EJS",
+    elixir: "Elixir",
+    elm: "Elm",
+    etlua: "Embedded Lua templating",
+    erb: "ERB",
+    erlang: "Erlang",
+    "excel-formula": "Excel Formula",
+    xlsx: "Excel Formula",
+    xls: "Excel Formula",
+    fsharp: "F#",
+    factor: "Factor",
+    "firestore-security-rules": "Firestore security rules",
+    flow: "Flow",
+    fortran: "Fortran",
+    ftl: "FreeMarker Template Language",
+    gcode: "G-code",
+    gdscript: "GDScript",
+    gedcom: "GEDCOM",
+    gherkin: "Gherkin",
+    git: "Git",
+    glsl: "GLSL",
+    gml: "GameMaker Language",
+    gamemakerlanguage: "GameMaker Language",
+    go: "Go",
+    graphql: "GraphQL",
+    groovy: "Groovy",
+    haml: "Haml",
+    handlebars: "Handlebars",
+    haskell: "Haskell",
+    hs: "Haskell",
+    haxe: "Haxe",
+    hcl: "HCL",
+    http: "HTTP",
+    hpkp: "HTTP Public-Key-Pins",
+    hsts: "HTTP Strict-Transport-Security",
+    ichigojam: "IchigoJam",
+    icon: "Icon",
+    inform7: "Inform 7",
+    ini: "Ini",
+    io: "Io",
+    j: "J",
+    java: "Java",
+    javadoc: "JavaDoc",
+    javadoclike: "JavaDoc-like",
+    javastacktrace: "Java stack trace",
+    jolie: "Jolie",
+    jq: "JQ",
+    jsdoc: "JSDoc",
+    "js-extras": "JS Extras",
+    "js-templates": "JS Templates",
+    json: "JSON",
+    jsonp: "JSONP",
+    json5: "JSON5",
+    julia: "Julia",
+    keyman: "Keyman",
+    kotlin: "Kotlin",
+    latex: "LaTeX",
+    tex: "LaTeX",
+    context: "LaTeX",
+    latte: "Latte",
+    less: "Less",
+    lilypond: "LilyPond",
+    ly: "LilyPond",
+    liquid: "Liquid",
+    lisp: "Lisp",
+    emacs: "Lisp",
+    elisp: "Lisp",
+    "emacs-lisp": "Lisp",
+    livescript: "LiveScript",
+    llvm: "LLVM IR",
+    lolcode: "LOLCODE",
+    lua: "Lua",
+    makefile: "Makefile",
+    markdown: "Markdown",
+    md: "Markdown",
+    "markup-templating": "Markup templating",
+    matlab: "MATLAB",
+    mel: "MEL",
+    mizar: "Mizar",
+    monkey: "Monkey",
+    moonscript: "MoonScript",
+    moon: "MoonScript",
+    n1ql: "N1QL",
+    n4js: "N4JS",
+    n4jsd: "N4JS",
+    "nand2tetris-hdl": "Nand To Tetris HDL",
+    nasm: "NASM",
+    neon: "NEON",
+    nginx: "nginx",
+    nim: "Nim",
+    nix: "Nix",
+    nsis: "NSIS",
+    objectivec: "Objective-C",
+    ocaml: "OCaml",
+    opencl: "OpenCL",
+    oz: "Oz",
+    parigp: "PARI/GP",
+    parser: "Parser",
+    pascal: "Pascal",
+    objectpascal: "Pascal",
+    pascaligo: "Pascaligo",
+    pcaxis: "PC-Axis",
+    px: "PC-Axis",
+    perl: "Perl",
+    php: "PHP",
+    phpdoc: "PHPDoc",
+    "php-extras": "PHP Extras",
+    plsql: "PL/SQL",
+    powerquery: "PowerQuery",
+    pq: "PowerQuery",
+    mscript: "PowerQuery",
+    powershell: "PowerShell",
+    processing: "Processing",
+    prolog: "Prolog",
+    properties: ".properties",
+    protobuf: "Protocol Buffers",
+    pug: "Pug",
+    puppet: "Puppet",
+    pure: "Pure",
+    python: "Python",
+    py: "Python",
+    q: "Q (kdb+ database)",
+    qml: "QML",
+    qore: "Qore",
+    r: "R",
+    jsx: "React JSX",
+    tsx: "React TSX",
+    renpy: "Ren'py",
+    reason: "Reason",
+    regex: "Regex",
+    rest: "reST (reStructuredText)",
+    rip: "Rip",
+    roboconf: "Roboconf",
+    robotframework: "Robot Framework",
+    robot: "Robot Framework",
+    ruby: "Ruby",
+    rb: "Ruby",
+    rust: "Rust",
+    sas: "SAS",
+    sass: "Sass (Sass)",
+    scss: "Sass (Scss)",
+    scala: "Scala",
+    scheme: "Scheme",
+    "shell-session": "Shell session",
+    smalltalk: "Smalltalk",
+    smarty: "Smarty",
+    solidity: "Solidity (Ethereum)",
+    "solution-file": "Solution file",
+    sln: "Solution file",
+    soy: "Soy (Closure Template)",
+    sparql: "SPARQL",
+    rq: "SPARQL",
+    "splunk-spl": "Splunk SPL",
+    sqf: "SQF: Status Quo Function (Arma 3)",
+    sql: "SQL",
+    stylus: "Stylus",
+    swift: "Swift",
+    tap: "TAP",
+    tcl: "Tcl",
+    textile: "Textile",
+    toml: "TOML",
+    tt2: "Template Toolkit 2",
+    turtle: "Turtle",
+    trig: "Turtle",
+    twig: "Twig",
+    typescript: "TypeScript",
+    ts: "TypeScript",
+    "t4-cs": "T4 Text Templates (C#)",
+    t4: "T4 Text Templates (C#)",
+    "t4-vb": "T4 Text Templates (VB)",
+    "t4-templating": "T4 templating",
+    vala: "Vala",
+    vbnet: "VB.Net",
+    velocity: "Velocity",
+    verilog: "Verilog",
+    vhdl: "VHDL",
+    vim: "vim",
+    "visual-basic": "Visual Basic",
+    vb: "Visual Basic",
+    wasm: "WebAssembly",
+    wiki: "Wiki markup",
+    xeora: "Xeora",
+    xeoracube: "Xeora",
+    xojo: "Xojo (REALbasic)",
+    xquery: "XQuery",
+    yaml: "YAML",
+    yml: "YAML",
+    zig: "Zig",
+};
+
+function parseMeta<T>(node: Code) {
+    return parse(node.meta || "", " ") as T;
+}
+
+function injectImport(root: Root, jsx: string) {
+    if (
+        !root.children.find(
+            (n: { type: string; value?: string }) =>
+                n.type === "import" && n.value && n.value?.indexOf(jsx) > -1
+        )
+    ) {
+        root.children.unshift(
+            ...[
+                {
+                    type: "import",
+                    value: jsx + ";",
+                } as any,
+            ]
+        );
+    }
+}
+
+function toAttributeValue(s: string | undefined) {
+    if (!s) return s;
+    try {
+        const j = JSON.parse(s);
+        if (typeof j === "string") s = j;
+    } catch {}
+    return JSON.stringify(s);
+}
+
+const plugin: Plugin<[PluginOptions?]> = (options = undefined) => {
+    const { languages } = options || {};
+
+    return async (root, vfile) => {
+        let needsImport = false;
+        const visited = new Set<Code>(); // visit called twice on async
+        // collect all nodes
+        visit(root, "code", (node: Code, nodeIndex: number, parent) => {
+            if (!parent || visited.has(node)) return;
+            visited.add(node);
+
+            const { tabs } = parseMeta<{ tabs: string }>(node);
+            if (tabs === undefined) return;
+
+            const codes = [node];
+            // collect all code blocks with tabs in this sequence
+            const startIndex = nodeIndex++;
+            while (
+                nodeIndex < parent.children.length &&
+                parent.children[nodeIndex]?.type === "code"
+            ) {
+                codes.push(parent.children[nodeIndex] as Code);
+                nodeIndex++;
+            }
+
+            // collapse code into a mdx tree
+            const mdx = [
+                {
+                    type: "jsx",
+                    value: `<Tabs groupId={${JSON.stringify(
+                        tabs || "default"
+                    )}}>`,
+                },
+            ];
+            codes.forEach((c) => {
+                const { lang = "", meta: metastring = "", value } = c;
+                const { title } = parseMeta(c) as { title?: string };
+                mdx.push({
+                    type: "jsx",
+                    value: `<Tab value={${JSON.stringify(
+                        lang
+                    )}} label={${toAttributeValue(
+                        title ||
+                            languages?.[lang || ""] ||
+                            PRISM_LANGUAGES[lang || ""] ||
+                            undefined
+                    )}}>`,
+                });
+                mdx.push({ ...c });
+                mdx.push({
+                    type: "jsx",
+                    value: "</Tab>",
+                });
+            });
+            mdx.push({
+                type: "jsx",
+                value: "</Tabs>",
+            });
+
+            parent.children.splice(startIndex, codes.length, ...mdx);
+            needsImport = true;
+
+            // tell visitor to continue on the next node
+            const nextIndex = startIndex + (mdx.length - codes.length) + 1;
+            return nextIndex;
+        });
+
+        // add import as final step
+        if (needsImport) {
+            injectImport(root as Root, "import TabItem from '@theme/TabItem'");
+            injectImport(root as Root, "import Tabs from '@theme/Tabs'");
+        }
+    };
+};
+
+// To continue supporting `require('...')` without the `.default` ㄟ(▔,▔)ㄏ
+// TODO change to export default after migrating to ESM
+export = plugin;

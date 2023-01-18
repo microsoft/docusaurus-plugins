@@ -26,6 +26,7 @@
         "@docusaurus/utils-validation": "^2.2.0",
         "@rise4fun/docusaurus-plugin-application-insights": "*",
         "@rise4fun/docusaurus-remark-plugin-compile-code": "*",
+        "@rise4fun/docusaurus-remark-plugin-code-tabs": "*",
         "hast-util-is-element": "1.1.0",
         "rehype-katex": "5",
         "remark-math": "3",

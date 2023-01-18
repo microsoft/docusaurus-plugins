@@ -1,5 +1,6 @@
 import type { ApplicationInsightsOptions } from "@rise4fun/docusaurus-plugin-application-insights";
 import type { PluginOptions as CompileCodePluginOptions } from "@rise4fun/docusaurus-remark-plugin-compile-code";
+import type { PluginOptions as CodeTabsPluginOptions } from "@rise4fun/docusaurus-remark-plugin-code-tabs";
 export type PluginOptions = {
     /**
      * Inject Microsoft legal links
@@ -15,9 +16,13 @@ export type PluginOptions = {
      */
     npm2yarn?: boolean;
     /**
-     * Sets as false to disable injecting `math`, `katex` plugins
+     * Set as false to disable injecting `math`, `katex` plugins
      */
     math?: boolean;
+    /**
+     * Set as false to disable code tabs
+     */
+    codeTabs?: boolean | CodeTabsPluginOptions;
     /**
      * Sets as false to disable mermaid diagrams. Set as mermaid configuration for customizations.
      */
