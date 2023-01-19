@@ -364,7 +364,7 @@ const plugin: Plugin<[PluginOptions?]> = (options = undefined) => {
                 lazy: string;
                 codesandbox: string;
             }>(node);
-            if (tabs === undefined) return;
+            if (tabs === undefined && codesandbox === undefined) return;
 
             const codes = [node];
             // collect all code blocks with tabs in this sequence

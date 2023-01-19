@@ -11,7 +11,7 @@ Some snippets
 
 <Tabs  groupId={"default"}>
 
-<Tab value={"js"} label={"main.js"}>
+<Tab value={"main.js"} label={"main.js"}>
 
 \`\`\`js tabs codesandbox title="main.js"
 js
@@ -19,7 +19,7 @@ js
 
 </Tab>
 
-<Tab value={"ts"} label={"main.ts"}>
+<Tab value={"main.ts"} label={"main.ts"}>
 
 \`\`\`ts title="main.ts"
 ts
@@ -112,7 +112,7 @@ Some snippets
 
 <Tabs  groupId={"default"}>
 
-<Tab value={"js"} label={"JavaScript!"}>
+<Tab value={"JavaScript!"} label={"JavaScript!"}>
 
 \`\`\`js tabs title="JavaScript!"
 js
@@ -134,7 +134,7 @@ and lazy
 
 <Tabs lazy groupId={"default"}>
 
-<Tab value={"js"} label={"JavaScript!"}>
+<Tab value={"JavaScript!"} label={"JavaScript!"}>
 
 \`\`\`js tabs title="JavaScript!" lazy
 js
