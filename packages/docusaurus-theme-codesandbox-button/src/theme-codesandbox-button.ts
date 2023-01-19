@@ -12,7 +12,7 @@ declare module "@theme/CodeSandboxButton" {
         className?: string;
         files: Record<string, string>;
         startFile?: string;
-        label?: string
+        label?: string;
     }
 
     export default function CodeSandboxButton(props: Props): JSX.Element;

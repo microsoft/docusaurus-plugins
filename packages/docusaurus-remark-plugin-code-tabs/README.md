@@ -1,6 +1,6 @@
 # `@rise4fun/docusaurus-remark-plugin-code-tabs`
 
-Remark docusaurus plugin that assembles code sections into tabs.
+Remark docusaurus plugin that assembles code sections into tabs, with optional CodeSandbox button.
 
 ## Usage
 

@@ -1,5 +1,38 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`code-tabs plugin works on codesandbox file 1`] = `
+"import CodeSandboxButton from '@theme/CodeSandboxButton';
+
+import Tabs from '@theme/Tabs';
+
+import TabItem from '@theme/TabItem';
+
+Some snippets
+
+<Tabs  groupId={"default"}>
+
+<Tab value={"js"} label={"main.js"}>
+
+\`\`\`js tabs codesandbox title="main.js"
+js
+\`\`\`
+
+</Tab>
+
+<Tab value={"ts"} label={"main.ts"}>
+
+\`\`\`ts title="main.ts"
+ts
+\`\`\`
+
+</Tab>
+
+</Tabs>
+
+<CodeSandboxButton startFile="main.js" files={{"package.json":{"content":{"dependencies":{}}},"sandbox.config.json":{"content":{"template":"node","view":"terminal","container":{"node":"18"}}},"main.js":{"content":"js"},"main.ts":{"content":"ts"}}} />
+"
+`;
+
 exports[`code-tabs plugin works on groups file 1`] = `
 "import Tabs from '@theme/Tabs';
 
@@ -7,7 +40,7 @@ import TabItem from '@theme/TabItem';
 
 Some snippets
 
-<Tabs groupId={"group"}>
+<Tabs  groupId={"group"}>
 
 <Tab value={"js"} label={"JavaScript"}>
 
@@ -29,7 +62,7 @@ tsvalue
 
 And a paragraph and another tabs group
 
-<Tabs groupId={"group"}>
+<Tabs  groupId={"group"}>
 
 <Tab value={"yml"} label={"YAML"}>
 
@@ -51,6 +84,25 @@ tsvalue
 "
 `;
 
+exports[`code-tabs plugin works on onetab file 1`] = `
+"import CodeSandboxButton from '@theme/CodeSandboxButton';
+
+Single snippets
+
+\`\`\`js tabs title="main.js"
+js
+\`\`\`
+
+And now with codesandbox
+
+\`\`\`js tabs title="main.js" codesandbox
+ts
+\`\`\`
+
+<CodeSandboxButton startFile="main.js" files={{"package.json":{"content":{"dependencies":{}}},"sandbox.config.json":{"content":{"template":"node","view":"terminal","container":{"node":"18"}}},"main.js":{"content":"ts"}}} />
+"
+`;
+
 exports[`code-tabs plugin works on twotabs file 1`] = `
 "import Tabs from '@theme/Tabs';
 
@@ -58,11 +110,33 @@ import TabItem from '@theme/TabItem';
 
 Some snippets
 
-<Tabs groupId={"default"}>
+<Tabs  groupId={"default"}>
 
 <Tab value={"js"} label={"JavaScript!"}>
 
 \`\`\`js tabs title="JavaScript!"
+js
+\`\`\`
+
+</Tab>
+
+<Tab value={"ts"} label={"TypeScript"}>
+
+\`\`\`ts
+ts
+\`\`\`
+
+</Tab>
+
+</Tabs>
+
+and lazy
+
+<Tabs lazy groupId={"default"}>
+
+<Tab value={"js"} label={"JavaScript!"}>
+
+\`\`\`js tabs title="JavaScript!" lazy
 js
 \`\`\`
 

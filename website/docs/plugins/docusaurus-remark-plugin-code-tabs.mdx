@@ -107,6 +107,63 @@ const sub = (a, b) => a - b;
 const sub = (a: number, b: number) => a - b;
 ```
 
+## Lazy
+
+By default, all tabs are rendered to help with search engine. You can add the `lazy` meta
+to change this behavior.
+
+````markdown
+```js tabs lazy
+const add = (a, b) => a + b;
+```
+
+```ts
+const add = (a: number, b: number) => a + b;
+```
+````
+
+### Rendered example
+
+```js tabs lazy
+const add = (a, b) => a + b;
+```
+
+```ts
+const add = (a: number, b: number) => a + b;
+```
+
+## CodeSandbox button
+
+Display a CodeSandbox button that create and opens a new project 
+on [codesandbox.io](https://codesandbox.io) with the files. By default, creates a `node 18` sandbox.
+
+:::tip
+
+This feature requires to the [codesandbox-button theme](./docusaurus-theme-codesandbox-button),
+which is automatically installed with rise4fun.
+
+:::
+
+````markdown
+```js tabs codesandbox title="add.js"
+const add = (a, b) => a + b;
+```
+
+```js title="sub.js"
+const sub = (a: number, b: number) => a - b;
+```
+````
+
+### Rendered example
+
+```js tabs codesandbox title="add.js"
+const add = (a, b) => a + b;
+```
+
+```js title="sub.js"
+const sub = (a, b) => a - b;
+```
+
 ## Configuration without rise4fun
 
 Install the plugin
@@ -127,3 +184,6 @@ const config = {
     ]
 }
 ```
+
+If you are using `codesandbox`, install 
+the [codesandbox-button theme](./docusaurus-theme-codesandbox-button).

@@ -22,12 +22,20 @@ const processFixture = async (name: string, options: any) => {
 const options = {};
 
 describe("code-tabs plugin", () => {
+    it("works on onetab file", async () => {
+        const result = await processFixture("onetab", options);
+        expect(result).toMatchSnapshot();
+    });
     it("works on twotabs file", async () => {
         const result = await processFixture("twotabs", options);
         expect(result).toMatchSnapshot();
     });
     it("works on groups file", async () => {
         const result = await processFixture("groups", options);
+        expect(result).toMatchSnapshot();
+    });
+    it("works on codesandbox file", async () => {
+        const result = await processFixture("codesandbox", options);
         expect(result).toMatchSnapshot();
     });
 });

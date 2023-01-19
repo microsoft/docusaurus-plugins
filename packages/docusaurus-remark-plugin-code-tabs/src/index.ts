@@ -283,8 +283,30 @@ const PRISM_LANGUAGES: Record<string, string> = {
     zig: "Zig",
 };
 
+const DEFAULT_CODESANDBOX = "node";
+const CODESANDBOXES: Record<string, object> = {
+    [DEFAULT_CODESANDBOX]: {
+        "package.json": {
+            content: {
+                dependencies: {},
+            },
+        },
+        "sandbox.config.json": {
+            content: {
+                template: "node",
+                view: "terminal",
+                container: {
+                    node: "18",
+                },
+            },
+        },
+    },
+};
+
 function parseMeta<T>(node: Code) {
-    return parse(node.meta || "", " ") as T;
+    const r = parse(node.meta || "", " ");
+    Object.keys(r).forEach((k) => (r[k] = fromAttributeValue(r[k])));
+    return r as T;
 }
 
 function injectImport(root: Root, jsx: string) {
@@ -305,6 +327,16 @@ function injectImport(root: Root, jsx: string) {
     }
 }
 
+function fromAttributeValue(s: string | string[] | undefined) {
+    if (!s) return s;
+    if (typeof s === "string" && s[0] === '"') {
+        try {
+            return JSON.parse(s);
+        } catch {}
+    }
+    return s;
+}
+
 function toAttributeValue(s: string | undefined) {
     if (!s) return s;
     try {
@@ -315,17 +347,23 @@ function toAttributeValue(s: string | undefined) {
 }
 
 const plugin: Plugin<[PluginOptions?]> = (options = undefined) => {
-    const { languages } = options || {};
+    const { languages, codesandboxes } = options || {};
 
     return async (root, vfile) => {
-        let needsImport = false;
+        let needsTabsImport = false;
+        let needsCodeSandboxImport = false;
+
         const visited = new Set<Code>(); // visit called twice on async
         // collect all nodes
         visit(root, "code", (node: Code, nodeIndex: number, parent) => {
             if (!parent || visited.has(node)) return;
             visited.add(node);
 
-            const { tabs } = parseMeta<{ tabs: string }>(node);
+            const { tabs, lazy, codesandbox } = parseMeta<{
+                tabs: string;
+                lazy: string;
+                codesandbox: string;
+            }>(node);
             if (tabs === undefined) return;
 
             const codes = [node];
@@ -339,57 +377,91 @@ const plugin: Plugin<[PluginOptions?]> = (options = undefined) => {
                 nodeIndex++;
             }
 
-            if (codes.length == 1) {
-                // no tabs needed
-                return;
+            let nextIndex = startIndex + 1;
+            if (codes.length > 1) {
+                // collapse code into a mdx tree
+                const mdx = [
+                    {
+                        type: "jsx",
+                        value: `<Tabs ${
+                            lazy !== undefined ? "lazy" : ""
+                        } groupId={${JSON.stringify(tabs || "default")}}>`,
+                    },
+                ];
+                codes.forEach((c) => {
+                    const { lang = "" } = c;
+                    const { title } = parseMeta(c) as { title?: string };
+                    mdx.push({
+                        type: "jsx",
+                        value: `<Tab value={${JSON.stringify(
+                            lang
+                        )}} label={${toAttributeValue(
+                            title ||
+                                languages?.[lang || ""] ||
+                                PRISM_LANGUAGES[lang || ""] ||
+                                undefined
+                        )}}>`,
+                    });
+                    mdx.push({ ...c });
+                    mdx.push({
+                        type: "jsx",
+                        value: "</Tab>",
+                    });
+                });
+                mdx.push({
+                    type: "jsx",
+                    value: "</Tabs>",
+                });
+
+                parent.children.splice(startIndex, codes.length, ...mdx);
+                needsTabsImport = true;
+
+                // tell visitor to continue on the next node
+                nextIndex = startIndex + (mdx.length - codes.length) + 1;
             }
 
-            // collapse code into a mdx tree
-            const mdx = [
-                {
-                    type: "jsx",
-                    value: `<Tabs groupId={${JSON.stringify(
-                        tabs || "default"
-                    )}}>`,
-                },
-            ];
-            codes.forEach((c) => {
-                const { lang = "", meta: metastring = "", value } = c;
-                const { title } = parseMeta(c) as { title?: string };
-                mdx.push({
-                    type: "jsx",
-                    value: `<Tab value={${JSON.stringify(
-                        lang
-                    )}} label={${toAttributeValue(
-                        title ||
-                            languages?.[lang || ""] ||
-                            PRISM_LANGUAGES[lang || ""] ||
-                            undefined
-                    )}}>`,
+            // handle code sandbox
+            if (codesandbox !== undefined) {
+                const templateFiles =
+                    CODESANDBOXES[codesandbox || DEFAULT_CODESANDBOX];
+                const files: Record<string, object> = {};
+                codes.forEach((c) => {
+                    const { lang, value } = c;
+                    const { title, file } = parseMeta(c) as {
+                        title?: string;
+                        file?: string;
+                    };
+                    files[file || title || `main.${lang}`] = {
+                        content: value,
+                    };
                 });
-                mdx.push({ ...c });
-                mdx.push({
+                const startFile = Object.keys(files)[0];
+                nextIndex++;
+                parent.children.splice(nextIndex++, 0, {
                     type: "jsx",
-                    value: "</Tab>",
-                });
-            });
-            mdx.push({
-                type: "jsx",
-                value: "</Tabs>",
-            });
+                    value: `<CodeSandboxButton startFile=${JSON.stringify(
+                        startFile
+                    )} files={${JSON.stringify({
+                        ...templateFiles,
+                        ...files,
+                    })}} />`,
+                } as any);
+                needsCodeSandboxImport = true;
+            }
 
-            parent.children.splice(startIndex, codes.length, ...mdx);
-            needsImport = true;
-
-            // tell visitor to continue on the next node
-            const nextIndex = startIndex + (mdx.length - codes.length) + 1;
             return nextIndex;
         });
 
         // add import as final step
-        if (needsImport) {
+        if (needsTabsImport) {
             injectImport(root as Root, "import TabItem from '@theme/TabItem'");
             injectImport(root as Root, "import Tabs from '@theme/Tabs'");
+        }
+        if (needsCodeSandboxImport) {
+            injectImport(
+                root as Root,
+                "import CodeSandboxButton from '@theme/CodeSandboxButton'"
+            );
         }
     };
 };
