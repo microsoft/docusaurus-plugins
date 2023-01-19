@@ -1,0 +1,15 @@
+{
+  "extends": "../tsconfig.json",
+  "references": [{"path": "./tsconfig.client.json"}],
+  "compilerOptions": {
+    "noEmit": false,
+    "incremental": true,
+    "isolatedModules": false,
+    "tsBuildInfoFile": "./lib/.tsbuildinfo",
+    "module": "commonjs",
+    "rootDir": "src",
+    "outDir": "lib"
+  },
+  "include": ["src"],
+  "exclude": ["src/client", "src/theme", "**/__tests__/**"]
+}
