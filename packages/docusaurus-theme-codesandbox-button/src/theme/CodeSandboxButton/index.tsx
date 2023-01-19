@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import type { Props } from "@theme/CodeSandboxButton";
-import clsx from "clsx";
 
 export default function CodeSandboxButton(props: Props) {
     const { className, files, startFile, label = "CodeSandbox" } = props;
@@ -45,7 +44,7 @@ export default function CodeSandboxButton(props: Props) {
             type="button"
             aria-label="Open code in CodeSandbox"
             title="Open in CodeSandbox"
-            className={clsx("button", "button--primary", className)}
+            className={className || "button button--primary"}
             onClick={handleClick}
             disabled={importing}
         >
