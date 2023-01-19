@@ -22,8 +22,16 @@ export function configure(
     configuration: Config,
     options: PluginOptions = {}
 ): Config {
-    const { appInsights, compileCode, math, npm2yarn, mermaid, legal, codeTabs } =
-        options;
+    const {
+        appInsights,
+        compileCode,
+        math,
+        npm2yarn,
+        mermaid,
+        legal,
+        codeTabs,
+        codeSandboxButton,
+    } = options;
 
     // injecting legal terms
     const themeConfig: ThemeConfig =
@@ -112,6 +120,12 @@ export function configure(
         if (typeof mermaid === "object") themeConfig.mermaid = mermaid;
     }
 
+    if (codeSandboxButton !== false)
+        injectTheme(
+            "@rise4fun/docusaurus-theme-codesandbox-button",
+            codeSandboxButton
+        );
+
     // additional languages
     const additionalLanguages: string[] =
         prism.additionalLanguages || (prism.additionalLanguages = []);
@@ -153,16 +167,19 @@ export function configure(
         stylesheets.push(sheet);
     }
 
-    function injectTheme(theme: any, options?: object) {
-        themes.push(options ? [theme, options] : theme);
+    function injectTheme(theme: any, options?: boolean | object) {
+        themes.push(typeof options === "object" ? [theme, options] : theme);
     }
 
-    function injectPlugin(plugin: any, options?: object) {
-        plugins.push(options ? [plugin, options] : plugin);
+    function injectPlugin(plugin: any, options?: boolean | object) {
+        plugins.push(typeof options === "object" ? [plugin, options] : plugin);
     }
 
-    function injectRemarkPlugin(remarkPlugin: any, options?: object) {
-        const entry = options ? [remarkPlugin, options] : remarkPlugin;
+    function injectRemarkPlugin(remarkPlugin: any, options?: boolean | object) {
+        const entry =
+            typeof options === "object"
+                ? [remarkPlugin, options]
+                : remarkPlugin;
         plugins
             .map((plugin: any) => plugin.remarkPlugins)
             .filter((rps) => !!rps)

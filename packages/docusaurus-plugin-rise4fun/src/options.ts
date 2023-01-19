@@ -27,6 +27,11 @@ export type PluginOptions = {
      * Sets as false to disable mermaid diagrams. Set as mermaid configuration for customizations.
      */
     mermaid?: boolean | object;
+
+    /**
+     * Sets as false to disable CodeSandbox button theme.
+     */
+    codeSandboxButton?: boolean | object;
 };
 
 export type Options = Partial<PluginOptions>;
