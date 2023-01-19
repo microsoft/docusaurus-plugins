@@ -390,11 +390,11 @@ const plugin: Plugin<[PluginOptions?]> = (options = undefined) => {
                 ];
                 codes.forEach((c) => {
                     const { lang = "" } = c;
-                    const { title } = parseMeta(c) as { title?: string };
+                    const { title, file } = parseMeta(c) as { title?: string, file?: string };
                     mdx.push({
                         type: "jsx",
                         value: `<Tab value={${JSON.stringify(
-                            lang
+                            file || title || lang
                         )}} label={${toAttributeValue(
                             title ||
                                 languages?.[lang || ""] ||
