@@ -4,9 +4,27 @@ sidebar_position: 3
 
 import CodeSandboxButton from "@theme/CodeSandboxButton";
 
-# Docusaurus theme CodeSandbox Button
+# Theme CodeSandbox button
 
+A Docusaurus theme component that displays a button to create/open a CodeSandbox project.
+
+## Configuration in rise4fun
+
+rise4fun automatically inserts
+
+## Usage
+
+In a MDX page, first add the import on top of the page.
+
+```tsx
+import CodeSandboxButton from "@theme/CodeSandboxButton";
+```
+
+Then insert the button in the page. The `files` argument is documented in the [CodeSandbox define API docs](https://codesandbox.io/docs/learn/getting-started/your-first-sandbox#define-api).
+
+```tsx
 <CodeSandboxButton
+    startFile="main.ts"
     files={{
         "main.ts": {
             content: "console.log('hello')",
@@ -26,3 +44,48 @@ import CodeSandboxButton from "@theme/CodeSandboxButton";
         },
     }}
 />
+```
+
+Here is the button in action.
+
+<CodeSandboxButton
+    startFile="main.ts"
+    files={{
+        "main.ts": {
+            content: "console.log('hello')",
+        },
+        "package.json": {
+            content: {
+                dependencies: {},
+            },
+        },
+        "sandbox.config.json": {
+            content: {
+                template: "node",
+                container: {
+                    node: "18",
+                },
+            },
+        },
+    }}
+/>
+
+## Configuration without rise4fun
+
+Install the theme
+
+```bash npm2yarn
+npm install @rise4fun/docusaurus-theme-codesandbox-button
+```
+
+Add the theme to your theme list.
+
+```js
+const config = {
+    plugins: [
+        // highlight-start
+        "@rise4fun/docusaurus-theme-codesandbox-button"
+        // highlight-end
+    ]
+}
+```
