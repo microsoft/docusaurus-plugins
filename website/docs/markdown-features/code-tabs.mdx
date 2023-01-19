@@ -1,0 +1,158 @@
+---
+sidebar_position: 4
+---
+
+# Code Tabs
+
+Groups sequences of code section into a single tabbed element, with optional CodeSandbox button.
+
+
+## Usage
+
+Place code section that need to be group in a sequence,
+and add `tabs` to the meta of the first code section.
+
+````markdown
+These snippets should be grouped in tabs.
+
+```js tabs
+const add = (a, b) => a + b;
+```
+
+```ts
+const add = (a: number, b: number) => a + b;
+```
+````
+
+### Rendered example
+
+These snippets should be grouped in tabs.
+
+```js tabs
+const add = (a, b) => a + b;
+```
+
+```ts
+const add = (a: number, b: number) => a + b;
+```
+
+## Grouping
+
+Any paragraph will break the sequence and start a new group.
+If you provide a string for `tabs` (`tabs=group`), it will be used as a
+custom group sync id.
+
+````markdown
+These snippets should be grouped in tabs.
+
+```js tabs=group
+const add = (a, b) => a + b;
+```
+
+```ts
+const add = (a: number, b: number) => a + b;
+```
+
+Start a new group now.
+
+```js tabs=group
+const sub = (a, b) => a - b;
+```
+
+```ts
+const sub = (a: number, b: number) => a - b;
+```
+````
+
+### Rendered example
+
+These snippets should be grouped in tabs.
+
+```js tabs=group
+const add = (a, b) => a + b;
+```
+
+```ts
+const add = (a: number, b: number) => a + b;
+```
+
+Start a new group now.
+
+```js tabs=group
+const sub = (a, b) => a - b;
+```
+
+```ts
+const sub = (a: number, b: number) => a - b;
+```
+
+## Lazy
+
+By default, all tabs are rendered to help with search engine. You can add the `lazy` meta
+to change this behavior.
+
+````markdown
+```js tabs lazy
+const add = (a, b) => a + b;
+```
+
+```ts
+const add = (a: number, b: number) => a + b;
+```
+````
+
+### Rendered example
+
+```js tabs lazy
+const add = (a, b) => a + b;
+```
+
+```ts
+const add = (a: number, b: number) => a + b;
+```
+
+## CodeSandbox button
+
+Display a CodeSandbox button that create and opens a new project 
+on [codesandbox.io](https://codesandbox.io) with the files. By default, creates a `node 18` sandbox.
+
+````markdown
+```js tabs codesandbox title="add.js"
+const add = (a, b) => a + b;
+```
+
+```js title="sub.js"
+const sub = (a: number, b: number) => a - b;
+```
+````
+
+### Rendered example
+
+```js tabs codesandbox title="add.js"
+const add = (a, b) => a + b;
+```
+
+```js title="sub.js"
+const sub = (a, b) => a - b;
+```
+
+## Configuration
+
+This [plugin](/plugins/docusaurus-remark-plugin-code-tabs) is automatically injected by the rise4fun plugins.
+If you are providing new language code that are not covered by prims, you can provide map of names.
+
+```js title="docusaurus.config.js"
+const config = configure({
+    ...
+}, {
+    // rise4fun configuration
+    ...
+    // highlight-start
+    codeTabs: {
+        languages: {
+            yacl: "Yet another cool language"
+        }
+    }
+    // highlight-end
+})
+```

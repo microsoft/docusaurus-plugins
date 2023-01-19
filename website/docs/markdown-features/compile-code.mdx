@@ -1,8 +1,17 @@
 ---
-sidebar_position: 2
+id: compile-code
+sidebar_position: 5
 ---
 
-# (Pre-)compiling code snippets
+# (Pre-)compiled Code
+
+Allows to run a compiler on snippets at build time and inject the generated output in the final web site.
+
+## Usage
+
+After configuring the plugin for your language snippets, the rest of the process is fully automated.
+
+## Configuration
 
 This configuration allows to extract code snippets and run them through your tool at build time, then insert the
 output in the generated web site. As long as your tool can run in a GitHub Action container, this feature allows to easily
@@ -23,6 +32,8 @@ const config = configure({ ... }, {
 ```
 
 ### Tools published on npm
+
+There is a special support for tools that can be installed through `npm`.
 
 Let's take the TypeScript compiler as an example. First, start by adding `typescript` to your project
 
@@ -48,9 +59,9 @@ compileCode: {
 Let's take a look at this example in action.
 
 ````markdown
-    ```ts showLineNumbers ignoreErrors
-    console.llog("typo!")
-    ```
+```ts showLineNumbers ignoreErrors
+console.llog("typo!")
+```
 ````
 
 When rendered in the docs, this snippet looks like any other code snippet. But you'll also notice an additional box
@@ -100,7 +111,7 @@ And now rendered...
 (check-sat)
 ```
 
-## Custom tool
+### Custom tool
 
 To support custom scenario, you can provide a `compile` function
 and wire it up as you please.
@@ -140,9 +151,9 @@ underneath with the capitalized text.
 hello
 ```
 
-## Tool configuration flags
+### Tool configuration flags
 
-### `langMeta`
+#### `langMeta`
 
 An additional meta filter for selecting snippet. If this field is preset, snippet without the meta (case sensitive) 
 will be ignored.
@@ -161,7 +172,7 @@ let x = 0
 ```
 ````
 
-### `inputLang`
+#### `inputLang`
 
 After processing the source, replace the `lang` value 
 with `inputLang`, so that it gets syntax colored with that language.
@@ -170,7 +181,7 @@ with `inputLang`, so that it gets syntax colored with that language.
 
 The following meta tags can be used to customize the behavior of each snippet.
 
-### `skip`
+#### `skip`
 
 Completely ignore snippet.
 
@@ -180,7 +191,7 @@ just ignore me
 ```
 ````
 
-### `ignore-errors`
+#### `ignore-errors`
 
 Don't fail the rendering step if errors occur.
 

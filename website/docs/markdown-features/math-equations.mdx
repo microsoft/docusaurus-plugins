@@ -1,0 +1,46 @@
+---
+id: math-equations
+title: Math Equations
+description: Writing LaTeX math in Markdown
+sidebar_position: 2
+---
+
+# Math Equations
+
+[Math equation rendering](https://docusaurus.io/docs/markdown-features/math-equations) using [KaTeX](https://katex.org) is automatically enabled.
+
+## Usage {#usage}
+
+### Inline {#inline}
+
+Write inline math equations by wrapping LaTeX equations between `$`:
+
+```latex
+Let $f\colon[a,b]\to\R$ be Riemann integrable. Let $F\colon[a,b]\to\R$ be
+$F(x)=\int_{a}^{x} f(t)\,dt$. Then $F$ is continuous, and at all $x$ such that
+$f$ is continuous at $x$, $F$ is differentiable at $x$ with $F'(x)=f(x)$.
+```
+
+
+> Let $f\colon[a,b] \to \R$ be Riemann integrable. Let $F\colon[a,b]\to\R$ be $F(x)=
+\int_{a}^{x} f(t)\,dt$. Then $F$ is continuous, and at all $x$ such that $f$ is continuous at $x$, $F$ is differentiable at $x$ with $F'(x)=f(x)$.
+
+
+### Blocks {#blocks}
+
+For equation block or display mode, use line breaks and `$$`:
+
+```latex
+$$
+I = \int_0^{2\pi} \sin(x)\,dx
+$$
+```
+
+$$
+I = \int_0^{2\pi} \sin(x)\,dx
+$$
+
+
+### More information
+
+Please read the [KaTeX](https://katex.org) documentation.
