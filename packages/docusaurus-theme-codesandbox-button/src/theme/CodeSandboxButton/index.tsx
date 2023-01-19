@@ -29,7 +29,8 @@ export default function CodeSandboxButton(props: Props) {
             const { sandbox_id } = data;
             if (sandbox_id === undefined)
                 throw new Error("failed to create new sandbox");
-            const url = `https://codesandbox.io/s/${data.sandbox_id}?file=/${startFile}`;
+            let url = `https://codesandbox.io/s/${data.sandbox_id}?`;
+            if (startFile) url += `file=/${encodeURIComponent(startFile)}`;
             window.open(url, "_blank", "noreferrer");
         } catch (error) {
             console.error(error);

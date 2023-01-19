@@ -11,7 +11,7 @@ declare module "@theme/CodeSandboxButton" {
     export interface Props {
         className?: string;
         files: Record<string, string>;
-        startFile: string;
+        startFile?: string;
         label?: string
     }
 

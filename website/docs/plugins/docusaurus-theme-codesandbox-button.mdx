@@ -1,0 +1,28 @@
+---
+sidebar_position: 3
+---
+
+import CodeSandboxButton from "@theme/CodeSandboxButton";
+
+# Docusaurus theme CodeSandbox Button
+
+<CodeSandboxButton
+    files={{
+        "main.ts": {
+            content: "console.log('hello')",
+        },
+        "package.json": {
+            content: {
+                dependencies: {},
+            },
+        },
+        "sandbox.config.json": {
+            content: {
+                template: "node",
+                container: {
+                    node: "18",
+                },
+            },
+        },
+    }}
+/>
