@@ -1,4 +1,4 @@
-Some snippets
+Tabs with codesandbox
 
 ```js tabs codesandbox title="main.js"
 js
@@ -6,4 +6,10 @@ js
 
 ```ts title="main.ts"
 ts
+```
+
+Codesandbox alone
+
+```js codesandbox
+js
 ```

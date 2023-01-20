@@ -7,7 +7,7 @@ import Tabs from '@theme/Tabs';
 
 import TabItem from '@theme/TabItem';
 
-Some snippets
+Tabs with codesandbox
 
 <Tabs  groupId={"default"}>
 
@@ -30,6 +30,14 @@ ts
 </Tabs>
 
 <CodeSandboxButton startFile="main.js" files={{"package.json":{"content":{"dependencies":{}}},"sandbox.config.json":{"content":{"template":"node","view":"terminal","container":{"node":"18"}}},"main.js":{"content":"js"},"main.ts":{"content":"ts"}}} />
+
+Codesandbox alone
+
+\`\`\`js codesandbox
+js
+\`\`\`
+
+<CodeSandboxButton startFile="main.js" files={{"package.json":{"content":{"dependencies":{}}},"sandbox.config.json":{"content":{"template":"node","view":"terminal","container":{"node":"18"}}},"main.js":{"content":"js"}}} />
 "
 `;
 
