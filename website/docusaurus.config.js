@@ -93,7 +93,10 @@ async function createConfig() {
                                     force: true,
                                     startMissingSimulators: true,
                                 },
-                                textFieldName: "source",
+                                messageTextFieldName: "source",
+                                readyMessage: {
+                                    channel: "jacdac",
+                                },
                             },
                         ],
                     },

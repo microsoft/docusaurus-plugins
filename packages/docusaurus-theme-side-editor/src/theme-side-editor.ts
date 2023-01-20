@@ -22,7 +22,8 @@ declare module "@rise4fun/docusaurus-theme-side-editor" {
 
         message?: object;
         messageIdFieldName?: string;
-        textFieldName?: string;
+        messageTextFieldName?: string;
+        readyMessage: Record<string, number | string | boolean>;
     }
 
     export default function themeSideEditor(): object;

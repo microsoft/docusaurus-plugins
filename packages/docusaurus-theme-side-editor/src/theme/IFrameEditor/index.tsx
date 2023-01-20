@@ -11,15 +11,16 @@ export default function IFrameEditor(props: Props) {
         lightUrl,
         darkUrl,
         message = {},
+        readyMessage,
         className,
-        textFieldName = "text",
+        messageTextFieldName = "text",
         messageIdFieldName = "mid",
         allow = "accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; usb; xr-spatial-tracking; serial; bluetooth",
         sandbox = "allow-forms allow-scripts allow-downloads allow-modals allow-popups allow-presentation allow-same-origin allow-scripts",
     } = config;
     const isBrowser = useIsBrowser();
     const colorMode = isBrowser
-        ? (document.firstElementChild as any).dataset.theme
+        ? (document.firstElementChild as HTMLElement).dataset.theme
         : "dark";
 
     const url = colorMode === "dark" ? darkUrl : lightUrl;
@@ -35,13 +36,36 @@ export default function IFrameEditor(props: Props) {
         const msg = {
             ...message,
             [messageIdFieldName]: id,
-            [textFieldName]: text,
+            [messageTextFieldName]: text,
         };
         editorWindow.postMessage(msg, "*");
     };
 
     // when source changes
     useEffect(() => postSource(), [url, source]);
+
+    // sniff for a ready message from the iframe
+    useEffect(() => {
+        if (!readyMessage || typeof window === "undefined") return;
+
+        const iframe = iframeRef.current;
+        const editorWindow = iframe?.contentWindow;
+        if (!editorWindow) return;
+
+        const handleMessage = (ev: MessageEvent) => {
+            const { data } = ev;
+            if (
+                Object.entries(readyMessage).every(
+                    ([key, value]) => data[key] === readyMessage[key]
+                )
+            ) {
+                window.removeEventListener("message", handleMessage);
+                postSource();
+            }
+        };
+        window.addEventListener("message", handleMessage);
+        return () => window.removeEventListener("message", handleMessage);
+    }, [url]);
 
     return (
         <iframe
