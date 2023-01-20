@@ -10,6 +10,7 @@
     "scripts": {
         "clear": "nx run-many --target=clear && nx reset",
         "build": "nx run-many --target=build",
+        "watch": "nx run-many --target=watch",
         "test": "nx run-many --target=test"
     },
     "release": {

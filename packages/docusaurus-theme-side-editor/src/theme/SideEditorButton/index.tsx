@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import type { Props } from "@theme/SideEditorButton";
-import SideEditorContext from "../../client/SideEditorContext";
+import useSideEditorContext from "../../client/SideEditorContext";
 
 export default function SideEditorButton(props: Props) {
     const {
@@ -10,12 +10,14 @@ export default function SideEditorButton(props: Props) {
         label = "Edit",
         title = "Load code in side editor",
     } = props;
-    const { setSource } = useContext(SideEditorContext);
+    const { setSource } = useSideEditorContext();
 
     const handleClick = () => {
+        console.log("setsource", { setSource, editorId, text });
         setSource(editorId, text);
     };
 
+    console.log("sidebutton", { setSource });
     return (
         <button
             type="button"

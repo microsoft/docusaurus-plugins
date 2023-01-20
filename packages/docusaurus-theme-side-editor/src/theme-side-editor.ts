@@ -52,3 +52,7 @@ declare module "@theme/SideEditorButton" {
 
     export default function SideEditorButton(props: Props): JSX.Element;
 }
+
+declare module "@theme/Root" {
+    export default function SideEditorButton(props: any): JSX.Element;
+}

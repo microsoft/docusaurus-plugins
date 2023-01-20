@@ -1,5 +1,5 @@
 import SideEditor from "@theme/SideEditor";
-import React, { createContext, ReactNode, useState } from "react";
+import React, { createContext, ReactNode, useContext, useState } from "react";
 import type { SideEditorConfig } from "@rise4fun/docusaurus-theme-side-editor";
 import useSideEditorConfig from "./useSideEditorConfig";
 
@@ -14,12 +14,11 @@ export interface SideEditorProps {
     source?: SideEditorSource;
 }
 
-const SideEditorContext = createContext<SideEditorProps>({
-    setSource: () => {},
+const dummySetSource = () => {};
+export const SideEditorContext = createContext<SideEditorProps>({
+    setSource: dummySetSource,
 });
 SideEditorContext.displayName = "SideEditor";
-
-export default SideEditorContext;
 
 export function SplitEditorProvider(props: { children: ReactNode }) {
     const { children } = props;
@@ -27,15 +26,31 @@ export function SplitEditorProvider(props: { children: ReactNode }) {
 
     const [source, setSource_] = useState<SideEditorSource | undefined>();
     const setSource = (editorId: string, text: string) => {
+        console.log(`sideeditor setsource`, { editorId, text });
+        if (editorId === source?.editorId && text === source?.text) return;
+
         const editorConfig = editors.find(({ id }) => id === editorId);
         if (!editorConfig) setSource_(undefined);
         else {
-            setSource_({ editorId, text, config: editorConfig });
+            const newSource = { editorId, text, config: editorConfig };
+            setSource_(newSource);
         }
     };
+
+    console.log(`sideeditor context`, { source, editors });
+
     return (
         <SideEditorContext.Provider value={{ setSource, source }}>
             {source !== undefined ? <SideEditor {...props} /> : <>{children}</>}
         </SideEditorContext.Provider>
     );
+}
+
+export default function useSideEditorContext() {
+    const ctx = useContext(SideEditorContext);
+    if (ctx.setSource === dummySetSource)
+        throw new Error(
+            "SideEditor not properly configured. Did you swizzle Root?"
+        );
+    return ctx;
 }

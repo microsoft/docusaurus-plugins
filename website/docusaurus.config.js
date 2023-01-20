@@ -11,6 +11,7 @@ async function createConfig() {
         {
             title: "rise4fun",
             tagline: "Awesome Documentation for Programming Language Tools.",
+            organizationName: "Microsoft",
             url: "https://microsoft.github.io",
             baseUrl: "/docusaurus-plugins-rise4fun",
             onBrokenLinks: "throw",
@@ -83,6 +84,7 @@ async function createConfig() {
                                 id: "devicescript",
                                 type: "iframe",
                                 url: "https://microsoft.github.io/jacdac-docs/editors/devicescript/?devicescriptvm=1&embed=1&footer=0",
+                                hello: () => console.log("hello"),
                             },
                         ],
                     },

@@ -31,7 +31,6 @@ export function configure(
         legal,
         codeTabs,
         codeSandboxButton,
-        sideEditor,
     } = options;
 
     // injecting legal terms
@@ -45,10 +44,11 @@ export function configure(
     const navbar: any =
         themeConfig.navbar || (themeConfig.navbar = { items: [] });
     const prism: any = themeConfig.prism || (themeConfig.prism = {});
+    const { sideEditor } = themeConfig;
 
-    if (!themeConfig.organizationName)
-        themeConfig.organizationName = "Microsoft";
-    if (!themeConfig.url) themeConfig.url = "https://microsoft.github.io";
+    const isMicrosoft = themeConfig.organizationName === "Microsoft";
+    if (!themeConfig.url && isMicrosoft)
+        themeConfig.url = "https://microsoft.github.io";
     if (!themeConfig.baseUrl)
         themeConfig.baseUrl = "/" + themeConfig.projectName;
     if (!themeConfig.i18n)
@@ -57,7 +57,7 @@ export function configure(
             locales: ["en"],
         };
     const links = footer.links || (footer.links = []);
-    if (legal !== false) {
+    if (legal !== false && isMicrosoft) {
         links.push({
             title: "Legal",
             items: [
@@ -127,8 +127,9 @@ export function configure(
             codeSandboxButton
         );
 
-    if (sideEditor)
+    if (sideEditor) {
         injectTheme("@rise4fun/docusaurus-theme-side-editor", sideEditor);
+    }
 
     // additional languages
     const additionalLanguages: string[] =

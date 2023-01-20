@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useId } from "react";
+import React, { useRef, useEffect } from "react";
 import type { Props } from "@theme/IFrameEditor";
 
 export default function IFrameEditor(props: Props) {
@@ -12,7 +12,6 @@ export default function IFrameEditor(props: Props) {
 
     const uri = new URL(url);
     const targetOrigin = uri.origin;
-    const frameId = useId();
     const iframeRef = useRef<HTMLIFrameElement | null>(null);
 
     const postSource = (force: boolean) => {
@@ -36,7 +35,6 @@ export default function IFrameEditor(props: Props) {
     return (
         <iframe
             ref={iframeRef}
-            id={frameId}
             className={className}
             allow={allow}
             sandbox={sandbox}

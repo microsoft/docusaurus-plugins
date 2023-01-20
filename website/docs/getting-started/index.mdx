@@ -51,6 +51,26 @@ const config = configure(
 // highlight-end
 ```
 
+:::tip
+
+Microsoft projects: make sure that `organizationName` is set to `Microsoft`, to enable automatic legal footer injection
+
+```js title="website/docusaurus.config.js"
+// highlight-next-line
+const { configure } = require("@rise4fun/docusaurus-plugin-rise4fun");
+
+/** @type {import('@docusaurus/types').Config} */
+const config = configure(
+    {
+        ...
+        // highlight-next-line
+        organizationName: "Microsoft",
+    }
+...
+```
+
+:::
+
 ## Start authoring!
 
 Start the site
