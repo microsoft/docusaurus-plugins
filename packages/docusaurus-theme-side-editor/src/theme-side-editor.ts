@@ -13,7 +13,8 @@ declare module "@rise4fun/docusaurus-theme-side-editor" {
         type: string;
     }
     export interface IFrameEditorConfig extends SideEditorConfig {
-        url: string;
+        lightUrl: string;
+        darkUrl: string;
         type: "iframe";
         className?: string;
         allow?: string;

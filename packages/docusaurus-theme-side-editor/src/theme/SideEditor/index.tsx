@@ -5,6 +5,7 @@ import useSideEditorContext from "../../client/SideEditorContext";
 import useSideEditorConfig from "../../client/useSideEditorConfig";
 import IFrameEditor from "@theme/IFrameEditor";
 import BrowserOnly from "@docusaurus/BrowserOnly";
+import ResizeHandle from "./ResizeHandle";
 
 export default function SideEditor(props: Props) {
     const { children } = props;
@@ -33,14 +34,24 @@ export default function SideEditor(props: Props) {
 
     const editorProps = { config, text };
     return (
-        <PanelGroup autoSaveId={autoSaveId} direction="horizontal">
-            <Panel>{children}</Panel>
-            <PanelResizeHandle />
-            <Panel collapsible={true}>
-                <BrowserOnly>
-                    {() => createElement(elementType, editorProps)}
-                </BrowserOnly>
-            </Panel>
-        </PanelGroup>
+        <div style={{ height: "100vh" }}>
+            <PanelGroup autoSaveId={autoSaveId} direction="horizontal">
+                <Panel>
+                    <div style={{ overflow: "auto", height: "100%" }}>
+                        {children}
+                    </div>
+                </Panel>
+                <ResizeHandle />
+                <Panel collapsible={true}>
+                    <BrowserOnly>
+                        {() => (
+                            <div style={{ overflow: "auto", height: "100%" }}>
+                                {createElement(elementType, editorProps)}
+                            </div>
+                        )}
+                    </BrowserOnly>
+                </Panel>
+            </PanelGroup>
+        </div>
     );
 }

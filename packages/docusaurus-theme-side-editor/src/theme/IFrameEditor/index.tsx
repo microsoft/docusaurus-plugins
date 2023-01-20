@@ -1,13 +1,13 @@
 import React, { useRef, useEffect, useId } from "react";
 import type { Props } from "@theme/IFrameEditor";
-
 import styles from "./styles.module.css";
 import clsx from "clsx";
 
 export default function IFrameEditor(props: Props) {
     const { config, text } = props;
     const {
-        url,
+        lightUrl,
+        darkUrl,
         message = {},
         className,
         textFieldName = "text",
@@ -15,7 +15,10 @@ export default function IFrameEditor(props: Props) {
         allow = "accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking; serial; bluetooth",
         sandbox = "allow-forms allow-scripts allow-downloads allow-modals allow-popups allow-presentation allow-same-origin allow-scripts",
     } = config;
+    const colorMode = "dark";
+    // TODO    const { colorMode } = useColorMode()
 
+    const url = colorMode === "dark" ? darkUrl : lightUrl;
     const uri = new URL(url);
     const frameId = useId();
     const targetOrigin = uri.origin;
