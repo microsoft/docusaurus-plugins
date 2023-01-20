@@ -1,8 +1,16 @@
 /// <reference types="@docusaurus/module-type-aliases" />
 
 declare module "@rise4fun/docusaurus-theme-side-editor" {
-    export type ThemeConfig = {};
-    export type UserThemeConfig = {};
+    export type ThemeConfig = {
+        sideEditor: SideEditorThemeConfig;
+    };
+    export interface SideEditorThemeConfig {
+        editors: SideEditorConfig[];
+        persistenceId?: string;
+    }
+    export interface SideEditorConfig {
+        editorId: string;
+    }
 
     export default function themeSideEditor(): object;
 }
