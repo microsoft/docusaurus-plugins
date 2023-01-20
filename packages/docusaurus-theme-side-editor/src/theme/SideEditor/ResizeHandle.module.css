@@ -25,6 +25,9 @@
     background-color: var(--background-color);
     transition: background-color 0.2s linear;
     position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   
   .ResizeHandleInner::after {
@@ -38,25 +41,4 @@
     position: absolute;
     left: calc(50% - 0.5rem);
     top: calc(50% - 0.5rem);
-  }
-  
-  .HorizontalIcon,
-  .VerticalIcon {
-    color: var(--color-solid-resize-bar);
-    position: absolute;
-    left: calc(50% - 0.5rem);
-    top: calc(50% - 0.5rem);
-  }
-  
-  .ResizeHandleOuter[data-panel-group-direction="horizontal"] .HorizontalIcon,
-  .ResizeHandleOuter[data-panel-group-direction="vertical"] .VerticalIcon {
-    display: block;
-  }
-  .ResizeHandleOuter[data-panel-group-direction="vertical"] .HorizontalIcon,
-  .ResizeHandleOuter[data-panel-group-direction="horizontal"] .VerticalIcon {
-    display: none;
-  }
-  .ResizeHandleOuter[data-resize-handle-active] .HorizontalIcon,
-  .ResizeHandleOuter[data-resize-handle-active] .VerticalIcon {
-    display: none;
   }
