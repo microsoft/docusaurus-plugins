@@ -1,6 +1,9 @@
 import React, { useRef, useEffect } from "react";
 import type { Props } from "@theme/IFrameEditor";
 
+import styles from "./styles.module.css";
+import clsx from "clsx";
+
 export default function IFrameEditor(props: Props) {
     const {
         url,
@@ -35,7 +38,7 @@ export default function IFrameEditor(props: Props) {
     return (
         <iframe
             ref={iframeRef}
-            className={className}
+            className={clsx(styles.iframeEditor, className)}
             allow={allow}
             sandbox={sandbox}
             src={url}
