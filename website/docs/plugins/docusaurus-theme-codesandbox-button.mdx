@@ -8,9 +8,25 @@ import CodeSandboxButton from "@theme/CodeSandboxButton";
 
 A Docusaurus theme component that displays a button to create/open a CodeSandbox project.
 
-## Configuration in rise4fun
+## Configuration
 
-rise4fun automatically inserts
+Install the theme
+
+```bash npm2yarn
+npm install @rise4fun/docusaurus-theme-codesandbox-button
+```
+
+Add the theme to your theme list.
+
+```js
+const config = {
+    plugins: [
+        // highlight-start
+        "@rise4fun/docusaurus-theme-codesandbox-button"
+        // highlight-end
+    ]
+}
+```
 
 ## Usage
 
@@ -69,23 +85,3 @@ Here is the button in action.
         },
     }}
 />
-
-## Configuration without rise4fun
-
-Install the theme
-
-```bash npm2yarn
-npm install @rise4fun/docusaurus-theme-codesandbox-button
-```
-
-Add the theme to your theme list.
-
-```js
-const config = {
-    plugins: [
-        // highlight-start
-        "@rise4fun/docusaurus-theme-codesandbox-button"
-        // highlight-end
-    ]
-}
-```
