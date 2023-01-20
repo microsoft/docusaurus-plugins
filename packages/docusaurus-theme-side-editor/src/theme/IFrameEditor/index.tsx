@@ -4,7 +4,8 @@ import styles from "./styles.module.css";
 import clsx from "clsx";
 
 export default function IFrameEditor(props: Props) {
-    const { config, text } = props;
+    const { config, source = {} } = props;
+    const { text } = source;
     const {
         lightUrl,
         darkUrl,
@@ -19,9 +20,7 @@ export default function IFrameEditor(props: Props) {
     // TODO    const { colorMode } = useColorMode()
 
     const url = colorMode === "dark" ? darkUrl : lightUrl;
-    const uri = new URL(url);
     const frameId = useId();
-    const targetOrigin = uri.origin;
     const iframeRef = useRef<HTMLIFrameElement | null>(null);
 
     const postSource = () => {
@@ -35,12 +34,11 @@ export default function IFrameEditor(props: Props) {
             [messageIdFieldName]: id,
             [textFieldName]: text,
         };
-        console.log(`post message`, { msg, targetOrigin });
-        editorWindow.postMessage(msg, targetOrigin);
+        editorWindow.postMessage(msg, "*");
     };
 
     // when source changes
-    useEffect(() => postSource(), [url, text]);
+    useEffect(() => postSource(), [url, source]);
 
     return (
         <iframe

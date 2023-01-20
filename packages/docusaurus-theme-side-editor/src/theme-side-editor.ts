@@ -39,7 +39,7 @@ declare module "@theme/SideEditor" {
 declare module "@theme/IFrameEditor" {
     import type { IFrameEditorConfig } from "@rise4fun/docusaurus-theme-side-editor";
     export interface Props {
-        text: string;
+        source?: { text?: string };
         config: IFrameEditorConfig;
     }
 

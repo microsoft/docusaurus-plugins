@@ -11,14 +11,13 @@ export default function SideEditor(props: Props) {
     const { children } = props;
     const { persistenceId = "@rise4fun/sideEditor" } = useSideEditorConfig();
     const { source } = useSideEditorContext();
-    const { editorId, text, config } = source || {};
+    const { editorId, config } = source || {};
     const autoSaveId = `${persistenceId}/panels`;
 
-    console.log({ source });
     // no split
     if (!editorId || !config) return children;
 
-    const { type, ...configRest } = config;
+    const { type } = config;
     // split enabled
     const elementType: ((props: any) => JSX.Element) | undefined =
         useMemo(() => {
@@ -32,7 +31,7 @@ export default function SideEditor(props: Props) {
 
     if (!elementType) return children;
 
-    const editorProps = { config, text };
+    const editorProps = { config, source };
     return (
         <div style={{ height: "100vh" }}>
             <PanelGroup autoSaveId={autoSaveId} direction="horizontal">

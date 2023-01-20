@@ -26,8 +26,6 @@ export function SplitEditorProvider(props: { children: ReactNode }) {
 
     const [source, setSource_] = useState<SideEditorSource | undefined>();
     const setSource = (editorId: string, text: string) => {
-        if (editorId === source?.editorId && text === source?.text) return;
-
         const editorConfig = editors.find(({ id }) => id === editorId);
         if (!editorConfig) setSource_(undefined);
         else {
