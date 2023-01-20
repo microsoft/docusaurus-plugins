@@ -21,7 +21,7 @@ export default function ResizeHandle({
                 className={styles.ResizeHandleInner}
                 data-collapsed={collapsed || undefined}
             >
-                ⠀
+                ⣿
             </div>
         </PanelResizeHandle>
     );

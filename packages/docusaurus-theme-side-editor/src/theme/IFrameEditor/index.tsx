@@ -64,7 +64,9 @@ export default function IFrameEditor(props: Props) {
             }
         };
         window.addEventListener("message", handleMessage);
-        return () => window.removeEventListener("message", handleMessage);
+        return () => {
+            window.removeEventListener("message", handleMessage);
+        };
     }, [url]);
 
     return (
