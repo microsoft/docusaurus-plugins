@@ -4,6 +4,7 @@ title: Diagrams
 description: Writing diagrams with Mermaid
 sidebar_position: 3
 ---
+import BrowserWindow from '@site/src/theme/BrowserWindow'
 
 # Diagrams
 
@@ -14,7 +15,7 @@ rise4fun enables diagrams by default.
 
 Add a code block with language `mermaid`:
 
-````md title="Example Mermaid diagram"
+````markdown title="Example Mermaid diagram"
 ```mermaid
 graph TD;
     A-->B;
@@ -24,6 +25,8 @@ graph TD;
 ```
 ````
 
+<BrowserWindow>
+
 ```mermaid
 graph TD;
     A-->B;
@@ -31,6 +34,9 @@ graph TD;
     B-->D;
     C-->D;
 ```
+
+</BrowserWindow>
+
 
 See the [Mermaid syntax documentation](https://mermaid-js.github.io/mermaid/#/./n00b-syntaxReference) for more information on the Mermaid syntax
 and the [Docusaurus Diagram documentation](https://docusaurus.io/docs/markdown-features/diagrams).

@@ -2,6 +2,8 @@
 sidebar_position: 4
 ---
 
+import BrowserWindow from '@site/src/theme/BrowserWindow'
+
 # Code Tabs
 
 Groups sequences of code section into a single tabbed element, with optional CodeSandbox button.
@@ -24,7 +26,7 @@ const add = (a: number, b: number) => a + b;
 ```
 ````
 
-### Rendered example
+<BrowserWindow>
 
 These snippets should be grouped in tabs.
 
@@ -35,6 +37,8 @@ const add = (a, b) => a + b;
 ```ts
 const add = (a: number, b: number) => a + b;
 ```
+
+</BrowserWindow>
 
 ## Grouping
 
@@ -64,7 +68,7 @@ const sub = (a: number, b: number) => a - b;
 ```
 ````
 
-### Rendered example
+<BrowserWindow>
 
 These snippets should be grouped in tabs.
 
@@ -86,6 +90,8 @@ const sub = (a, b) => a - b;
 const sub = (a: number, b: number) => a - b;
 ```
 
+</BrowserWindow>
+
 ## Lazy
 
 By default, all tabs are rendered to help with search engine. You can add the `lazy` meta
@@ -101,7 +107,7 @@ const add = (a: number, b: number) => a + b;
 ```
 ````
 
-### Rendered example
+<BrowserWindow>
 
 ```js tabs lazy
 const add = (a, b) => a + b;
@@ -110,6 +116,8 @@ const add = (a, b) => a + b;
 ```ts
 const add = (a: number, b: number) => a + b;
 ```
+
+</BrowserWindow>
 
 ## CodeSandbox button
 
@@ -126,7 +134,7 @@ const sub = (a: number, b: number) => a - b;
 ```
 ````
 
-### Rendered example
+<BrowserWindow>
 
 ```js tabs codesandbox title="add.js"
 const add = (a, b) => a + b;
@@ -135,6 +143,8 @@ const add = (a, b) => a + b;
 ```js title="sub.js"
 const sub = (a, b) => a - b;
 ```
+
+</BrowserWindow>
 
 ## Configuration
 

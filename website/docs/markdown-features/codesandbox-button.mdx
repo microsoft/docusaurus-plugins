@@ -2,17 +2,27 @@
 id: codesandbox-button
 sidebar_position: 3.5
 ---
+import BrowserWindow from '@site/src/theme/BrowserWindow'
 
 # CodeSandbox button
 
 Adds a button under a code snippet to open/create a CodeSandbox project.
 
-````md
-```ts codesandbox
+````markdown
+```js codesandbox
 console.log("hello")
 ```
 ````
 
-```ts codesandbox
+<BrowserWindow>
+
+
+```js codesandbox
 console.log("hello")
 ```
+
+</BrowserWindow>
+
+## Multiple files
+
+Use [code tabs](./code-tabs) to create sandboxes with multiple files.

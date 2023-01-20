@@ -2,6 +2,7 @@
 id: compile-code
 sidebar_position: 5
 ---
+import BrowserWindow from '@site/src/theme/BrowserWindow'
 
 # (Pre-)compiled Code
 
@@ -35,17 +36,12 @@ const config = configure({ ... }, {
 
 There is a special support for tools that can be installed through `npm`.
 
-Let's take the TypeScript compiler as an example. First, start by adding `typescript` to your project
-
-```bash npm2yarn
-yarn add typescript
-```
-
-then add a `compileCode` language entry that will run all `ts` code section through the `tsc` node executable.
+Let's take the TypeScript compiler as an example. Add a `compileCode` language entry that will run all `ts` code section through the `tsc` node executable.
 
 ```js title="website/docusaurus.config.js"
 compileCode: {
     langs: [
+        ...,
         // highlight-start
         {
             lang: "ts",
@@ -67,9 +63,13 @@ console.llog("typo!")
 When rendered in the docs, this snippet looks like any other code snippet. But you'll also notice an additional box
 underneath with the TypeScript compiler output. This output was computed at build time.
 
+<BrowserWindow>
+
 ```ts showLineNumbers ignoreErrors
 console.llog("typo!");
 ```
+
+</BrowserWindow>
 
 ### node.js script
 
@@ -80,36 +80,45 @@ Each snippet will be run in its individual process.
 The example below execute the [Z3](https://github.com/Z3Prover/z3) constraint solver.
 
 ```js
-    {
-        lang: "z3wasm",
-        extension: "z3",
-        inputLang: "lisp",
-        command: "./langs/z3.mjs",
-    },
+compileCode: {
+    langs: [
+        ...,
+        // highlight-start
+        {
+            lang: "z3wasm",
+            extension: "z3",
+            inputLang: "lisp",
+            command: "./langs/z3.mjs",
+        },
+        // highlight-end
+    ];
+}
 ```
 
 where `z3.mjs` is a node script that reads `input.z3`, `options.json` from the current working directory,
 executes Z3 and prints the result to the console.
 
 ````markdown
-```z3asm
+```z3wasm
 (declare-const a Int)
 (declare-fun f (Int Bool) Int)
-(assert (< a 10))
-(assert (< (f a true) 100))
+(assert (= a 10))
+(assert (= (f a true) 100))
 (check-sat)
 ```
 ````
 
-And now rendered...
+<BrowserWindow>
 
 ```z3wasm
 (declare-const a Int)
 (declare-fun f (Int Bool) Int)
-(assert (< a 10))
-(assert (< (f a true) 100))
+(assert (= a 10))
+(assert (= (f a true) 100))
 (check-sat)
 ```
+
+</BrowserWindow>
 
 ### Custom tool
 
@@ -147,9 +156,13 @@ When rendered in the docs, this snippet looks like any other code snippe.
 But you'll also notice an additional box
 underneath with the capitalized text.
 
+<BrowserWindow>
+
 ```echo
 hello
 ```
+
+</BrowserWindow>
 
 ### Tool configuration flags
 

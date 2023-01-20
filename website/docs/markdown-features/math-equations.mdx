@@ -4,6 +4,7 @@ title: Math Equations
 description: Writing LaTeX math in Markdown
 sidebar_position: 2
 ---
+import BrowserWindow from '@site/src/theme/BrowserWindow'
 
 # Math Equations
 
@@ -21,9 +22,12 @@ $F(x)=\int_{a}^{x} f(t)\,dt$. Then $F$ is continuous, and at all $x$ such that
 $f$ is continuous at $x$, $F$ is differentiable at $x$ with $F'(x)=f(x)$.
 ```
 
+<BrowserWindow>
 
-> Let $f\colon[a,b] \to \R$ be Riemann integrable. Let $F\colon[a,b]\to\R$ be $F(x)=
+Let $f\colon[a,b] \to \R$ be Riemann integrable. Let $F\colon[a,b]\to\R$ be $F(x)=
 \int_{a}^{x} f(t)\,dt$. Then $F$ is continuous, and at all $x$ such that $f$ is continuous at $x$, $F$ is differentiable at $x$ with $F'(x)=f(x)$.
+
+</BrowserWindow>
 
 
 ### Blocks {#blocks}
@@ -36,10 +40,13 @@ I = \int_0^{2\pi} \sin(x)\,dx
 $$
 ```
 
+<BrowserWindow>
+
 $$
 I = \int_0^{2\pi} \sin(x)\,dx
 $$
 
+</BrowserWindow>
 
 ### More information
 
