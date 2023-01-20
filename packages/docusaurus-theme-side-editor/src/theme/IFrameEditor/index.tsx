@@ -2,6 +2,7 @@ import React, { useRef, useEffect, useId } from "react";
 import type { Props } from "@theme/IFrameEditor";
 import styles from "./styles.module.css";
 import clsx from "clsx";
+import useIsBrowser from "@docusaurus/useIsBrowser";
 
 export default function IFrameEditor(props: Props) {
     const { config, source = {} } = props;
@@ -13,11 +14,13 @@ export default function IFrameEditor(props: Props) {
         className,
         textFieldName = "text",
         messageIdFieldName = "mid",
-        allow = "accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking; serial; bluetooth",
+        allow = "accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; usb; xr-spatial-tracking; serial; bluetooth",
         sandbox = "allow-forms allow-scripts allow-downloads allow-modals allow-popups allow-presentation allow-same-origin allow-scripts",
     } = config;
-    const colorMode = "dark";
-    // TODO    const { colorMode } = useColorMode()
+    const isBrowser = useIsBrowser();
+    const colorMode = isBrowser
+        ? (document.firstElementChild as any).dataset.theme
+        : "dark";
 
     const url = colorMode === "dark" ? darkUrl : lightUrl;
     const frameId = useId();
