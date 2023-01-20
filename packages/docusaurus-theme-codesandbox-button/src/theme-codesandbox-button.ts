@@ -1,6 +1,6 @@
 /// <reference types="@docusaurus/module-type-aliases" />
 
-declare module "@docusaurus/theme-codesandbox-button" {
+declare module "@rise4fun/docusaurus-theme-codesandbox-button" {
     export type ThemeConfig = {};
     export type UserThemeConfig = {};
 

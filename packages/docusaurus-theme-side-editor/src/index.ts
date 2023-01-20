@@ -9,7 +9,7 @@ import type {Plugin} from '@docusaurus/types';
 
 export default function themeCodeSandboxButton(): Plugin<void> {
   return {
-    name: '@rise4fun/docusaurus-theme-codesandbox-button',
+    name: '@rise4fun/docusaurus-theme-side-editor',
 
     getThemePath() {
       return '../lib/theme';

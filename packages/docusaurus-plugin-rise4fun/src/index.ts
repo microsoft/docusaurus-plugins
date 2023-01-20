@@ -31,6 +31,7 @@ export function configure(
         legal,
         codeTabs,
         codeSandboxButton,
+        sideEditor,
     } = options;
 
     // injecting legal terms
@@ -125,6 +126,9 @@ export function configure(
             "@rise4fun/docusaurus-theme-codesandbox-button",
             codeSandboxButton
         );
+
+    if (sideEditor)
+        injectTheme("@rise4fun/docusaurus-theme-side-editor", sideEditor);
 
     // additional languages
     const additionalLanguages: string[] =

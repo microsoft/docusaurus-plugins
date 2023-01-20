@@ -1,0 +1,53 @@
+{
+    "name": "@rise4fun/docusaurus-theme-side-editor",
+    "version": "0.1.0",
+    "description": "Side editor components for Docusaurus.",
+    "main": "lib/index.js",
+    "types": "src/theme-side-editor.d.ts",
+    "sideEffects": false,
+    "exports": {
+        "./lib/*": "./lib/*",
+        "./src/*": "./src/*",
+        "./client": {
+            "type": "./lib/client/index.d.ts",
+            "default": "./lib/client/index.js"
+        },
+        ".": {
+            "types": "./src/theme-side-editor.d.ts",
+            "default": "./lib/index.js"
+        }
+    },
+    "publishConfig": {
+        "access": "public"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/microsoft/docusaurus-plugins-rise4fun.git",
+        "directory": "packages/docusaurus-theme-side-editor"
+    },
+    "license": "MIT",
+    "scripts": {
+        "build": "tsc --build",
+        "watch": "run-p -c copy:watch build:watch",
+        "build:watch": "tsc --build --watch"
+    },
+    "dependencies": {
+        "@docusaurus/core": "^2.2.0",
+        "@docusaurus/types": "^2.2.0",
+        "@docusaurus/utils-validation": "^2.2.0",
+        "@mdx-js/react": "^1.6.22",
+        "clsx": "^1.2.1",
+        "react-resizable-panels": "^0.0.35",
+        "tslib": "^2.4.1"
+    },
+    "devDependencies": {
+        "@types/mdx-js__react": "^1.5.5"
+    },
+    "peerDependencies": {
+        "react": "^16.8.4 || ^17.0.0",
+        "react-dom": "^16.8.4 || ^17.0.0"
+    },
+    "engines": {
+        "node": ">=16.14"
+    }
+}

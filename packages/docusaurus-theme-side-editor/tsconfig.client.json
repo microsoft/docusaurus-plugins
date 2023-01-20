@@ -1,0 +1,17 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "noEmit": false,
+    "composite": true,
+    "incremental": true,
+    "tsBuildInfoFile": "./lib/.tsbuildinfo-client",
+    "rootDir": "src",
+    "outDir": "lib",
+    "module": "esnext",
+    "target": "esnext",
+    "isolatedModules": false,
+    "lib": ["DOM", "ESNext"]
+  },
+  "include": ["src/client", "src/theme", "src/*.d.ts", "src/theme-side-editor.ts"],
+  "exclude": ["**/__tests__/**"]
+}

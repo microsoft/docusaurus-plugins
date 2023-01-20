@@ -32,6 +32,11 @@ export type PluginOptions = {
      * Sets as false to disable CodeSandbox button theme.
      */
     codeSandboxButton?: boolean | object;
+
+    /**
+     * Sets the side editor options
+     */
+    sideEditor?: object;
 };
 
 export type Options = Partial<PluginOptions>;
