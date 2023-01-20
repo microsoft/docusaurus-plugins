@@ -12,12 +12,7 @@ export default function SideEditorButton(props: Props) {
     } = props;
     const { setSource } = useSideEditorContext();
 
-    const handleClick = () => {
-        console.log("setsource", { setSource, editorId, text });
-        setSource(editorId, text);
-    };
-
-    console.log("sidebutton", { setSource });
+    const handleClick = () => setSource(editorId, text);
     return (
         <button
             type="button"

@@ -1,42 +1,47 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useId } from "react";
 import type { Props } from "@theme/IFrameEditor";
 
 import styles from "./styles.module.css";
 import clsx from "clsx";
 
 export default function IFrameEditor(props: Props) {
+    const { config, text } = props;
     const {
         url,
+        message = {},
         className,
+        textFieldName = "text",
+        messageIdFieldName = "mid",
         allow = "accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking; serial; bluetooth",
         sandbox = "allow-forms allow-scripts allow-downloads allow-modals allow-popups allow-presentation allow-same-origin allow-scripts",
-        text = "",
-    } = props;
+    } = config;
 
     const uri = new URL(url);
+    const frameId = useId();
     const targetOrigin = uri.origin;
     const iframeRef = useRef<HTMLIFrameElement | null>(null);
 
-    const postSource = (force: boolean) => {
+    const postSource = () => {
         const iframe = iframeRef.current;
-        const parent = iframe?.contentWindow;
-        if (!parent) return;
+        const editorWindow = iframe?.contentWindow;
+        if (!editorWindow) return;
 
         const id = Math.random() + "";
         const msg = {
-            id,
-            source: "rise4fun",
-            type: "source",
-            text,
+            ...message,
+            [messageIdFieldName]: id,
+            [textFieldName]: text,
         };
-        parent.postMessage(msg, targetOrigin);
+        console.log(`post message`, { msg, targetOrigin });
+        editorWindow.postMessage(msg, targetOrigin);
     };
 
     // when source changes
-    useEffect(() => postSource(true), [url, text]);
+    useEffect(() => postSource(), [url, text]);
 
     return (
         <iframe
+            id={frameId}
             ref={iframeRef}
             className={clsx(styles.iframeEditor, className)}
             allow={allow}

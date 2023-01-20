@@ -31,7 +31,7 @@ export default function SideEditor(props: Props) {
 
     if (!elementType) return children;
 
-    const editorProps = { ...configRest, text };
+    const editorProps = { config, text };
     return (
         <PanelGroup autoSaveId={autoSaveId} direction="horizontal">
             <Panel>{children}</Panel>
