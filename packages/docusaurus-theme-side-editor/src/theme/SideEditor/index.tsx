@@ -1,8 +1,9 @@
-import React, { useContext, useState } from "react";
+import React, { createElement, useContext, useMemo } from "react";
 import type { Props } from "@theme/SideEditor";
 import { Panel, PanelGroup, PanelResizeHandle } from "react-resizable-panels";
 import SideEditorContext from "../../client/SideEditorContext";
 import useSideEditorConfig from "../../client/useSideEditorConfig";
+import IFrameEditor from "@theme/IFrameEditor";
 
 export default function SideEditor(props: Props) {
     const { children } = props;
@@ -12,14 +13,30 @@ export default function SideEditor(props: Props) {
     const autoSaveId = `${persistenceId}/panels`;
 
     // no split
-    if (!editorId) return children;
+    if (!editorId || !config) return children;
 
+    const { type, ...configRest } = config;
     // split enabled
+    const elementType: ((props: any) => JSX.Element) | undefined =
+        useMemo(() => {
+            switch (type) {
+                case "iframe":
+                    return IFrameEditor;
+                default:
+                    return undefined;
+            }
+        }, [type]);
+
+    if (!elementType) return children;
+
+    const editorProps = { ...configRest, text };
     return (
         <PanelGroup autoSaveId={autoSaveId} direction="horizontal">
             <Panel>{children}</Panel>
             <PanelResizeHandle />
-            <Panel collapsible={true}></Panel>
+            <Panel collapsible={true}>
+                {createElement(elementType, editorProps)}
+            </Panel>
         </PanelGroup>
     );
 }

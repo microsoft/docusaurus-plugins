@@ -5,11 +5,16 @@ declare module "@rise4fun/docusaurus-theme-side-editor" {
         sideEditor: SideEditorThemeConfig;
     };
     export interface SideEditorThemeConfig {
-        editors: SideEditorConfig[];
+        editors: IFrameEditorConfig[];
         persistenceId?: string;
     }
     export interface SideEditorConfig {
-        editorId: string;
+        id: string;
+        type: string;
+    }
+    export interface IFrameEditorConfig extends SideEditorConfig {
+        url: string;
+        type: "iframe";
     }
 
     export default function themeSideEditor(): object;
@@ -29,7 +34,21 @@ declare module "@theme/IFrameEditor" {
         className?: string;
         allow?: string;
         sandbox?: string;
+
+        text: string;
     }
 
     export default function IFrameEditor(props: Props): JSX.Element;
+}
+
+declare module "@theme/SideEditorButton" {
+    export interface Props {
+        editorId: string;
+        text: string;
+        className?: string;
+        title?: string;
+        label?: string;
+    }
+
+    export default function SideEditorButton(props: Props): JSX.Element;
 }
