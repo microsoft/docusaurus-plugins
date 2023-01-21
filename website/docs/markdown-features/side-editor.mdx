@@ -3,15 +3,53 @@ id: side-code
 sidebar_position: 6
 ---
 
-import BrowserWindow from '@theme/BrowserWindow';
-import SideEditorButton from '@theme/SideEditorButton';
+import BrowserWindow from "@theme/BrowserWindow";
+import SideEditorButton from "@theme/SideEditorButton";
 
 # Side Editor
 
+This theme adds a collapsible code editor pane which can be populated with the code snippets from the page.
+
+```markdown
+import SideEditorButton from '@theme/SideEditorButton';
+```
+
+```markdown
+<SideEditorButton editorId="devicescript" text={`console.log("hello")`} />
+```
+
 <BrowserWindow>
-<SideEditorButton editorId="devicescript" text={
-`
-console.log("hello")
-`    
-} />
+    <SideEditorButton editorId="devicescript" text={`console.log("hello")`} />
 </BrowserWindow>
+
+## Configure an IFrame editorId
+
+You can configure the theme to load an external editor is designed to be hosted as an iframe.
+
+```js title="./docusaurus.config.js"
+themeConfig: {
+    ...
+    sideEditor: {
+        editors: [
+            {
+                id: "devicescript",
+                type: "iframe",
+                lightUrl: "https://...",
+                darkUrl: "https://...",
+                // docs -> editor message template
+                message: {
+                    channel: "devicescript",
+                    type: "source",
+                    force: true,
+                    startMissingSimulators: true,
+                },
+                messageTextFieldName: "source",
+                // editor -> docs ready message
+                readyMessage: {
+                    channel: "jacdac",
+                },
+            },
+        ],
+    },
+}
+```
