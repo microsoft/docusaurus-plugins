@@ -29,12 +29,12 @@ declare module "@rise4fun/docusaurus-theme-side-editor" {
     export default function themeSideEditor(): object;
 }
 
-declare module "@theme/SideEditor" {
+declare module "@theme/SideEditorRoot" {
     export interface Props {
         children: React.ReactNode;
     }
 
-    export default function SideEditor(props: Props): JSX.Element;
+    export default function SideEditorRoot(props: Props): JSX.Element;
 }
 
 declare module "@theme/IFrameEditor" {

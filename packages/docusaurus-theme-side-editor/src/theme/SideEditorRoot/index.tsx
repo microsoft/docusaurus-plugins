@@ -1,5 +1,5 @@
 import React, { createElement, useContext, useMemo } from "react";
-import type { Props } from "@theme/SideEditor";
+import type { Props } from "@theme/SideEditorRoot";
 import { Panel, PanelGroup, PanelResizeHandle } from "react-resizable-panels";
 import useSideEditorContext from "../../client/SideEditorContext";
 import useSideEditorConfig from "../../client/useSideEditorConfig";
@@ -7,7 +7,7 @@ import IFrameEditor from "@theme/IFrameEditor";
 import BrowserOnly from "@docusaurus/BrowserOnly";
 import ResizeHandle from "./ResizeHandle";
 
-export default function SideEditor(props: Props) {
+export default function SideEditorRoot(props: Props) {
     const { children } = props;
     const { persistenceId = "@rise4fun/sideEditor" } = useSideEditorConfig();
     const { source } = useSideEditorContext();

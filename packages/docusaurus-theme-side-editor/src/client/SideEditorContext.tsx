@@ -1,4 +1,4 @@
-import SideEditor from "@theme/SideEditor";
+import SideEditorRoot from "@theme/SideEditorRoot";
 import React, { createContext, ReactNode, useContext, useState } from "react";
 import type { SideEditorConfig } from "@rise4fun/docusaurus-theme-side-editor";
 import useSideEditorConfig from "./useSideEditorConfig";
@@ -36,7 +36,11 @@ export function SplitEditorProvider(props: { children: ReactNode }) {
 
     return (
         <SideEditorContext.Provider value={{ setSource, source }}>
-            {source !== undefined ? <SideEditor {...props} /> : <>{children}</>}
+            {source !== undefined ? (
+                <SideEditorRoot {...props} />
+            ) : (
+                <>{children}</>
+            )}
         </SideEditorContext.Provider>
     );
 }
