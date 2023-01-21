@@ -17,11 +17,15 @@ const SideEditorCodePanel = lazy(() => import("@theme/SideEditorCodePanel"));
 
 export default function SideEditorRoot(props: Props) {
     const { children } = props;
-    const { persistenceId = "@rise4fun/sideEditor" } = useSideEditorConfig();
+    const { persistenceId } = useSideEditorConfig();
     const { source } = useSideEditorContext();
     const { editorId, config } = source || {};
     const { language } = config || {};
-    const autoSaveId = `${persistenceId}/panels`;
+
+    const autoSaveId = persistenceId
+        ? `${persistenceId}/horizontal`
+        : undefined;
+    const autoSaveIdV = persistenceId ? `${persistenceId}/vertical` : undefined;
 
     // no split
     if (!editorId || !config) return children;
@@ -66,7 +70,10 @@ export default function SideEditorRoot(props: Props) {
                 <ResizeHandle />
                 <Panel collapsible={true}>
                     {language ? (
-                        <PanelGroup direction="vertical">
+                        <PanelGroup
+                            autoSaveId={autoSaveIdV}
+                            direction="vertical"
+                        >
                             <Panel>
                                 <Suspense fallback={null}>
                                     <SideEditorCodePanel />

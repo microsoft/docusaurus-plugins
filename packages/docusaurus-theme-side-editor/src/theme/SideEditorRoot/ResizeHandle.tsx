@@ -23,6 +23,7 @@ export default function ResizeHandle({
             <div
                 className={styles.ResizeHandleInner}
                 data-collapsed={collapsed || undefined}
+                data-direction={direction}
             >
                 ⣿
             </div>

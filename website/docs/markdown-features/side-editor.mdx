@@ -8,8 +8,8 @@ import SideEditorButton from "@theme/SideEditorButton";
 
 # Side Editor
 
-This theme adds a collapsible code editor pane 
-which can be populated with the code snippets 
+This theme adds a collapsible code editor pane
+which can be populated with the code snippets
 from the page.
 
 ## Usage
@@ -45,7 +45,6 @@ themeConfig: {
     }
 }
 ```
-
 
 ## Configure IFrame runner
 
@@ -90,5 +89,24 @@ themeConfig: {
             },
         ],
     },
+}
+```
+
+## Panels position persitence
+
+Provide the `persistenceId` field to serialize the tabs positions accross page reloads.
+
+```js title="./docusaurus.config.js"
+themeConfig: {
+    ...
+    sideEditor: {
+        editors: [
+            {
+                id: "devicescript",
+                // highlight-next-line
+                persistenceId: "devicescript"
+            }
+        ]
+    }
 }
 ```
