@@ -4,9 +4,11 @@ import useSideEditorContext from "../../client/SideEditorContext";
 import useHtmlDataTheme from "../../client/useHtmlDataTheme";
 import type { Props } from "@theme/SideEditorCodePanel";
 
+import styles from "./styles.module.css"
+
 export default function SideEditorCodePanel(props: Props) {
     const { className } = props;
-    const { source } = useSideEditorContext();
+    const { source, setSource } = useSideEditorContext();
     const { editorId, text, config } = source || {};
     const { language = "js" } = config || {};
     const colorMode = useHtmlDataTheme();
@@ -16,7 +18,7 @@ export default function SideEditorCodePanel(props: Props) {
     const [value, setValue] = useState(text || "");
     useEffect(() => {
         setValue(text || "");
-    }, [editorId, source]);
+    }, [editorId, text]);
 
     const handleEditorDidMount = (editor: any, monaco: any) => {
         editorRef.current = editor;
@@ -24,14 +26,29 @@ export default function SideEditorCodePanel(props: Props) {
     const handleEditorChange = (value: string | undefined) =>
         setValue(value || "");
 
+    const handleClick = () => setSource(editorId, value);
     return (
-        <Editor
-            className={className}
-            language={language}
-            value={value}
-            theme={theme}
-            onChange={handleEditorChange}
-            onMount={handleEditorDidMount}
-        />
+        <div className={styles.outer}>
+            <div className={styles.editor}>
+                <Editor
+                    className={className}
+                    language={language}
+                    value={value}
+                    theme={theme}
+                    onChange={handleEditorChange}
+                    onMount={handleEditorDidMount}
+                />
+            </div>
+            <div className={styles.buttons}>
+                <button
+                    type="button"
+                    title="Run tool"
+                    className={className || "button button--primary"}
+                    onClick={handleClick}
+                >
+                    Run
+                </button>
+            </div>
+        </div>
     );
 }

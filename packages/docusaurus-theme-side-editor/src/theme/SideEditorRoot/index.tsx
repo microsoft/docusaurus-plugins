@@ -1,6 +1,7 @@
 import React, {
     createElement,
     lazy,
+    LazyExoticComponent,
     Suspense,
     useContext,
     useMemo,
@@ -9,9 +10,9 @@ import type { Props } from "@theme/SideEditorRoot";
 import { Panel, PanelGroup, PanelResizeHandle } from "react-resizable-panels";
 import useSideEditorContext from "../../client/SideEditorContext";
 import useSideEditorConfig from "../../client/useSideEditorConfig";
-import IFrameEditor from "@theme/IFrameEditor";
 import BrowserOnly from "@docusaurus/BrowserOnly";
 import ResizeHandle from "./ResizeHandle";
+const IFrameEditor = lazy(() => import("@theme/IFrameEditor"));
 const SideEditorCodePanel = lazy(() => import("@theme/SideEditorCodePanel"));
 
 export default function SideEditorRoot(props: Props) {
@@ -27,15 +28,16 @@ export default function SideEditorRoot(props: Props) {
 
     const { type } = config;
     // split enabled
-    const elementType: ((props: any) => JSX.Element) | undefined =
-        useMemo(() => {
-            switch (type) {
-                case "iframe":
-                    return IFrameEditor;
-                default:
-                    return undefined;
-            }
-        }, [type]);
+    const elementType:
+        | LazyExoticComponent<(props: any) => JSX.Element>
+        | undefined = useMemo(() => {
+        switch (type) {
+            case "iframe":
+                return IFrameEditor;
+            default:
+                return undefined;
+        }
+    }, [type]);
 
     if (!elementType) return children;
 
@@ -45,7 +47,9 @@ export default function SideEditorRoot(props: Props) {
         <BrowserOnly>
             {() => (
                 <div style={{ overflow: "auto", height: "100%" }}>
-                    {createElement(elementType, editorProps)}
+                    <Suspense fallback={null}>
+                        {createElement(elementType, editorProps)}
+                    </Suspense>
                 </div>
             )}
         </BrowserOnly>
@@ -68,7 +72,7 @@ export default function SideEditorRoot(props: Props) {
                                     <SideEditorCodePanel />
                                 </Suspense>
                             </Panel>
-                            <ResizeHandle />
+                            <ResizeHandle direction="vertical" />
                             <Panel>{editor}</Panel>
                         </PanelGroup>
                     ) : (
