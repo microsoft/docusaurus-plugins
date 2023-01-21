@@ -8,13 +8,17 @@ import SideEditorButton from "@theme/SideEditorButton";
 
 # Side Editor
 
-This theme adds a collapsible code editor pane which can be populated with the code snippets from the page.
+This theme adds a collapsible code editor pane 
+which can be populated with the code snippets 
+from the page.
 
-```markdown
-import SideEditorButton from '@theme/SideEditorButton';
+## Usage
+
+```jsx
+import SideEditorButton from "@theme/SideEditorButton";
 ```
 
-```markdown
+```jsx
 <SideEditorButton editorId="devicescript" text={`console.log("hello")`} />
 ```
 
@@ -22,9 +26,22 @@ import SideEditorButton from '@theme/SideEditorButton';
     <SideEditorButton editorId="devicescript" text={`console.log("hello")`} />
 </BrowserWindow>
 
-## Configure an IFrame editorId
+## Configure IFrame editor
 
 You can configure the theme to load an external editor is designed to be hosted as an iframe.
+
+The plugin communicates with the IFrame using [messages](https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage)
+and you will also need to configure their format.
+
+```mermaid
+sequenceDiagram
+    Note right of Docs: Editor loaded in IFrame
+    activate Editor
+    Editor->>Docs: Ready message
+    activate Docs
+    Docs->>Editor: New Source message
+    Docs->>Editor: New Source message
+```
 
 ```js title="./docusaurus.config.js"
 themeConfig: {
@@ -32,8 +49,9 @@ themeConfig: {
     sideEditor: {
         editors: [
             {
-                id: "devicescript",
                 type: "iframe",
+                id: "devicescript",
+                // specify different urls for color modes
                 lightUrl: "https://...",
                 darkUrl: "https://...",
                 // docs -> editor message template
