@@ -2,7 +2,8 @@ import React, { useRef, useEffect, useId } from "react";
 import type { Props } from "@theme/IFrameEditor";
 import styles from "./styles.module.css";
 import clsx from "clsx";
-import useIsBrowser from "@docusaurus/useIsBrowser";
+import useHtmlDataTheme from "../../client/useHtmlDataTheme";
+import useBaseUrl from '@docusaurus/useBaseUrl';
 
 export default function IFrameEditor(props: Props) {
     const { config, source = {} } = props;
@@ -18,12 +19,8 @@ export default function IFrameEditor(props: Props) {
         allow = "accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; usb; xr-spatial-tracking; serial; bluetooth",
         sandbox = "allow-forms allow-scripts allow-downloads allow-modals allow-popups allow-presentation allow-same-origin allow-scripts",
     } = config;
-    const isBrowser = useIsBrowser();
-    const colorMode = isBrowser
-        ? (document.firstElementChild as HTMLElement).dataset.theme
-        : "dark";
-
-    const url = colorMode === "dark" ? darkUrl : lightUrl;
+    const colorMode = useHtmlDataTheme();
+    const url = useBaseUrl(colorMode === "dark" ? darkUrl : lightUrl);
     const frameId = useId();
     const iframeRef = useRef<HTMLIFrameElement | null>(null);
 

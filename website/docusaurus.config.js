@@ -81,8 +81,24 @@ async function createConfig() {
                     sideEditor: {
                         editors: [
                             {
+                                id: "msagl",
+                                type: "iframe",
+                                language: "plaintext",
+                                lightUrl: "./editors/msagljs.html?theme=light",
+                                darkUrl: "./editors/msagljs.html?theme=dark",
+                                message: {
+                                    type: "msagl",
+                                },
+                                messageTextFieldName: "dot",
+                                readyMessage: {
+                                    type: "msagl",
+                                    state: "ready",
+                                },
+                            },
+                            {
                                 id: "devicescript",
                                 type: "iframe",
+                                language: "typescript",
                                 lightUrl:
                                     "https://microsoft.github.io/jacdac-docs/editors/devicescript/?devicescriptvm=1&embed=1&footer=0&light=1",
                                 darkUrl:

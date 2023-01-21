@@ -5,12 +5,12 @@ import useSideEditorConfig from "./useSideEditorConfig";
 
 export interface SideEditorSource {
     editorId: string;
-    text: string;
+    text: string | undefined;
     config: SideEditorConfig;
 }
 
 export interface SideEditorProps {
-    setSource: (editorId: string, text: string) => void;
+    setSource: (editorId: string | undefined, text: string | undefined) => void;
     source?: SideEditorSource;
 }
 
@@ -25,9 +25,12 @@ export function SplitEditorProvider(props: { children: ReactNode }) {
     const { editors } = useSideEditorConfig();
 
     const [source, setSource_] = useState<SideEditorSource | undefined>();
-    const setSource = (editorId: string, text: string) => {
+    const setSource = (
+        editorId: string | undefined,
+        text: string | undefined
+    ) => {
         const editorConfig = editors.find(({ id }) => id === editorId);
-        if (!editorConfig) setSource_(undefined);
+        if (!editorId || !editorConfig) setSource_(undefined);
         else {
             const newSource = { editorId, text, config: editorConfig };
             setSource_(newSource);

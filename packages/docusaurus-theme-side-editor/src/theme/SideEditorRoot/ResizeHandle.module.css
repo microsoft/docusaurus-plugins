@@ -30,6 +30,10 @@
     align-items: center;
     font: bold;
   }
+
+  .ResizeHandleInner[data-direction='vertical'] {
+    transform: rotate(90deg);
+  }
   
   .ResizeHandleInner::after {
     height: 1rem;

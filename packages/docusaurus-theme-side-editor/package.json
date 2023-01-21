@@ -37,7 +37,9 @@
         "@docusaurus/types": "^2.2.0",
         "@docusaurus/utils-validation": "^2.2.0",
         "@mdx-js/react": "^1.6.22",
+        "@monaco-editor/react": "^4.4.6",
         "clsx": "^1.2.1",
+        "monaco-editor": "^0.34.1",
         "react-resizable-panels": "^0.0.35",
         "tslib": "^2.4.1"
     },
