@@ -26,21 +26,42 @@ import SideEditorButton from "@theme/SideEditorButton";
     <SideEditorButton editorId="devicescript" text={`console.log("hello")`} />
 </BrowserWindow>
 
-## Configure IFrame editor
+## Configure Monaco editor
 
-You can configure the theme to load an external editor is designed to be hosted as an iframe.
+You can specify the [monaco editor language](https://microsoft.github.io/monaco-editor/)
+to enable the Monaco editor.
+
+```js title="./docusaurus.config.js"
+themeConfig: {
+    ...
+    sideEditor: {
+        editors: [
+            {
+                id: "devicescript",
+                // highlight-next-line
+                language: "typescript"
+            }
+        ]
+    }
+}
+```
+
+
+## Configure IFrame runner
+
+You can configure the theme to load an external iframe.
 
 The plugin communicates with the IFrame using [messages](https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage)
 and you will also need to configure their format.
 
 ```mermaid
 sequenceDiagram
-    Note right of Docs: Editor loaded in IFrame
-    activate Editor
-    Editor->>Docs: Ready message
+    Note right of Docs: IFrame loaded
+    activate IFrame
+    IFrame->>Docs: Ready message
     activate Docs
-    Docs->>Editor: New Source message
-    Docs->>Editor: New Source message
+    Docs->>IFrame: New Source message
+    Docs->>IFrame: New Source message
 ```
 
 ```js title="./docusaurus.config.js"
