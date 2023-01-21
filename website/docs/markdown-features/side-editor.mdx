@@ -46,9 +46,11 @@ themeConfig: {
 }
 ```
 
-## Configure IFrame runner
+## Configuration
 
-You can configure the theme to load an external iframe.
+### IFrame runner
+
+You can configure the theme to load an external iframe. This is the recommended way to integrate your tool
 
 The plugin communicates with the IFrame using [messages](https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage)
 and you will also need to configure their format.
@@ -92,7 +94,83 @@ themeConfig: {
 }
 ```
 
-## Panels position persitence
+### Local IFrame
+
+It's also possible to deploy your tool HTML along with Docusaurus by placing the sources in the `website/static/editors` folder.
+For example, the `msagljs` tool is wrapped as `static/editors/msagl.html`.
+
+```html title="./static/editors/msagl.html"
+<html>
+    <script src="https://unpkg.com/msagl-js@latest/dist.min.js"></script>
+    <script src="https://unpkg.com/@msagl/parser@latest/dist.min.js"></script>
+    <script src="https://unpkg.com/@msagl/renderer@latest/dist.min.js"></script>
+    <body>
+        <script type="module">
+            const renderer = new msagl.Renderer();
+            // handle rendering of dot sources
+            window.addEventListener("message", (ev) => {
+                const { type, dot } = ev.data
+                if (type === 'msagl') {
+                    const graph = msagl.parseDot(dot);
+                    renderer.setGraph(graph);
+                }
+            })
+            // tell parent, we're ready
+            if (window.parent && window.parent !== window)
+                window.parent.postMessage({
+                    type: 'msagl',
+                    state: 'ready'
+                })
+        </script>
+    </body>
+</html>
+```
+
+```js title="./docusaurus.config.js"
+themeConfig: {
+    ...
+    sideEditor: {
+        editors: [
+            {
+                id: "msagl",
+                lightUrl: "./editors/msagl.html?theme=light",
+                darkUrl: "./editors/msagl.html?theme=dark",
+                ...
+            },
+            ...
+        ]
+    }
+}
+```
+
+```markdown
+    <SideEditorButton
+        editorId="msagl"
+        text={`graph G {
+    kspacey -- swilliams;
+    swilliams -- kbacon;
+    bpitt -- kbacon;
+    hford -- lwilson;
+    lwilson -- kbacon;
+
+}`}
+/>
+```
+
+<BrowserWindow>
+    <SideEditorButton
+        editorId="msagl"
+        text={`graph G {
+	kspacey -- swilliams;
+	swilliams -- kbacon;
+	bpitt -- kbacon;
+	hford -- lwilson;
+	lwilson -- kbacon;
+}`}
+    />
+</BrowserWindow>
+
+### Panels position persitence
 
 Provide the `persistenceId` field to serialize the tabs positions accross page reloads.
 

@@ -81,6 +81,21 @@ async function createConfig() {
                     sideEditor: {
                         editors: [
                             {
+                                id: "msagl",
+                                type: "iframe",
+                                language: "plaintext",
+                                lightUrl: "./editors/msagljs.html?theme=light",
+                                darkUrl: "./editors/msagljs.html?theme=dark",
+                                message: {
+                                    type: "msagl",
+                                },
+                                messageTextFieldName: "dot",
+                                readyMessage: {
+                                    type: "msagl",
+                                    state: "ready",
+                                },
+                            },
+                            {
                                 id: "devicescript",
                                 type: "iframe",
                                 language: "typescript",

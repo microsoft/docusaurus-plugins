@@ -3,6 +3,7 @@ import type { Props } from "@theme/IFrameEditor";
 import styles from "./styles.module.css";
 import clsx from "clsx";
 import useHtmlDataTheme from "../../client/useHtmlDataTheme";
+import useBaseUrl from '@docusaurus/useBaseUrl';
 
 export default function IFrameEditor(props: Props) {
     const { config, source = {} } = props;
@@ -19,7 +20,7 @@ export default function IFrameEditor(props: Props) {
         sandbox = "allow-forms allow-scripts allow-downloads allow-modals allow-popups allow-presentation allow-same-origin allow-scripts",
     } = config;
     const colorMode = useHtmlDataTheme();
-    const url = colorMode === "dark" ? darkUrl : lightUrl;
+    const url = useBaseUrl(colorMode === "dark" ? darkUrl : lightUrl);
     const frameId = useId();
     const iframeRef = useRef<HTMLIFrameElement | null>(null);
 
