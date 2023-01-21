@@ -11,7 +11,10 @@ declare module "@rise4fun/docusaurus-theme-side-editor" {
     export interface SideEditorConfig {
         id: string;
         type: string;
+
+        language?: string;
     }
+
     export interface IFrameEditorConfig extends SideEditorConfig {
         lightUrl: string;
         darkUrl: string;
@@ -59,6 +62,10 @@ declare module "@theme/SideEditorButton" {
     export default function SideEditorButton(props: Props): JSX.Element;
 }
 
-declare module "@theme/Root" {
-    export default function SideEditorButton(props: any): JSX.Element;
+declare module "@theme/SideEditorCodePanel" {
+    export interface Props {
+        className?: string;
+    }
+
+    export default function SideEditorCodePanel(props: Props): JSX.Element;
 }

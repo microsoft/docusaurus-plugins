@@ -1,4 +1,10 @@
-import React, { createElement, useContext, useMemo } from "react";
+import React, {
+    createElement,
+    lazy,
+    Suspense,
+    useContext,
+    useMemo,
+} from "react";
 import type { Props } from "@theme/SideEditorRoot";
 import { Panel, PanelGroup, PanelResizeHandle } from "react-resizable-panels";
 import useSideEditorContext from "../../client/SideEditorContext";
@@ -6,12 +12,14 @@ import useSideEditorConfig from "../../client/useSideEditorConfig";
 import IFrameEditor from "@theme/IFrameEditor";
 import BrowserOnly from "@docusaurus/BrowserOnly";
 import ResizeHandle from "./ResizeHandle";
+const SideEditorCodePanel = lazy(() => import("@theme/SideEditorCodePanel"));
 
 export default function SideEditorRoot(props: Props) {
     const { children } = props;
     const { persistenceId = "@rise4fun/sideEditor" } = useSideEditorConfig();
     const { source } = useSideEditorContext();
     const { editorId, config } = source || {};
+    const { language } = config || {};
     const autoSaveId = `${persistenceId}/panels`;
 
     // no split
@@ -32,6 +40,17 @@ export default function SideEditorRoot(props: Props) {
     if (!elementType) return children;
 
     const editorProps = { config, source };
+
+    const editor = (
+        <BrowserOnly>
+            {() => (
+                <div style={{ overflow: "auto", height: "100%" }}>
+                    {createElement(elementType, editorProps)}
+                </div>
+            )}
+        </BrowserOnly>
+    );
+
     return (
         <div style={{ height: "100vh" }}>
             <PanelGroup autoSaveId={autoSaveId} direction="horizontal">
@@ -42,13 +61,19 @@ export default function SideEditorRoot(props: Props) {
                 </Panel>
                 <ResizeHandle />
                 <Panel collapsible={true}>
-                    <BrowserOnly>
-                        {() => (
-                            <div style={{ overflow: "auto", height: "100%" }}>
-                                {createElement(elementType, editorProps)}
-                            </div>
-                        )}
-                    </BrowserOnly>
+                    {language ? (
+                        <PanelGroup direction="vertical">
+                            <Panel>
+                                <Suspense fallback={null}>
+                                    <SideEditorCodePanel />
+                                </Suspense>
+                            </Panel>
+                            <ResizeHandle />
+                            <Panel>{editor}</Panel>
+                        </PanelGroup>
+                    ) : (
+                        editor
+                    )}
                 </Panel>
             </PanelGroup>
         </div>
