@@ -27,6 +27,7 @@
         "@rise4fun/docusaurus-plugin-application-insights": "*",
         "@rise4fun/docusaurus-remark-plugin-compile-code": "*",
         "@rise4fun/docusaurus-remark-plugin-code-tabs": "*",
+        "@rise4fun/docusaurus-remark-plugin-side-editor": "*",
         "@rise4fun/docusaurus-theme-codesandbox-button": "*",
         "@rise4fun/docusaurus-theme-side-editor": "*",
         "hast-util-is-element": "1.1.0",

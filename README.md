@@ -1,6 +1,33 @@
-# Docusaurus plugins for rise4fun
+# Rise4fun Docusaurus plugins
 
 This repository contains plugins for Docusaurus to support creating rich documentation for programming languages tools.
+
+-   [Read the documentation](https://microsoft.github.io/docusaurus-plugins-rise4fun).
+
+## Development
+
+Install node v18+, yarn and run the install script.
+
+```bash
+yarn install
+```
+
+To build plugins and final web site,
+
+```bash
+yarn build
+```
+
+To run a local development server,
+
+```bash
+yarn start
+```
+
+To create releases, use the semantic release commit syntax
+
+-   `feat: ...` for a minor version bump
+-   `fix: ...` for a patch version bump
 
 ## Contributing
 

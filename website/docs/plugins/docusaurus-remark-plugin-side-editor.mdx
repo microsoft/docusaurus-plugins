@@ -1,0 +1,50 @@
+---
+sidebar_position: 5
+---
+import BrowserWindow from '@site/src/theme/BrowserWindow'
+
+# Remark plugin side editor
+
+Injects a `Run` button to open the snippet source in a side editor.
+
+<BrowserWindow>
+
+```msagl edit
+graph G {
+    kspacey -- swilliams;
+    swilliams -- kbacon;
+    bpitt -- kbacon;
+    hford -- lwilson;
+    lwilson -- kbacon;
+
+}
+```
+
+</BrowserWindow>
+
+## Usage
+
+Read the [Side Editor documentation](/docs/markdown-features/side-editor).
+
+## Configuration
+
+Install the [side editor theme](./docusaurus-theme-side-editor), then install the remark plugin
+
+```bash npm2yarn
+npm install @rise4fun/docusaurus-remark-side-editor
+```
+
+and add to your `docusaurus.configuration.js` file as other remark plugins.
+
+```js
+const config = {
+    plugins: [
+        ...,
+        // highlight-start
+        ["@rise4fun/docusaurus-remark-side-editor", {
+
+        }]
+        // highlight-end
+    ]
+}
+```
