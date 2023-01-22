@@ -4,6 +4,7 @@ import appInsightPlugin from "@rise4fun/docusaurus-plugin-application-insights";
 import npm2yarnPlugin from "@docusaurus/remark-plugin-npm2yarn";
 import compileCodePlugin from "@rise4fun/docusaurus-remark-plugin-compile-code";
 import codeTabsPlugin from "@rise4fun/docusaurus-remark-plugin-code-tabs";
+import sideEditorPlugin from "@rise4fun/docusaurus-remark-plugin-side-editor"
 
 const mathPlugin = require("remark-math");
 const katexPlugin = require("rehype-katex");
@@ -129,6 +130,7 @@ export function configure(
 
     if (sideEditor) {
         injectTheme("@rise4fun/docusaurus-theme-side-editor", sideEditor);
+        injectBeforeDefaultRemarkPlugin(sideEditorPlugin, sideEditor)
     }
 
     // additional languages
@@ -143,7 +145,7 @@ export function configure(
     }
 
     if (codeTabs !== false) {
-        injectBeforeDefaultRemarkPlugin(codeTabsPlugin, {});
+        injectBeforeDefaultRemarkPlugin(codeTabsPlugin, codeTabs);
     }
 
     Array.from(extraPrismLanguages.values())

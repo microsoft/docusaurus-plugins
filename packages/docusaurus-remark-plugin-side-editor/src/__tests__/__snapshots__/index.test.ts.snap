@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`code-tabs plugin works on edit file 1`] = `
+"import SideEditorButton from '@theme/SideEditorButton';
+
+Show edit button
+
+\`\`\`js edit
+console.log('edit this!')
+\`\`\`
+
+<SideEditorButton editorId={"js"} text={"console.log('edit this!')"} />
+
+and that 
+
+\`\`\`js edit=someeditor
+console.log('edit this!')
+\`\`\`
+
+<SideEditorButton editorId={"someeditor"} text={"console.log('edit this!')"} />
+
+\`\`\`ts edit
+console.log('edit this!')
+\`\`\`
+
+<SideEditorButton editorId={"typescript"} text={"console.log('edit this!')"} />
+"
+`;

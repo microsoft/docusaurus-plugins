@@ -10,7 +10,30 @@ Allows to run a compiler on snippets at build time and inject the generated outp
 
 ## Usage
 
-After configuring the plugin for your language snippets, the rest of the process is fully automated.
+After configuring the plugin for your language snippets, the plugin will automatically run your tool
+and insert the output in the generate web page.
+
+````markdown
+```z3wasm
+(declare-const a Int)
+(declare-fun f (Int Bool) Int)
+(assert (= a 10))
+(assert (= (f a true) 100))
+(check-sat)
+```
+````
+
+<BrowserWindow>
+
+```z3wasm
+(declare-const a Int)
+(declare-fun f (Int Bool) Int)
+(assert (= a 10))
+(assert (= (f a true) 100))
+(check-sat)
+```
+
+</BrowserWindow>
 
 ## Configuration
 

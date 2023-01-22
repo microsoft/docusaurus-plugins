@@ -24,11 +24,11 @@ const FeatureList: FeatureItem[] = [
         title: "Battery included for CS",
         Svg: require("@site/static/img/undraw_docusaurus_tree.svg").default,
         description: (
-            <>Out of the box, accessibility, analytics, math, diagrams.</>
+            <>Out of the box, accessibility, analytics, math, diagrams, ...</>
         ),
     },
     {
-        title: "Test Every Code Snippet",
+        title: "Build Code Snippets",
         Svg: require("@site/static/img/undraw_docusaurus_tree.svg").default,
         description: (
             <>
@@ -41,7 +41,10 @@ const FeatureList: FeatureItem[] = [
         title: "Live Code Editing",
         Svg: require("@site/static/img/undraw_docusaurus_tree.svg").default,
         description: (
-            <>Seamlessly run your tool on client with a rich coding experience.</>
+            <>
+                Seamlessly run your tool on client with a rich coding
+                experience.
+            </>
         ),
     },
     {
@@ -50,7 +53,17 @@ const FeatureList: FeatureItem[] = [
         description: (
             <>
                 Designed for open source tools on GitHub, tested on GitHub
-                Actinos and hosted on Github Pages.
+                Actions and hosted on Github Pages.
+            </>
+        ),
+    },
+    {
+        title: "Customizable through MDX",
+        Svg: require("@site/static/img/undraw_docusaurus_react.svg").default,
+        description: (
+            <>
+                Add that last level of custom support through the flexibility of
+                React and MDX.
             </>
         ),
     },

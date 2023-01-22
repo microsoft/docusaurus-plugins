@@ -4,9 +4,30 @@ sidebar_position: 3
 
 import CodeSandboxButton from "@theme/CodeSandboxButton";
 
-# Theme Side Editor
+# Theme side editor
 
 A Docusaurus theme component that loads a code editor in a split pane.
+
+## Usage
+
+Read the [Side Editor documentation](/docs/markdown-features/side-editor).
+
+You can also inject the button using MDX. Add the global import at the start of the `.mdx` file.
+
+```jsx
+import SideEditorButton from "@theme/SideEditorButton";
+```
+
+Then use the `SideEditorButton` element in your page.
+
+```jsx
+<SideEditorButton editorId="devicescript" text={`console.log("hello")`} />
+```
+
+<BrowserWindow>
+    <SideEditorButton editorId="devicescript" text={`console.log("hello")`} />
+</BrowserWindow>
+
 
 ## Configuration
 
@@ -29,5 +50,3 @@ const config = {
     ]
 }
 ```
-
-## Usage

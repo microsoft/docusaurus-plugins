@@ -1,5 +1,5 @@
 ---
-id: side-code
+id: side-editor
 sidebar_position: 6
 ---
 
@@ -14,37 +14,33 @@ from the page.
 
 ## Usage
 
-```jsx
-import SideEditorButton from "@theme/SideEditorButton";
-```
+Add the **edit** meta to a code snippet to inject a `Edit` button that loads the source in the side editor.
 
-```jsx
-<SideEditorButton editorId="devicescript" text={`console.log("hello")`} />
-```
-
-<BrowserWindow>
-    <SideEditorButton editorId="devicescript" text={`console.log("hello")`} />
-</BrowserWindow>
-
-## Configure Monaco editor
-
-You can specify the [monaco editor language](https://microsoft.github.io/monaco-editor/)
-to enable the Monaco editor.
-
-```js title="./docusaurus.config.js"
-themeConfig: {
-    ...
-    sideEditor: {
-        editors: [
-            {
-                id: "devicescript",
-                // highlight-next-line
-                language: "typescript"
-            }
-        ]
-    }
+````markdown
+```msagl edit
+graph G {
+    kspacey -- swilliams;
+    swilliams -- kbacon;
+    bpitt -- kbacon;
+    hford -- lwilson;
+    lwilson -- kbacon;
 }
 ```
+````
+
+<BrowserWindow>
+
+```msagl edit
+graph G {
+    kspacey -- swilliams;
+    swilliams -- kbacon;
+    bpitt -- kbacon;
+    hford -- lwilson;
+    lwilson -- kbacon;
+}
+```
+
+</BrowserWindow>
 
 ## Configuration
 
@@ -94,10 +90,10 @@ themeConfig: {
 }
 ```
 
-### Local IFrame
+### Static IFrame
 
-It's also possible to deploy your tool HTML along with Docusaurus by placing the sources in the `website/static/editors` folder.
-For example, the `msagljs` tool is wrapped as `static/editors/msagl.html`.
+It's also possible to deploy your tool HTML along with Docusaurus by placing the sources in the `./static/editors` folder.
+For example, the `msagljs` tool is wrapped as `./static/editors/msagl.html`.
 
 ```html title="./static/editors/msagl.html"
 <html>
@@ -143,32 +139,48 @@ themeConfig: {
 }
 ```
 
-```markdown
-    <SideEditorButton
-        editorId="msagl"
-        text={`graph G {
-    kspacey -- swilliams;
-    swilliams -- kbacon;
-    bpitt -- kbacon;
-    hford -- lwilson;
-    lwilson -- kbacon;
+### Monaco editor
 
-}`}
-/>
+You can specify the [monaco editor language](https://microsoft.github.io/monaco-editor/)
+to enable the Monaco editor.
+
+```js title="./docusaurus.config.js"
+themeConfig: {
+    ...
+    sideEditor: {
+        editors: [
+            {
+                id: "devicescript",
+                // highlight-next-line
+                language: "typescript"
+            }
+        ]
+    }
+}
 ```
 
-<BrowserWindow>
-    <SideEditorButton
-        editorId="msagl"
-        text={`graph G {
-	kspacey -- swilliams;
-	swilliams -- kbacon;
-	bpitt -- kbacon;
-	hford -- lwilson;
-	lwilson -- kbacon;
-}`}
-    />
-</BrowserWindow>
+### Lang to editor mapping
+
+You can provide a mapping from code language code to editor id.
+
+```js title="./docusaurus.config.js"
+themeConfig: {
+    ...
+    sideEditor: {
+        // highlight-start
+        languages: {
+            "ds": "devicescript"
+        },
+        // highlight-end
+        editors: [
+            {
+                id: "devicescript",
+                ...
+            }
+        ]
+    }
+}
+```
 
 ### Panels position persitence
 

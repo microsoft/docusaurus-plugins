@@ -11,7 +11,8 @@
         "clear": "nx run-many --target=clear && nx reset",
         "build": "nx run-many --target=build",
         "watch": "nx run-many --target=watch",
-        "test": "nx run-many --target=test"
+        "test": "nx run-many --target=test",
+        "start": "cd website && yarn start"
     },
     "release": {
         "branches": [
