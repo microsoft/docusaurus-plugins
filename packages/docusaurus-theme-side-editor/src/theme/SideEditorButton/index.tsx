@@ -1,6 +1,9 @@
 import React, { useContext } from "react";
 import type { Props } from "@theme/SideEditorButton";
 import useSideEditorContext from "../../client/SideEditorContext";
+import clsx from "clsx";
+
+import styles from "./styles.module.css";
 
 export default function SideEditorButton(props: Props) {
     const {
@@ -17,7 +20,11 @@ export default function SideEditorButton(props: Props) {
         <button
             type="button"
             title={title}
-            className={className || "button button--primary"}
+            className={clsx(
+                "button",
+                styles.hidemobile,
+                className || "button--primary"
+            )}
             onClick={handleClick}
         >
             {label}
