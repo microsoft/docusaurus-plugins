@@ -29,7 +29,7 @@ ts
 
 </Tabs>
 
-<CodeSandboxButton startFile="main.js" files={{"package.json":{"content":{"dependencies":{}}},"sandbox.config.json":{"content":{"template":"node","view":"terminal","container":{"node":"18"}}},"main.js":{"content":"js"},"main.ts":{"content":"ts"}}} />
+<CodeSandboxButton startFile="main.js" files={{"main.js":{"content":"js"},"main.ts":{"content":"ts"}}} template={""} />
 
 Codesandbox alone
 
@@ -37,7 +37,7 @@ Codesandbox alone
 js
 \`\`\`
 
-<CodeSandboxButton startFile="main.js" files={{"package.json":{"content":{"dependencies":{}}},"sandbox.config.json":{"content":{"template":"node","view":"terminal","container":{"node":"18"}}},"main.js":{"content":"js"}}} />
+<CodeSandboxButton startFile="main.js" files={{"main.js":{"content":"js"}}} template={""} />
 "
 `;
 
@@ -107,7 +107,7 @@ And now with codesandbox
 ts
 \`\`\`
 
-<CodeSandboxButton startFile="main.js" files={{"package.json":{"content":{"dependencies":{}}},"sandbox.config.json":{"content":{"template":"node","view":"terminal","container":{"node":"18"}}},"main.js":{"content":"ts"}}} />
+<CodeSandboxButton startFile="main.js" files={{"main.js":{"content":"ts"}}} template={""} />
 "
 `;
 
