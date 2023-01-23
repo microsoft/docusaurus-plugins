@@ -26,3 +26,56 @@ console.log("hello");
 ## Multiple files
 
 Use [code tabs](./code-tabs) to create sandboxes with multiple files.
+
+## Templates
+
+By default, rise4fun will use an empty node.js template. You can provide additional named templates.
+
+````markdown
+```tsx codesandbox=react
+export default () => null;
+```
+````
+
+<BrowserWindow>
+
+```tsx codesandbox=react
+export default () => null;
+```
+
+</BrowserWindow>
+
+The `react` template is configured in your `docusaurus.config.js` file
+using the same format as described in the [CodeSandbox API](https://codesandbox.io/docs/learn/getting-started/your-first-sandbox#how-it-works).
+
+The default template is `default` and can also be overriden.
+
+```js title="./docusaurus.config.js"
+const config = configure({
+    ...
+}, {
+    codeSandbox: {
+        templates: {
+            react: {
+                files: {
+                    "package.json": {
+                        content: {
+                            name: "react",
+                            ...
+                        },
+                    },
+                    "sandbox.config.json": {
+                        content: {
+                            template: "node",
+                            view: "terminal",
+                            container: {
+                                node: "18",
+                            },
+                        },
+                    },
+                },
+            },
+        },
+    },
+})
+```

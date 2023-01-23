@@ -31,7 +31,7 @@ export function configure(
         mermaid,
         legal,
         codeTabs,
-        codeSandboxButton,
+        codeSandbox,
         sideEditor,
     } = options;
 
@@ -128,11 +128,14 @@ export function configure(
         if (typeof mermaid === "object") themeConfig.mermaid = mermaid;
     }
 
-    if (codeSandboxButton !== false)
+    if (codeSandbox !== false) {
         injectTheme(
             "@rise4fun/docusaurus-theme-codesandbox-button",
-            codeSandboxButton
+            codeSandbox
         );
+        if (!themeConfig.codeSandbox)
+            themeConfig.codeSandbox = codeSandbox;
+    }
 
     // copy over side editor
     if (!themeConfig.sideEditor) themeConfig.sideEditor = sideEditor;

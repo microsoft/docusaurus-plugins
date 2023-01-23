@@ -283,26 +283,6 @@ const PRISM_LANGUAGES: Record<string, string> = {
     zig: "Zig",
 };
 
-const DEFAULT_CODESANDBOX = "node";
-const CODESANDBOXES: Record<string, object> = {
-    [DEFAULT_CODESANDBOX]: {
-        "package.json": {
-            content: {
-                dependencies: {},
-            },
-        },
-        "sandbox.config.json": {
-            content: {
-                template: "node",
-                view: "terminal",
-                container: {
-                    node: "18",
-                },
-            },
-        },
-    },
-};
-
 function parseMeta<T>(node: Code) {
     const r = parse(node.meta || "", " ");
     Object.keys(r).forEach((k) => (r[k] = fromAttributeValue(r[k])));
@@ -345,7 +325,7 @@ function toAttributeValue(s: string | undefined) {
 }
 
 const plugin: Plugin<[PluginOptions?]> = (options = undefined) => {
-    const { languages, codesandboxes } = options || {};
+    const { langTitles } = options || {};
 
     return async (root, vfile) => {
         let needsTabsImport = false;
@@ -398,7 +378,7 @@ const plugin: Plugin<[PluginOptions?]> = (options = undefined) => {
                             file || title || lang
                         )}} label={${toAttributeValue(
                             title ||
-                                languages?.[lang || ""] ||
+                                langTitles?.[lang || ""] ||
                                 PRISM_LANGUAGES[lang || ""] ||
                                 undefined
                         )}}>`,
@@ -423,8 +403,6 @@ const plugin: Plugin<[PluginOptions?]> = (options = undefined) => {
 
             // handle code sandbox
             if (codesandbox !== undefined) {
-                const templateFiles =
-                    CODESANDBOXES[codesandbox || DEFAULT_CODESANDBOX];
                 const files: Record<string, object> = {};
                 codes.forEach((c) => {
                     const { lang, value } = c;
@@ -443,9 +421,8 @@ const plugin: Plugin<[PluginOptions?]> = (options = undefined) => {
                     value: `<CodeSandboxButton startFile=${JSON.stringify(
                         startFile
                     )} files={${JSON.stringify({
-                        ...templateFiles,
                         ...files,
-                    })}} />`,
+                    })}} template={${JSON.stringify(codesandbox)}} />`,
                 } as any);
                 needsCodeSandboxImport = true;
             }

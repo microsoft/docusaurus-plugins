@@ -1,18 +1,62 @@
 import React, { useState } from "react";
 import type { Props } from "@theme/CodeSandboxButton";
 import clsx from "clsx";
-
+import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 import styles from "./styles.module.css";
+import type {
+    CodeSandboxOptions,
+    ThemeConfig,
+} from "@rise4fun/docusaurus-theme-codesandbox-button";
+
+const DEFAULT_CODESANDBOX = "default";
+const CODESANDBOXES: Record<string, CodeSandboxOptions> = {
+    [DEFAULT_CODESANDBOX]: {
+        files: {
+            "package.json": {
+                content: {
+                    dependencies: {},
+                },
+            },
+            "sandbox.config.json": {
+                content: {
+                    template: "node",
+                    view: "terminal",
+                    container: {
+                        node: "18",
+                    },
+                },
+            },
+        },
+    },
+};
 
 export default function CodeSandboxButton(props: Props) {
-    const { className, files, startFile, label = "CodeSandbox" } = props;
+    const { siteConfig } = useDocusaurusContext();
+    const { themeConfig } = siteConfig;
+    const { codeSandbox = {} } = themeConfig as ThemeConfig;
+    const { templates, defaultTemplate } = codeSandbox;
+    const {
+        className,
+        files,
+        startFile,
+        template = defaultTemplate || DEFAULT_CODESANDBOX,
+        label = "CodeSandbox",
+    } = props;
+    const sandbox =
+        templates?.[template] ||
+        CODESANDBOXES[template] ||
+        CODESANDBOXES[DEFAULT_CODESANDBOX];
+    console.log({ sandbox });
     const [error, setError] = useState<string | undefined>();
     const [importing, setImporting] = useState(false);
 
     const handleClick = async () => {
         const f = files;
         const body = JSON.stringify({
-            files: f,
+            files: {
+                ...(sandbox?.files || {}),
+                ...f,
+            },
         });
         try {
             setError(undefined);
@@ -52,7 +96,8 @@ export default function CodeSandboxButton(props: Props) {
             className={clsx(
                 "button",
                 styles.hidemobile,
-                className || "button--primary"
+                styles.mr1,
+                className || "button--secondary"
             )}
             onClick={handleClick}
             disabled={importing}

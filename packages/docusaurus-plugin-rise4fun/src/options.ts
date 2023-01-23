@@ -2,7 +2,7 @@ import type { ApplicationInsightsOptions } from "@rise4fun/docusaurus-plugin-app
 import type { PluginOptions as CompileCodePluginOptions } from "@rise4fun/docusaurus-remark-plugin-compile-code";
 import type { PluginOptions as CodeTabsPluginOptions } from "@rise4fun/docusaurus-remark-plugin-code-tabs";
 import type { PluginOptions as SideEditorRemarkPluginOptions } from "@rise4fun/docusaurus-remark-plugin-side-editor";
-import type { SideEditorThemeConfig} from "@rise4fun/docusaurus-theme-side-editor"
+import type { SideEditorThemeConfig } from "@rise4fun/docusaurus-theme-side-editor";
 
 export type PluginOptions = {
     /**
@@ -34,7 +34,7 @@ export type PluginOptions = {
     /**
      * Sets as false to disable CodeSandbox button theme.
      */
-    codeSandboxButton?: false | CodeTabsPluginOptions;
+    codeSandbox?: false | CodeTabsPluginOptions;
 
     /**
      * Sets the side editor options

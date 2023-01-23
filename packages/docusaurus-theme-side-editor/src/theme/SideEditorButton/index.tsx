@@ -23,6 +23,7 @@ export default function SideEditorButton(props: Props) {
             className={clsx(
                 "button",
                 styles.hidemobile,
+                styles.mr1,
                 className || "button--primary"
             )}
             onClick={handleClick}

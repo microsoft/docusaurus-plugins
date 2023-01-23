@@ -86,6 +86,59 @@ async function createConfig() {
             appInsights: {
                 instrumentationKey: "ec147bad-05d9-4959-922d-e5fc3dd0930b",
             },
+            codeTabs: {
+                langTitles: {
+                    yacl: "Yet another cool language",
+                },
+            },
+            codeSandbox: {
+                templates: {
+                    react: {
+                        files: {
+                            "package.json": {
+                                content: {
+                                    name: "react",
+                                    version: "1.0.0",
+                                    description:
+                                        "React example starter project",
+                                    keywords: ["react", "starter"],
+                                    main: "src/index.js",
+                                    dependencies: {
+                                        react: "18.2.0",
+                                        "react-dom": "18.2.0",
+                                        "react-scripts": "4.0.0",
+                                    },
+                                    devDependencies: {
+                                        "@babel/runtime": "7.13.8",
+                                        typescript: "4.1.3",
+                                    },
+                                    scripts: {
+                                        start: "react-scripts start",
+                                        build: "react-scripts build",
+                                        test: "react-scripts test --env=jsdom",
+                                        eject: "react-scripts eject",
+                                    },
+                                    browserslist: [
+                                        ">0.2%",
+                                        "not dead",
+                                        "not ie <= 11",
+                                        "not op_mini all",
+                                    ],
+                                },
+                            },
+                            "sandbox.config.json": {
+                                content: {
+                                    template: "node",
+                                    view: "terminal",
+                                    container: {
+                                        node: "18",
+                                    },
+                                },
+                            },
+                        },
+                    },
+                },
+            },
             compileCode: {
                 langs: [
                     {

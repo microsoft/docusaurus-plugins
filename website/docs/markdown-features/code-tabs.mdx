@@ -2,12 +2,11 @@
 sidebar_position: 4
 ---
 
-import BrowserWindow from '@site/src/theme/BrowserWindow'
+import BrowserWindow from "@site/src/theme/BrowserWindow";
 
 # Code Tabs
 
 Groups sequences of code section into a single tabbed element, with optional CodeSandbox button.
-
 
 ## Usage
 
@@ -121,7 +120,7 @@ const add = (a: number, b: number) => a + b;
 
 ## CodeSandbox button
 
-Display a CodeSandbox button that create and opens a new project 
+Display a CodeSandbox button that create and opens a new project
 on [codesandbox.io](https://codesandbox.io) with the files. By default, creates a `node 18` sandbox.
 
 ````markdown
@@ -149,13 +148,15 @@ const sub = (a, b) => a - b;
 ## Configuration
 
 This [plugin](/docs/plugins/docusaurus-remark-plugin-code-tabs) is automatically injected by the rise4fun plugins.
+
+### Language titles
+
 If you are providing new language code that are not covered by prims, you can provide map of names.
 
 ```js title="docusaurus.config.js"
 const config = configure({
     ...
 }, {
-    // rise4fun configuration
     ...
     // highlight-start
     codeTabs: {
@@ -166,3 +167,15 @@ const config = configure({
     // highlight-end
 })
 ```
+
+```yacl tabs
+vir y = 0
+```
+
+```js
+let x = 0;
+```
+
+### CodeSandbox
+
+Make sure to configure the [CodeSandbox button](./codesandbox-button) plugin.
