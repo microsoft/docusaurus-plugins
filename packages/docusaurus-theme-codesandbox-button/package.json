@@ -33,7 +33,8 @@
     "scripts": {
         "build": "tsc --build && node ../../admin/scripts/copyUntypedFiles.mjs",
         "watch": "run-p -c copy:watch build:watch",
-        "build:watch": "tsc --build --watch"
+        "build:watch": "tsc --build --watch",
+        "clear": "rm -Rf ./lib"
     },
     "dependencies": {
         "@docusaurus/core": "^2.2.0",

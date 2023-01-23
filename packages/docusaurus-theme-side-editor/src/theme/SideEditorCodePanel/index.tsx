@@ -4,7 +4,8 @@ import useSideEditorContext from "../../client/SideEditorContext";
 import useHtmlDataTheme from "../../client/useHtmlDataTheme";
 import type { Props } from "@theme/SideEditorCodePanel";
 
-import styles from "./styles.module.css"
+import styles from "./styles.module.css";
+import clsx from "clsx";
 
 export default function SideEditorCodePanel(props: Props) {
     const { className } = props;
@@ -43,7 +44,7 @@ export default function SideEditorCodePanel(props: Props) {
                 <button
                     type="button"
                     title="Run tool"
-                    className={className || "button button--primary"}
+                    className={clsx("button", className || "button--primary")}
                     onClick={handleClick}
                 >
                     Run
