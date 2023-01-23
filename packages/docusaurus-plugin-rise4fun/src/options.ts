@@ -6,7 +6,7 @@ import type { SideEditorThemeConfig} from "@rise4fun/docusaurus-theme-side-edito
 
 export type PluginOptions = {
     /**
-     * Inject Microsoft legal links
+     * Disable injecting Microsoft legal links
      */
     legal?: false;
     /**

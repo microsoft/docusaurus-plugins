@@ -49,7 +49,7 @@ export function configure(
     const sidebar: any = docs.sidebar || (docs.sidebar = {});
     const { sideEditor } = themeConfig;
 
-    const isMicrosoft = configuration.organizationName === "Microsoft";
+    const isMicrosoft = /microsoft/i.test(configuration.organizationName || "");
     if (!themeConfig.url && isMicrosoft)
         themeConfig.url = "https://microsoft.github.io";
     if (!themeConfig.baseUrl)
