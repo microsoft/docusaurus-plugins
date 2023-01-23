@@ -27,7 +27,7 @@
     },
     "license": "MIT",
     "scripts": {
-        "build": "tsc --build",
+        "build": "tsc --build && node ../../admin/scripts/copyUntypedFiles.mjs",
         "watch": "run-p -c copy:watch build:watch",
         "build:watch": "tsc --build --watch"
     },
