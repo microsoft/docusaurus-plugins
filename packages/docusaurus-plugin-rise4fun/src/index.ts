@@ -49,7 +49,7 @@ export function configure(
     const sidebar: any = docs.sidebar || (docs.sidebar = {});
     const { sideEditor } = themeConfig;
 
-    const isMicrosoft = themeConfig.organizationName === "Microsoft";
+    const isMicrosoft = configuration.organizationName === "Microsoft";
     if (!themeConfig.url && isMicrosoft)
         themeConfig.url = "https://microsoft.github.io";
     if (!themeConfig.baseUrl)
@@ -87,7 +87,7 @@ export function configure(
     sidebar.autoCollapseCategories = true;
 
     // github versioning
-    if (repo && sha) {
+    if (repo && sha && footer.copyright) {
         const link = `<a href=https://github.com/${repo}/commit/${sha} target="_blank" rel="noopener noreferrer">${sha.slice(
             0,
             8
@@ -159,7 +159,7 @@ export function configure(
         .forEach((l) => additionalLanguages.push(l));
 
     // always get space back
-    navbar.hideOnScroll = true
+    navbar.hideOnScroll = true;
 
     if (
         repo &&
