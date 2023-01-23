@@ -4,7 +4,7 @@ import appInsightPlugin from "@rise4fun/docusaurus-plugin-application-insights";
 import npm2yarnPlugin from "@docusaurus/remark-plugin-npm2yarn";
 import compileCodePlugin from "@rise4fun/docusaurus-remark-plugin-compile-code";
 import codeTabsPlugin from "@rise4fun/docusaurus-remark-plugin-code-tabs";
-import sideEditorPlugin from "@rise4fun/docusaurus-remark-plugin-side-editor"
+import sideEditorPlugin from "@rise4fun/docusaurus-remark-plugin-side-editor";
 
 const mathPlugin = require("remark-math");
 const katexPlugin = require("rehype-katex");
@@ -45,6 +45,8 @@ export function configure(
     const navbar: any =
         themeConfig.navbar || (themeConfig.navbar = { items: [] });
     const prism: any = themeConfig.prism || (themeConfig.prism = {});
+    const docs: any = themeConfig.docs || (themeConfig.docs = {});
+    const sidebar: any = docs.sidebar || (docs.sidebar = {});
     const { sideEditor } = themeConfig;
 
     const isMicrosoft = themeConfig.organizationName === "Microsoft";
@@ -79,6 +81,10 @@ export function configure(
         // patch copyrigth
         footer.copyright = `Copyright © ${new Date().getFullYear()} Microsoft Corporation.`;
     }
+
+    // sidebar collapse
+    sidebar.hideable = true;
+    sidebar.autoCollapseCategories = true;
 
     // github versioning
     if (repo && sha) {
@@ -130,7 +136,7 @@ export function configure(
 
     if (sideEditor) {
         injectTheme("@rise4fun/docusaurus-theme-side-editor", sideEditor);
-        injectBeforeDefaultRemarkPlugin(sideEditorPlugin, sideEditor)
+        injectBeforeDefaultRemarkPlugin(sideEditorPlugin, sideEditor);
     }
 
     // additional languages
