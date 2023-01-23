@@ -94,10 +94,9 @@ export default function CodeSandboxButton(props: Props) {
             aria-label="Open code in CodeSandbox"
             title={error || "Open in CodeSandbox"}
             className={clsx(
-                "button",
                 styles.hidemobile,
                 styles.mr1,
-                className || "button--secondary"
+                className || "button button--secondary"
             )}
             onClick={handleClick}
             disabled={importing}

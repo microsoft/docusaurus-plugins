@@ -44,7 +44,7 @@ export default function SideEditorCodePanel(props: Props) {
                 <button
                     type="button"
                     title="Run tool"
-                    className={clsx("button", className || "button--primary")}
+                    className={clsx(className || "button button--primary")}
                     onClick={handleClick}
                 >
                     Run
