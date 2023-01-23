@@ -1,7 +1,5 @@
 export interface CodeSandboxFileOptions {
-    content: {
-        value: string;
-    };
+    content: string | object;
 }
 export interface CodeSandboxOptions {
     files: Record<string, CodeSandboxFileOptions>;

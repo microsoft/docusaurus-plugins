@@ -309,21 +309,19 @@ function parseMeta<T>(node: Code) {
     return r as T;
 }
 
-function injectImport(root: Root, jsx: string) {
+function injectThemeImport(root: Root, element: string) {
     if (
         !root.children.find(
             (n: { type: string; value?: string }) =>
-                n.type === "import" && n.value && n.value?.indexOf(jsx) > -1
+                n.type === "import" &&
+                n.value &&
+                n.value?.indexOf(`@theme/${element}`) > -1
         )
     ) {
-        root.children.unshift(
-            ...[
-                {
-                    type: "import",
-                    value: jsx + ";",
-                } as any,
-            ]
-        );
+        root.children.unshift({
+            type: "import",
+            value: `import ${element} from '@theme/${element}';`,
+        } as any);
     }
 }
 
@@ -390,7 +388,10 @@ const plugin: Plugin<[PluginOptions?]> = (options = undefined) => {
                 ];
                 codes.forEach((c) => {
                     const { lang = "" } = c;
-                    const { title, file } = parseMeta(c) as { title?: string, file?: string };
+                    const { title, file } = parseMeta(c) as {
+                        title?: string;
+                        file?: string;
+                    };
                     mdx.push({
                         type: "jsx",
                         value: `<Tab value={${JSON.stringify(
@@ -454,14 +455,11 @@ const plugin: Plugin<[PluginOptions?]> = (options = undefined) => {
 
         // add import as final step
         if (needsTabsImport) {
-            injectImport(root as Root, "import TabItem from '@theme/TabItem'");
-            injectImport(root as Root, "import Tabs from '@theme/Tabs'");
+            injectThemeImport(root as Root, "TabItem");
+            injectThemeImport(root as Root, "Tabs");
         }
         if (needsCodeSandboxImport) {
-            injectImport(
-                root as Root,
-                "import CodeSandboxButton from '@theme/CodeSandboxButton'"
-            );
+            injectThemeImport(root as Root, "CodeSandboxButton");
         }
     };
 };
