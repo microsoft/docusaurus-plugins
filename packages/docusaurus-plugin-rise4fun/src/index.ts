@@ -158,6 +158,9 @@ export function configure(
         .filter((l) => additionalLanguages.indexOf(l) < 0)
         .forEach((l) => additionalLanguages.push(l));
 
+    // always get space back
+    navbar.hideOnScroll = true
+
     if (
         repo &&
         !navbar.items.find((i: any) => i.className === "header-github-link")
