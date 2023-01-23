@@ -4,6 +4,11 @@
     "description": "Run tool and show output.",
     "main": "lib/index.js",
     "types": "src/types.d.ts",
+    "keywords": [
+        "Docusaurus",
+        "remark-plugin",
+        "rise4fun"
+    ],
     "publishConfig": {
         "access": "public"
     },

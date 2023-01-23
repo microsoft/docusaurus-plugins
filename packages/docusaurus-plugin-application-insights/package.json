@@ -4,6 +4,10 @@
     "description": "Microsoft Application Insights plugin for Docusaurus.",
     "main": "lib/index.js",
     "types": "lib/index.d.ts",
+    "keywords": [
+        "Docusaurus",
+        "rise4fun"
+    ],
     "publishConfig": {
         "access": "public"
     },

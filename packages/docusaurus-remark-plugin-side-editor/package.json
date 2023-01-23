@@ -4,7 +4,11 @@
     "description": "Remark docusaurus plugin that assembles code sections in tabs.",
     "main": "lib/index.js",
     "types": "src/types.d.ts",
-    "keywords": ["Docusaurus"],
+    "keywords": [
+        "Docusaurus",
+        "remark-plugin",
+        "rise4fun"
+    ],
     "publishConfig": {
         "access": "public"
     },

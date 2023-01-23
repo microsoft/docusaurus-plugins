@@ -4,6 +4,10 @@
     "description": "CodeSandbox components for Docusaurus.",
     "main": "lib/index.js",
     "types": "src/theme-codesandbox-button.d.ts",
+    "keywords": [
+        "Docusaurus",
+        "rise4fun"
+    ],
     "sideEffects": false,
     "exports": {
         "./lib/*": "./lib/*",

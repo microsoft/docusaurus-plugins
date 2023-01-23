@@ -4,6 +4,10 @@
     "description": "Side editor components for Docusaurus.",
     "main": "lib/index.js",
     "types": "src/theme-side-editor.d.ts",
+    "keywords": [
+        "Docusaurus",
+        "rise4fun"
+    ],
     "sideEffects": false,
     "exports": {
         "./lib/*": "./lib/*",
