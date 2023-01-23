@@ -1,4 +1,8 @@
 import type { Plugin } from "@docusaurus/types";
+import type {
+    ThemeConfig,
+    CodeSandboxButtonThemeConfig,
+} from "@rise4fun/docusaurus-theme-codesandbox-button";
 
 export default function themeCodeSandboxButton(): Plugin<void> {
     return {
@@ -16,3 +20,5 @@ export default function themeCodeSandboxButton(): Plugin<void> {
 export function getSwizzleComponentList() {
     return undefined;
 }
+
+export { ThemeConfig, CodeSandboxButtonThemeConfig };

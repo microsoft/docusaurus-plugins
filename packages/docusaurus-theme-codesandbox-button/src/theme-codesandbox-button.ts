@@ -7,12 +7,12 @@ declare module "@rise4fun/docusaurus-theme-codesandbox-button" {
     export interface CodeSandboxOptions {
         files: Record<string, CodeSandboxFileOptions>;
     }
-    export interface UserThemeConfig {
+    export interface CodeSandboxButtonThemeConfig {
         templates?: Record<string, CodeSandboxOptions>;
         defaultTemplate?: string;
     }
     export interface ThemeConfig {
-        codeSandbox?: UserThemeConfig;
+        codeSandbox?: CodeSandboxButtonThemeConfig;
     }
     export default function themeCodeSandboxButton(): object;
 }
