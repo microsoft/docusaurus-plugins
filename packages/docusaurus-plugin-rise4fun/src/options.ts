@@ -2,6 +2,7 @@ import type { ApplicationInsightsOptions } from "@rise4fun/docusaurus-plugin-app
 import type { PluginOptions as CompileCodePluginOptions } from "@rise4fun/docusaurus-remark-plugin-compile-code";
 import type { PluginOptions as CodeTabsPluginOptions } from "@rise4fun/docusaurus-remark-plugin-code-tabs";
 import type { PluginOptions as SideEditorRemarkPluginOptions } from "@rise4fun/docusaurus-remark-plugin-side-editor";
+import type { SideEditorThemeConfig} from "@rise4fun/docusaurus-theme-side-editor"
 
 export type PluginOptions = {
     /**
@@ -38,7 +39,7 @@ export type PluginOptions = {
     /**
      * Sets the side editor options
      */
-    sideEditor?: SideEditorRemarkPluginOptions;
+    sideEditor?: SideEditorRemarkPluginOptions & SideEditorThemeConfig;
 };
 
 export type Options = Partial<PluginOptions>;
