@@ -1,6 +1,6 @@
 # `@rise4fun/docusaurus-remark-plugin-side-editor`
 
-Injects `Edit` button after code section that open snippet in side editor.
+Docusaurus remark plugin that injects `Edit` button after code section that open snippet in side editor ([npm.js](https://www.npmjs.com/package/@rise4fun/docusaurus-theme-side-editor)).
 
 ## Usage
 
