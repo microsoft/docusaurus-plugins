@@ -157,6 +157,7 @@ const plugin: Plugin<[PluginOptions?]> = (options = undefined) => {
         outputPath = "./.docusaurus/docusaurus-remark-plugin-compile-code/",
         langs = [],
         cache = process.env.NODE_ENV === "production",
+        failFast
     } = options || {};
 
     return async (root, vfile) => {
@@ -178,12 +179,13 @@ const plugin: Plugin<[PluginOptions?]> = (options = undefined) => {
         for (const { node, parent } of todo) {
             if (!parent) continue;
             const { lang, meta, value } = node;
+            if (!lang) return;
             const langOptions = langs.find(
                 (o) =>
                     o.lang === lang &&
                     (!o.langMeta || (meta || "").indexOf(o.langMeta) > -1)
             );
-            if (!lang || !langOptions) continue;
+            if (!langOptions) continue;
             const { skip, ignoreErrors: ignoreErrorsMeta } = parseMeta(
                 meta || ""
             );
@@ -206,7 +208,7 @@ const plugin: Plugin<[PluginOptions?]> = (options = undefined) => {
                 langOptions,
                 cache
             );
-            const { stdout, stderr, error, nodes} = res || {}
+            const { stdout, stderr, error, nodes } = res || {};
             const out: (string | undefined)[] = [
                 stdout?.trimEnd(),
                 stderr ? `-- error\n${stderr.trimEnd()}` : undefined,
@@ -223,14 +225,17 @@ const plugin: Plugin<[PluginOptions?]> = (options = undefined) => {
             }
 
             if (nodes?.length) {
-                parent.children.splice(nextIndex, 0, ...nodes)
-                nextIndex += nodes.length
+                parent.children.splice(nextIndex, 0, ...nodes);
+                nextIndex += nodes.length;
             }
 
             if (!ignoreErrors && res?.error) {
                 errors++;
                 console.error(`${vfile.path}: ${res.error}`);
                 console.debug(value);
+
+                if (failFast)
+                    throw new Error("error while compiling code snippet")
             }
         }
 

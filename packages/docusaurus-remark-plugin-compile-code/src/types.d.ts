@@ -105,8 +105,23 @@ export interface CustomLangOptions extends LangOptions {
 }
 
 export type PluginOptions = {
+    /**
+     * Specify custom output path for cache and files
+     */
     outputPath?: string;
+
+    /** 
+     * List of compilers
+    */
     langs: (ToolLangOptions | CustomLangOptions)[];
-    concurrency?: number;
+
+    /**
+     * Use cache folder
+     */
     cache?: boolean;
+
+    /**
+     * Stop compiling after first failed snippet
+     */
+    failFast?: boolean;
 };
