@@ -3,11 +3,10 @@ import React, {
     lazy,
     LazyExoticComponent,
     Suspense,
-    useContext,
     useMemo,
 } from "react";
 import type { Props } from "@theme/SideEditorRoot";
-import { Panel, PanelGroup, PanelResizeHandle } from "react-resizable-panels";
+import { Panel, PanelGroup } from "react-resizable-panels";
 import useSideEditorContext from "../../client/SideEditorContext";
 import useSideEditorConfig from "../../client/useSideEditorConfig";
 import BrowserOnly from "@docusaurus/BrowserOnly";

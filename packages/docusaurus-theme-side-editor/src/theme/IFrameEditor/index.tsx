@@ -1,14 +1,15 @@
-import React, { useRef, useEffect, useId } from "react";
+import React, { useRef, useEffect } from "react";
 import type { Props } from "@theme/IFrameEditor";
 import styles from "./styles.module.css";
 import clsx from "clsx";
 import useHtmlDataTheme from "../../client/useHtmlDataTheme";
-import useBaseUrl from '@docusaurus/useBaseUrl';
+import useBaseUrl from "@docusaurus/useBaseUrl";
 
 export default function IFrameEditor(props: Props) {
     const { config, source = {} } = props;
     const { text } = source;
     const {
+        id,
         lightUrl,
         darkUrl,
         message = {},
@@ -21,7 +22,7 @@ export default function IFrameEditor(props: Props) {
     } = config;
     const colorMode = useHtmlDataTheme();
     const url = useBaseUrl(colorMode === "dark" ? darkUrl : lightUrl);
-    const frameId = useId();
+    const frameId = `${id}-editor-frame`;
     const iframeRef = useRef<HTMLIFrameElement | null>(null);
 
     const postSource = () => {
