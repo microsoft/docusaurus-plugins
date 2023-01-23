@@ -1,6 +1,6 @@
 # `@rise4fun/docusaurus-remark-plugin-compile-code`
 
-Plugin to run a tool against code snippets at build time.
+Docusaurus plugin to run a tool against code snippets at build time ([npm.js](https://www.npmjs.com/package/@rise4fun/docusaurus-remark-plugin-compile-code)).
 
 ## Usage
 
