@@ -78,44 +78,6 @@ async function createConfig() {
                         theme: lightCodeTheme,
                         darkTheme: darkCodeTheme,
                     },
-                    sideEditor: {
-                        editors: [
-                            {
-                                id: "msagl",
-                                type: "iframe",
-                                language: "plaintext",
-                                lightUrl: "./editors/msagljs.html?theme=light",
-                                darkUrl: "./editors/msagljs.html?theme=dark",
-                                message: {
-                                    type: "msagl",
-                                },
-                                messageTextFieldName: "dot",
-                                readyMessage: {
-                                    type: "msagl",
-                                    state: "ready",
-                                },
-                            },
-                            {
-                                id: "devicescript",
-                                type: "iframe",
-                                language: "typescript",
-                                lightUrl:
-                                    "https://microsoft.github.io/jacdac-docs/editors/devicescript/?devicescriptvm=1&embed=1&footer=0&light=1",
-                                darkUrl:
-                                    "https://microsoft.github.io/jacdac-docs/editors/devicescript/?devicescriptvm=1&embed=1&footer=0&dark=1",
-                                message: {
-                                    channel: "devicescript",
-                                    type: "source",
-                                    force: true,
-                                    startMissingSimulators: true,
-                                },
-                                messageTextFieldName: "source",
-                                readyMessage: {
-                                    channel: "jacdac",
-                                },
-                            },
-                        ],
-                    },
                 }),
 
             plugins: [],
@@ -141,6 +103,44 @@ async function createConfig() {
                         extension: "z3",
                         inputLang: "lisp",
                         command: "./langs/z3.mjs",
+                    },
+                ],
+            },
+            sideEditor: {
+                editors: [
+                    {
+                        id: "msagl",
+                        type: "iframe",
+                        language: "plaintext",
+                        lightUrl: "./editors/msagljs.html?theme=light",
+                        darkUrl: "./editors/msagljs.html?theme=dark",
+                        message: {
+                            type: "msagl",
+                        },
+                        messageTextFieldName: "dot",
+                        readyMessage: {
+                            type: "msagl",
+                            state: "ready",
+                        },
+                    },
+                    {
+                        id: "devicescript",
+                        type: "iframe",
+                        language: "typescript",
+                        lightUrl:
+                            "https://microsoft.github.io/jacdac-docs/editors/devicescript/?devicescriptvm=1&embed=1&footer=0&light=1",
+                        darkUrl:
+                            "https://microsoft.github.io/jacdac-docs/editors/devicescript/?devicescriptvm=1&embed=1&footer=0&dark=1",
+                        message: {
+                            channel: "devicescript",
+                            type: "source",
+                            force: true,
+                            startMissingSimulators: true,
+                        },
+                        messageTextFieldName: "source",
+                        readyMessage: {
+                            channel: "jacdac",
+                        },
                     },
                 ],
             },

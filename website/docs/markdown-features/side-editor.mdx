@@ -64,8 +64,9 @@ sequenceDiagram
 ```
 
 ```js title="./docusaurus.config.js"
-themeConfig: {
+const config = configure({ ... }, {
     ...
+    // highlight-start
     sideEditor: {
         editors: [
             {
@@ -89,7 +90,8 @@ themeConfig: {
             },
         ],
     },
-}
+    // highlight-end
+})
 ```
 
 ### Static IFrame
@@ -125,20 +127,22 @@ For example, the `msagljs` tool is wrapped as `./static/editors/msagl.html`.
 ```
 
 ```js title="./docusaurus.config.js"
-themeConfig: {
+const config = configure({ ... }, {
     ...
     sideEditor: {
         editors: [
+            // highlight-start
             {
                 id: "msagl",
                 lightUrl: "./editors/msagl.html?theme=light",
                 darkUrl: "./editors/msagl.html?theme=dark",
                 ...
             },
+            // highlight-end
             ...
         ]
     }
-}
+})
 ```
 
 ### Monaco editor
@@ -147,7 +151,7 @@ You can specify the [monaco editor language](https://microsoft.github.io/monaco-
 to enable the Monaco editor.
 
 ```js title="./docusaurus.config.js"
-themeConfig: {
+const config = configure({ ... }, {
     ...
     sideEditor: {
         editors: [
@@ -158,7 +162,7 @@ themeConfig: {
             }
         ]
     }
-}
+})
 ```
 
 ### Lang to editor mapping
@@ -166,7 +170,7 @@ themeConfig: {
 You can provide a mapping from code language code to editor id.
 
 ```js title="./docusaurus.config.js"
-themeConfig: {
+const config = configure({ ... }, {
     ...
     sideEditor: {
         // highlight-start
@@ -181,7 +185,7 @@ themeConfig: {
             }
         ]
     }
-}
+})
 ```
 
 ### Panels position persitence
@@ -189,7 +193,7 @@ themeConfig: {
 Provide the `persistenceId` field to serialize the tabs positions accross page reloads.
 
 ```js title="./docusaurus.config.js"
-themeConfig: {
+const config = configure({ ... }, {
     ...
     sideEditor: {
         editors: [
@@ -200,5 +204,5 @@ themeConfig: {
             }
         ]
     }
-}
+})
 ```

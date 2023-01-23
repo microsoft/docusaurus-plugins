@@ -32,6 +32,7 @@ export function configure(
         legal,
         codeTabs,
         codeSandboxButton,
+        sideEditor,
     } = options;
 
     // injecting legal terms
@@ -47,7 +48,6 @@ export function configure(
     const prism: any = themeConfig.prism || (themeConfig.prism = {});
     const docs: any = themeConfig.docs || (themeConfig.docs = {});
     const sidebar: any = docs.sidebar || (docs.sidebar = {});
-    const { sideEditor } = themeConfig;
 
     const isMicrosoft = /microsoft/i.test(configuration.organizationName || "");
     if (!themeConfig.url && isMicrosoft)
@@ -134,9 +134,17 @@ export function configure(
             codeSandboxButton
         );
 
-    if (sideEditor) {
-        injectTheme("@rise4fun/docusaurus-theme-side-editor", sideEditor);
-        injectBeforeDefaultRemarkPlugin(sideEditorPlugin, sideEditor);
+    // copy over side editor
+    if (!themeConfig.sideEditor) themeConfig.sideEditor = sideEditor;
+    if (themeConfig.sideEditor) {
+        injectTheme(
+            "@rise4fun/docusaurus-theme-side-editor",
+            themeConfig.sideEditor
+        );
+        injectBeforeDefaultRemarkPlugin(
+            sideEditorPlugin,
+            themeConfig.sideEditor
+        );
     }
 
     // additional languages
