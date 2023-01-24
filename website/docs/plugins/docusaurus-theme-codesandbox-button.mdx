@@ -21,9 +21,10 @@ Add the theme to your theme list.
 
 ```js
 const config = {
-    plugins: [
+    themeConfig: {
+        ...
         // highlight-start
-        ["@rise4fun/docusaurus-theme-codesandbox-button", {
+        codeSandbox: {
             templates: {
                 node18: {
                     files: {
@@ -44,7 +45,12 @@ const config = {
                 },
             },
             defaultTemplate: "node18"
-        }]
+        }
+        // highlight-end
+    }
+    plugins: [
+        // highlight-start
+        "@rise4fun/docusaurus-theme-codesandbox-button"
         // highlight-end
     ]
 }
@@ -67,7 +73,7 @@ Then insert the button in the page. The `files` argument is documented in the [C
     files={{
         "main.ts": {
             content: "console.log('hello')",
-        }
+        },
     }}
 />
 ```
@@ -82,7 +88,7 @@ Here is the button in action.
     files={{
         "main.ts": {
             content: "console.log('hello')",
-        }
+        },
     }}
 />
 
