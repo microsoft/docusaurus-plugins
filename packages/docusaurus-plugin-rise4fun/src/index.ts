@@ -160,7 +160,7 @@ export function configure(
         });
         const staticDirectories =
             configuration.staticDirectories ||
-            (configuration.staticDirectories = ["assets"]);
+            (configuration.staticDirectories = ["static"]);
         const assetsPath =
             ".docusaurus/docusaurus-remark-plugin-compile-code/assets";
         if (!staticDirectories.includes(assetsPath)) {
