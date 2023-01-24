@@ -1,11 +1,37 @@
 ---
 sidebar_position: 3
 ---
+import BrowserWindow from "@site/src/theme/BrowserWindow";
 
 # Remark plugin compile code
 
-## Motivation
-
 Execute tools, typically compiler, during build time
 and inline the resulting output in the documentation.
+
+
+````markdown
+```z3wasm
+(declare-const a Int)
+(declare-fun f (Int Bool) Int)
+(assert (= a 10))
+(assert (= (f a true) 100))
+(check-sat)
+```
+````
+
+<BrowserWindow>
+
+```z3wasm
+(declare-const a Int)
+(declare-fun f (Int Bool) Int)
+(assert (= a 10))
+(assert (= (f a true) 100))
+(check-sat)
+```
+
+</BrowserWindow>
+
+## Usage
+
+Read the [Compile code documentation](/docs/markdown-features/compile-code).
 
