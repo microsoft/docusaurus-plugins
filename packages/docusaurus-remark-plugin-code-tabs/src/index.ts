@@ -348,6 +348,7 @@ const plugin: Plugin<[PluginOptions?]> = (options = undefined) => {
             // collect all code blocks with tabs in this sequence
             const startIndex = nodeIndex++;
             while (
+                tabs !== undefined &&
                 nodeIndex < parent.children.length &&
                 parent.children[nodeIndex]?.type === "code"
             ) {
@@ -398,7 +399,7 @@ const plugin: Plugin<[PluginOptions?]> = (options = undefined) => {
                 needsTabsImport = true;
 
                 // tell visitor to continue on the next node
-                nextIndex = startIndex + (mdx.length - codes.length) + 1;
+                nextIndex = startIndex + (mdx.length - codes.length) + 2;
             }
 
             // handle code sandbox
@@ -415,8 +416,7 @@ const plugin: Plugin<[PluginOptions?]> = (options = undefined) => {
                     };
                 });
                 const startFile = Object.keys(files)[0];
-                nextIndex++;
-                parent.children.splice(nextIndex++, 0, {
+                parent.children.splice(nextIndex, 0, {
                     type: "jsx",
                     value: `<CodeSandboxButton startFile=${JSON.stringify(
                         startFile
@@ -424,6 +424,7 @@ const plugin: Plugin<[PluginOptions?]> = (options = undefined) => {
                         ...files,
                     })}} template={${JSON.stringify(codesandbox)}} />`,
                 } as any);
+                nextIndex++;
                 needsCodeSandboxImport = true;
             }
 

@@ -11,5 +11,9 @@ ts
 Codesandbox alone
 
 ```js codesandbox
-js
+console.log("show codesandbox button")
+```
+
+```js
+console.log("don't showc codesandbox button)
 ```

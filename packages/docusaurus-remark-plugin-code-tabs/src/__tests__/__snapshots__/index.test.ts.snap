@@ -34,10 +34,14 @@ ts
 Codesandbox alone
 
 \`\`\`js codesandbox
-js
+console.log("show codesandbox button")
 \`\`\`
 
-<CodeSandboxButton startFile="main.js" files={{"main.js":{"content":"js"}}} template={""} />
+<CodeSandboxButton startFile="main.js" files={{"main.js":{"content":"console.log(\\"show codesandbox button\\")"}}} template={""} />
+
+\`\`\`js
+console.log("don't showc codesandbox button)
+\`\`\`
 "
 `;
 
