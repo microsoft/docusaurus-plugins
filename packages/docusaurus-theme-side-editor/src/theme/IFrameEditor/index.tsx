@@ -10,6 +10,7 @@ export default function IFrameEditor(props: Props) {
     const { text } = source;
     const {
         id,
+        title,
         lightUrl,
         darkUrl,
         message = {},
@@ -70,6 +71,7 @@ export default function IFrameEditor(props: Props) {
     return (
         <iframe
             id={frameId}
+            aria-label={title || id}
             ref={iframeRef}
             className={clsx(styles.iframeEditor, className)}
             allow={allow}
