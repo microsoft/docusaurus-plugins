@@ -174,6 +174,13 @@ async function createConfig() {
                         inputLang: "lisp",
                         command: "./langs/z3.mjs",
                     },
+                    {
+                        lang: "svgo",
+                        extension: "svg",
+                        inputLang: "markup",
+                        outputLang: "markup",
+                        command: "./langs/svgo.js",
+                    },
                 ],
             },
             sideEditor: {

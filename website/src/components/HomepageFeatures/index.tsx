@@ -4,14 +4,12 @@ import styles from "./styles.module.css";
 
 type FeatureItem = {
     title: string;
-    Svg: React.ComponentType<React.ComponentProps<"svg">>;
     description: JSX.Element;
 };
 
 const FeatureList: FeatureItem[] = [
     {
         title: "Built on Docusaurus",
-        Svg: require("@site/static/img/undraw_docusaurus_mountain.svg").default,
         description: (
             <>
                 Leverage the goodness of Docusaurus, designed from the ground up
@@ -22,14 +20,12 @@ const FeatureList: FeatureItem[] = [
     },
     {
         title: "Battery included for CS",
-        Svg: require("@site/static/img/undraw_docusaurus_tree.svg").default,
         description: (
             <>Out of the box, accessibility, analytics, math, diagrams, ...</>
         ),
     },
     {
         title: "Build Code Snippets",
-        Svg: require("@site/static/img/undraw_docusaurus_tree.svg").default,
         description: (
             <>
                 Automatically run your tool on every code snippet in your
@@ -39,7 +35,6 @@ const FeatureList: FeatureItem[] = [
     },
     {
         title: "Live Code Editing",
-        Svg: require("@site/static/img/undraw_docusaurus_tree.svg").default,
         description: (
             <>
                 Seamlessly run your tool on client with a rich coding
@@ -49,7 +44,6 @@ const FeatureList: FeatureItem[] = [
     },
     {
         title: "Deploy to GitHub Pages",
-        Svg: require("@site/static/img/undraw_docusaurus_react.svg").default,
         description: (
             <>
                 Designed for open source tools on GitHub, tested on GitHub
@@ -59,7 +53,6 @@ const FeatureList: FeatureItem[] = [
     },
     {
         title: "Customizable through MDX",
-        Svg: require("@site/static/img/undraw_docusaurus_react.svg").default,
         description: (
             <>
                 Add that last level of custom support through the flexibility of
@@ -69,12 +62,9 @@ const FeatureList: FeatureItem[] = [
     },
 ];
 
-function Feature({ title, Svg, description }: FeatureItem) {
+function Feature({ title, description }: FeatureItem) {
     return (
         <div className={clsx("col col--4")}>
-            <div className="text--center">
-                <Svg className={styles.featureSvg} role="img" />
-            </div>
             <div className="text--center padding-horiz--md">
                 <h3>{title}</h3>
                 <p>{description}</p>
