@@ -16,7 +16,7 @@ export interface LangResult {
     /**
      * Extra markdown node to be added after the output
      */
-    nodes?: Node[]
+    nodes?: Node[];
 }
 
 export interface SnippetOptions {
@@ -28,6 +28,13 @@ export type CompileFunction = (
     source: string,
     options: LangOptions & SnippetOptions
 ) => Promise<LangResult>;
+
+export interface OutputFile {
+    name: string;
+    title?: string;
+    lang?: string;
+    meta?: string;
+}
 
 export interface LangOptions {
     /**
@@ -106,7 +113,7 @@ export interface ToolLangOptions extends LangOptions {
     /**
      * Sets of files that should be included in the final output
      */
-    outputFiles?: string[];
+    outputFiles?: OutputFile[];
 }
 
 export interface CustomLangOptions extends LangOptions {
@@ -115,16 +122,8 @@ export interface CustomLangOptions extends LangOptions {
 
 export type PluginOptions = {
     /**
-     * Specify custom output path for cached results
-     */
-    cachePath?: string;
-    /**
-     * Specify custom output path for sources
-     */
-    outputPath?: string;
-    /** 
      * List of compilers
-    */
+     */
     langs: (ToolLangOptions | CustomLangOptions)[];
 
     /**

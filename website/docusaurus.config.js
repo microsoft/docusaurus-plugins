@@ -89,6 +89,7 @@ async function createConfig() {
             codeTabs: {
                 langTitles: {
                     yacl: "Yet another cool language",
+                    txt: "Text",
                 },
             },
             codeSandbox: {
@@ -178,9 +179,18 @@ async function createConfig() {
                         lang: "svgo",
                         extension: "svg",
                         inputLang: "markup",
-                        outputLang: "markup",
                         command: "./langs/svgo.js",
-                        outputFiles: ["output.svg"],
+                        outputFiles: [
+                            {
+                                name: "output.svg",
+                                title: "Optimized SVG",
+                            },
+                            {
+                                name: "output.svg.txt",
+                                lang: "markup",
+                                title: "optimized.svg",
+                            },
+                        ],
                     },
                 ],
             },

@@ -11,8 +11,9 @@ import {
     removeSync,
     writeJSONSync,
     readFileSync,
+    copyFileSync,
 } from "fs-extra";
-import { join, resolve, basename, dirname } from "node:path";
+import { join, resolve, basename, dirname, extname } from "node:path";
 import {
     CustomLangOptions,
     LangOptions,
@@ -49,7 +50,8 @@ async function compileCode(
     source: string,
     meta: string,
     langOptions: LangOptions,
-    cache: boolean
+    cache: boolean,
+    hash: string
 ): Promise<LangResult | undefined> {
     let result = cache && readCachedResult(cwd);
     if (result) return result;
@@ -61,7 +63,7 @@ async function compileCode(
             : prefix + "\n\n" + source;
 
     ensureDirSync(cwd);
-    result = await compileCodeNodeCache(cwd, psource, meta, langOptions);
+    result = await compileCodeNodeCache(cwd, psource, meta, langOptions, hash);
 
     // cache on disk
     if (result && cache) {
@@ -74,7 +76,8 @@ async function compileCodeNodeCache(
     cwd: string,
     source: string,
     meta: string,
-    langOptions: LangOptions
+    langOptions: LangOptions,
+    hash: string
 ): Promise<LangResult | undefined> {
     const { timeout, lang } = langOptions;
 
@@ -144,14 +147,19 @@ async function compileCodeNodeCache(
 
             if (outputFiles) {
                 result.nodes = outputFiles
-                    .filter((fn) => existsSync(join(cwd, fn)))
-                    .map((fn) => {
-                        console.log({ fn });
-                        if (/\.(svg|png|jpg|jpeg$)/i.test(fn)) {
+                    .filter(({ name }) => existsSync(join(cwd, name)))
+                    .map(({ name, title, lang: outputLang, meta }) => {
+                        const fn = name;
+                        if (/\.(svg|png|jpg|jpeg)$/i.test(fn)) {
+                            // copy file to static folder
+                            const snd = join(assetsPath, lang, hash);
+                            ensureDirSync(snd);
+                            copyFileSync(join(cwd, fn), join(snd, fn));
+
                             return <Image>{
                                 type: "image",
-                                alt: fn,
-                                url: join(cwd, fn),
+                                alt: title || fn,
+                                url: `/${join(lang, hash, fn)}`,
                             };
                         } else {
                             const text = readFileSync(join(cwd, fn), {
@@ -159,7 +167,10 @@ async function compileCodeNodeCache(
                             });
                             return <Code>{
                                 type: "code",
-                                meta: `tabs title=${JSON.stringify(fn)}`,
+                                lang: outputLang || extname(fn).slice(1),
+                                meta: `tabs title=${JSON.stringify(
+                                    title || fn
+                                )} ${meta || ""}`,
                                 value: text,
                             };
                         }
@@ -187,10 +198,13 @@ function parseMeta(meta: string = "") {
     return { skip, ignoreErrors };
 }
 
+const BUILD_PATH = "./.docusaurus/docusaurus-remark-plugin-compile-code/";
+const cachePath = `${BUILD_PATH}cache/`;
+const outputPath = `${BUILD_PATH}src/`;
+const assetsPath = `${BUILD_PATH}assets/`;
+
 const plugin: Plugin<[PluginOptions?]> = (options = undefined) => {
     const {
-        cachePath = "./.docusaurus/docusaurus-remark-plugin-compile-code/cache/",
-        outputPath = "./.docusaurus/docusaurus-remark-plugin-compile-code/src/",
         langs = [],
         cache = !process.env.RISE_COMPILE_CODE_NO_CACHE,
         failFast,
@@ -265,7 +279,8 @@ const plugin: Plugin<[PluginOptions?]> = (options = undefined) => {
                 value,
                 meta || "",
                 langOptions,
-                cache
+                cache,
+                hash
             );
             const { stdout, stderr, error, nodes } = res || {};
             const out: (string | undefined)[] = [
@@ -273,8 +288,8 @@ const plugin: Plugin<[PluginOptions?]> = (options = undefined) => {
                 stderr ? `-- error\n${stderr.trimEnd()}` : undefined,
                 error,
             ].filter((s) => !!s);
+            if (inputLang) node.lang = inputLang;
             if (out?.length) {
-                if (inputLang) node.lang = inputLang;
                 parent.children.splice(nextIndex++, 0, <Code>{
                     type: "code",
                     lang: outputLang,

@@ -52,14 +52,13 @@ If your tool produces additional files, those can be inserted as well.
 
 </BrowserWindow>
 
-
 ## Configuration
 
 This configuration allows to extract code snippets and run them through your tool at build time, then insert the
 output in the generated web site. As long as your tool can run in a GitHub Action container, this feature allows to easily
 inline the output of your tool.
 
-```js title="website/docusaurus.config.js"
+```js title="./docusaurus.config.js"
 ...
 const config = configure({ ... }, {
 // highlight-start
@@ -79,7 +78,7 @@ There is a special support for tools that can be installed through `npm`.
 
 Let's take the TypeScript compiler as an example. Add a `compileCode` language entry that will run all `ts` code section through the `tsc` node executable.
 
-```js title="website/docusaurus.config.js"
+```js title="./docusaurus.config.js"
 compileCode: {
     langs: [
         ...,
@@ -169,7 +168,7 @@ and wire it up as you please.
 In this example, we create a `echo` tool that copies the capitalized input source
 into the output.
 
-```js title="website/docusaurus.config.js"
+```js title="./docusaurus.config.js"
     compileCode: {
         langs: [
         ...,
@@ -212,7 +211,7 @@ hello
 An additional meta filter for selecting snippet. If this field is preset, snippet without the meta (case sensitive)
 will be ignored.
 
-```js title="website/docusaurus.config.js"
+```js title="./docusaurus.config.js"
     ...
     {
         lang: "ts",
@@ -266,6 +265,37 @@ console.lllllog("yup, there's a typo");
 ```
 
 </BrowserWindow>
+
+#### `outputFiles`
+
+If the tool produces additional files, they can be listed in the configuration so that
+the files gets imported in the output.
+
+-   Images (svg, png, jpeg) will automatically be imported as images in the mardown.
+-   Other files are injected as tabbed code section.
+
+```js title="./docusaurus.config.js"
+    ...
+    {
+        lang: "svgo",
+        extension: "svg",
+        inputLang: "markup",
+        command: "./langs/svgo.js",
+        // highlight-start
+        outputFiles: [
+            {
+                name: "output.svg",
+                title: "Optimized SVG",
+            },
+            {
+                name: "output.svg.txt",
+                lang: "markup",
+                title: "optimized.svg",
+            },
+        ],
+        // highlight-end
+    },
+```
 
 ## Outputs and cache
 

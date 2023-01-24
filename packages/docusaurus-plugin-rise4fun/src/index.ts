@@ -133,8 +133,7 @@ export function configure(
             "@rise4fun/docusaurus-theme-codesandbox-button",
             codeSandbox
         );
-        if (!themeConfig.codeSandbox)
-            themeConfig.codeSandbox = codeSandbox;
+        if (!themeConfig.codeSandbox) themeConfig.codeSandbox = codeSandbox;
     }
 
     // copy over side editor
@@ -159,6 +158,14 @@ export function configure(
         compileCode.langs.forEach(({ inputLang }) => {
             if (inputLang) extraPrismLanguages.add(inputLang);
         });
+        const staticDirectories =
+            configuration.staticDirectories ||
+            (configuration.staticDirectories = ["assets"]);
+        const assetsPath =
+            ".docusaurus/docusaurus-remark-plugin-compile-code/assets";
+        if (!staticDirectories.includes(assetsPath)) {
+            staticDirectories.push(assetsPath);
+        }
     }
 
     if (codeTabs !== false) {

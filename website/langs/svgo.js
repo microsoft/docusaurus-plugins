@@ -8,7 +8,7 @@ async function run() {
     });
     const optimizedSvgString = result.data;
     writeFileSync("output.svg", optimizedSvgString, { encoding: "utf-8" });
-    console.log(optimizedSvgString)
+    writeFileSync("output.svg.txt", optimizedSvgString, { encoding: "utf-8" });
 }
 
 run();
