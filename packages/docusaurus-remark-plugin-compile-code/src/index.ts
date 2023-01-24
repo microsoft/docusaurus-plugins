@@ -156,8 +156,8 @@ const plugin: Plugin<[PluginOptions?]> = (options = undefined) => {
     const {
         outputPath = "./.docusaurus/docusaurus-remark-plugin-compile-code/",
         langs = [],
-        cache = process.env.NODE_ENV === "production",
-        failFast
+        cache = !process.env.RISE_COMPILE_CODE_NO_CACHE,
+        failFast,
     } = options || {};
 
     return async (root, vfile) => {
@@ -235,7 +235,7 @@ const plugin: Plugin<[PluginOptions?]> = (options = undefined) => {
                 console.debug(value);
 
                 if (failFast)
-                    throw new Error("error while compiling code snippet")
+                    throw new Error("error while compiling code snippet");
             }
         }
 

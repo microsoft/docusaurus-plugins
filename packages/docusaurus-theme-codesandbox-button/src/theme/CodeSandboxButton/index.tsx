@@ -46,7 +46,7 @@ export default function CodeSandboxButton(props: Props) {
         templates?.[template] ||
         CODESANDBOXES[template] ||
         CODESANDBOXES[DEFAULT_CODESANDBOX];
-    console.log({ sandbox });
+
     const [error, setError] = useState<string | undefined>();
     const [importing, setImporting] = useState(false);
 

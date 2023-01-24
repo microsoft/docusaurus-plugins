@@ -2,7 +2,7 @@
 sidebar_position: 3
 ---
 
-import BrowserWindow from '@site/src/theme/BrowserWindow'
+import BrowserWindow from "@site/src/theme/BrowserWindow";
 import CodeSandboxButton from "@theme/CodeSandboxButton";
 
 # Theme codesandbox button
@@ -23,7 +23,28 @@ Add the theme to your theme list.
 const config = {
     plugins: [
         // highlight-start
-        "@rise4fun/docusaurus-theme-codesandbox-button"
+        ["@rise4fun/docusaurus-theme-codesandbox-button", {
+            templates: {
+                node18: {
+                    files: {
+                        "package.json": {
+                            content: {
+                                dependencies: {},
+                            },
+                        },
+                        "sandbox.config.json": {
+                            content: {
+                                template: "node",
+                                container: {
+                                    node: "18",
+                                },
+                            },
+                        },
+                    },
+                },
+            },
+            defaultTemplate: "node18"
+        }]
         // highlight-end
     ]
 }
@@ -42,23 +63,11 @@ Then insert the button in the page. The `files` argument is documented in the [C
 ```tsx
 <CodeSandboxButton
     startFile="main.ts"
+    template="node18"
     files={{
         "main.ts": {
             content: "console.log('hello')",
-        },
-        "package.json": {
-            content: {
-                dependencies: {},
-            },
-        },
-        "sandbox.config.json": {
-            content: {
-                template: "node",
-                container: {
-                    node: "18",
-                },
-            },
-        },
+        }
     }}
 />
 ```
@@ -69,23 +78,11 @@ Here is the button in action.
 
 <CodeSandboxButton
     startFile="main.ts"
+    template="node18"
     files={{
         "main.ts": {
             content: "console.log('hello')",
-        },
-        "package.json": {
-            content: {
-                dependencies: {},
-            },
-        },
-        "sandbox.config.json": {
-            content: {
-                template: "node",
-                container: {
-                    node: "18",
-                },
-            },
-        },
+        }
     }}
 />
 

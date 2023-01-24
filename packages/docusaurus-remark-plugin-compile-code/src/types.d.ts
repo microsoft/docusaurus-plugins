@@ -116,7 +116,7 @@ export type PluginOptions = {
     langs: (ToolLangOptions | CustomLangOptions)[];
 
     /**
-     * Use cache folder
+     * Use cache folder, default is true.
      */
     cache?: boolean;
 

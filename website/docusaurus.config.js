@@ -93,6 +93,23 @@ async function createConfig() {
             },
             codeSandbox: {
                 templates: {
+                    node18: {
+                        files: {
+                            "package.json": {
+                                content: {
+                                    dependencies: {},
+                                },
+                            },
+                            "sandbox.config.json": {
+                                content: {
+                                    template: "node",
+                                    container: {
+                                        node: "18",
+                                    },
+                                },
+                            },
+                        },
+                    },
                     react: {
                         files: {
                             "package.json": {
