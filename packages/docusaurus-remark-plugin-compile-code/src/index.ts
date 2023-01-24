@@ -21,6 +21,7 @@ import {
 } from "./types";
 import hashCode from "./hash";
 import { spawnSync } from "child_process";
+import { minimatch } from "minimatch";
 
 const RESULT_FILE = "result.json";
 
@@ -121,23 +122,30 @@ async function compileCodeNodeCache(
             cmd = "node";
         }
         writeFileSync(join(cwd, "run.sh"), `${cmd} ${iargs.join(" ")}`);
-        const res = spawnSync(cmd, iargs, {
-            timeout,
-            cwd,
-        });
-        let error = res.error?.message || "";
-        if (
-            !ignoreReturnCode &&
-            res.status !== successReturnCode &&
-            !res.stderr
-        )
-            error += `\exit code: ${res.status}`;
-        const result: LangResult = {
-            stdout: res.stdout?.toString() || "",
-            stderr: res.stderr?.toString() || "",
-            error,
-        };
-        return result;
+        try {
+            const res = spawnSync(cmd, iargs, {
+                timeout,
+                cwd,
+            });
+            let error = res.error?.message || "";
+            if (
+                !ignoreReturnCode &&
+                res.status !== successReturnCode &&
+                !res.stderr
+            )
+                error += `\exit code: ${res.status}`;
+            const result: LangResult = {
+                stdout: res.stdout?.toString() || "",
+                stderr: res.stderr?.toString() || "",
+                error,
+            };
+            return result;
+        } catch (e) {
+            return {
+                stderr: e + "",
+                error: "tool execution failed",
+            } as LangResult;
+        }
     }
 
     // unknown configuration
@@ -191,13 +199,24 @@ const plugin: Plugin<[PluginOptions?]> = (options = undefined) => {
             );
             if (skip) continue;
 
-            let nextIndex = parent.children.indexOf(node) + 1;
             const {
                 outputMeta,
                 outputLang,
                 inputLang,
                 ignoreErrors: ignoreErrorsLang,
+                excludedFiles,
             } = langOptions;
+
+            if (
+                vfile.path !== undefined &&
+                excludedFiles?.some((excluded) =>
+                    minimatch(vfile.path || "", excluded)
+                )
+            ) {
+                continue;
+            }
+
+            let nextIndex = parent.children.indexOf(node) + 1;
             const ignoreErrors = ignoreErrorsLang || ignoreErrorsMeta;
             const hash = hashCode(value, meta || "", langOptions);
             const cwd = join(outputPath, lang, hash);

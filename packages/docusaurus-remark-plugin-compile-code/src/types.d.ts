@@ -67,6 +67,10 @@ export interface LangOptions {
      * Do not fail build when tools return errors
      */
     ignoreErrors?: boolean;
+    /**
+     * minimatch filter to exclude files from generation
+     */
+    excludedFiles?: string[];
 }
 
 export interface ToolLangOptions extends LangOptions {
