@@ -180,6 +180,7 @@ async function createConfig() {
                         inputLang: "markup",
                         outputLang: "markup",
                         command: "./langs/svgo.js",
+                        outputFiles: ["output.svg"],
                     },
                 ],
             },

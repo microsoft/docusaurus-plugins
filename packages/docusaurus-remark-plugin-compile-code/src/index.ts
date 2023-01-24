@@ -1,6 +1,6 @@
 /// <refere
 import visit from "unist-util-visit";
-import type { Code } from "mdast";
+import type { Code, Image } from "mdast";
 import type { Plugin } from "unified";
 import type { Parent } from "unist";
 import {
@@ -10,6 +10,7 @@ import {
     readJSONSync,
     removeSync,
     writeJSONSync,
+    readFileSync,
 } from "fs-extra";
 import { join, resolve, basename, dirname } from "node:path";
 import {
@@ -101,6 +102,7 @@ async function compileCodeNodeCache(
         args = [],
         successReturnCode = 0,
         ignoreReturnCode,
+        outputFiles = [],
     } = langOptions as ToolLangOptions;
     if (command || nodeBin) {
         const ifn = `input.${extension || lang}`;
@@ -139,6 +141,31 @@ async function compileCodeNodeCache(
                 stderr: res.stderr?.toString() || "",
                 error,
             };
+
+            if (outputFiles) {
+                result.nodes = outputFiles
+                    .filter((fn) => existsSync(join(cwd, fn)))
+                    .map((fn) => {
+                        console.log({ fn });
+                        if (/\.(svg|png|jpg|jpeg$)/i.test(fn)) {
+                            return <Image>{
+                                type: "image",
+                                alt: fn,
+                                url: join(cwd, fn),
+                            };
+                        } else {
+                            const text = readFileSync(join(cwd, fn), {
+                                encoding: "utf-8",
+                            });
+                            return <Code>{
+                                type: "code",
+                                meta: `tabs title=${JSON.stringify(fn)}`,
+                                value: text,
+                            };
+                        }
+                    });
+            }
+
             return result;
         } catch (e) {
             return {
