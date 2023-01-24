@@ -36,6 +36,35 @@ and insert the output in the generate web page.
 
 </BrowserWindow>
 
+Aside from the console output, additional files can also be injected in the page. In the example below, `msagl`
+renders a graph in SVG which gets inserted in the page.
+
+````markdown
+```msagl
+graph G {
+    kspacey -- swilliams;
+    swilliams -- kbacon;
+    bpitt -- kbacon;
+    hford -- lwilson;
+    lwilson -- kbacon;
+}
+```
+````
+
+<BrowserWindow>
+
+```msagl
+graph G {
+    kspacey -- swilliams;
+    swilliams -- kbacon;
+    bpitt -- kbacon;
+    hford -- lwilson;
+    lwilson -- kbacon;
+}
+```
+
+</BrowserWindow>
+
 ## Configuration
 
 This configuration allows to extract code snippets and run them through your tool at build time, then insert the

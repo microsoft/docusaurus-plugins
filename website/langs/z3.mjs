@@ -34,9 +34,8 @@ async function run() {
         }
     }
 
-    console.log(String(output))
-    if (error)
-        console.error(error)
+    console.log(String(output));
+    if (error) console.error(error);
 }
 
 (async () => {
@@ -44,6 +43,7 @@ async function run() {
         await run();
         process.exit(0);
     } catch (e) {
+        console.error(e);
         process.exit(1);
     }
 })();

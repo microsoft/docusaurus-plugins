@@ -174,6 +174,11 @@ async function createConfig() {
                         inputLang: "lisp",
                         command: "./langs/z3.mjs",
                     },
+                    {
+                        lang: "msagl",
+                        extension: "dot",
+                        command: "./langs/msagl.mjs",
+                    },
                 ],
             },
             sideEditor: {
