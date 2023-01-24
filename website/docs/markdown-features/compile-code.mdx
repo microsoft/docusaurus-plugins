@@ -2,7 +2,8 @@
 id: compile-code
 sidebar_position: 5
 ---
-import BrowserWindow from '@site/src/theme/BrowserWindow'
+
+import BrowserWindow from "@site/src/theme/BrowserWindow";
 
 # Compile Code
 
@@ -79,7 +80,7 @@ Let's take a look at this example in action.
 
 ````markdown
 ```ts showLineNumbers ignoreErrors
-console.llog("typo!")
+console.llog("typo!");
 ```
 ````
 
@@ -97,7 +98,7 @@ console.llog("typo!");
 ### node.js script
 
 A `command` parameter ending in `.js` or `.mjs` will automatically
-be executed through node.js. 
+be executed through node.js.
 Each snippet will be run in its individual process.
 
 The example below execute the [Z3](https://github.com/Z3Prover/z3) constraint solver.
@@ -189,37 +190,33 @@ hello
 
 ### Tool configuration flags
 
-#### `langMeta`
+#### `meta`
 
-An additional meta filter for selecting snippet. If this field is preset, snippet without the meta (case sensitive) 
+An additional meta filter for selecting snippet. If this field is preset, snippet without the meta (case sensitive)
 will be ignored.
 
 ```js title="website/docusaurus.config.js"
     ...
     {
         lang: "ts",
-        langMeta: "check",
+        meta: "check",
     },
 ```
 
 ````markdown
 ```ts check
-let x = 0
+let x = 0;
 ```
 ````
 
 #### `inputLang`
 
-After processing the source, replace the `lang` value 
+After processing the source, replace the `lang` value
 with `inputLang`, so that it gets syntax colored with that language.
-
-## pre-snippet configuration meta
-
-The following meta tags can be used to customize the behavior of each snippet.
 
 #### `skip`
 
-Completely ignore snippet.
+Completely ignore snippet by adding `skip` in the meta.
 
 ````markdown
 ```echo skip
@@ -227,12 +224,35 @@ just ignore me
 ```
 ````
 
+<BrowserWindow>
+
+```echo skip
+just ignore me
+```
+
+</BrowserWindow>
+
 #### `ignore-errors`
 
 Don't fail the rendering step if errors occur.
 
 ````markdown
 ```ts ignore-errors
-console.lllllog("yup, there's a typo")
+console.lllllog("yup, there's a typo");
 ```
 ````
+
+<BrowserWindow>
+
+```ts ignore-errors
+console.lllllog("yup, there's a typo");
+```
+
+</BrowserWindow>
+
+## Outputs and cache
+
+The extracted sources and resulting outputs are stored by default
+in the `./.docusaurus/docusaurus-remark-plugin-compile-code/` folder.
+
+Make sure to clear this folder if you encounter caching issues.

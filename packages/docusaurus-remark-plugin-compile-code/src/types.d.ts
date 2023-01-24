@@ -37,7 +37,7 @@ export interface LangOptions {
     /**
      * Required string in meta to filter snippets within a language
      */
-    langMeta?: string;
+    meta?: string;
     /**
      * Prefix all sources with this string (if not present)
      */
@@ -110,10 +110,13 @@ export interface CustomLangOptions extends LangOptions {
 
 export type PluginOptions = {
     /**
-     * Specify custom output path for cache and files
+     * Specify custom output path for cached results
+     */
+    cachePath?: string;
+    /**
+     * Specify custom output path for sources
      */
     outputPath?: string;
-
     /** 
      * List of compilers
     */

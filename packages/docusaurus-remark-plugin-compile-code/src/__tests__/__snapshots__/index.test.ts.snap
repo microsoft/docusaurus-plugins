@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`extract-code plugin works on compile file 1`] = `
+exports[`compile-code plugin works on compile file 1`] = `
 "Some snippets
 
 \`\`\`lisp
@@ -13,7 +13,7 @@ foo
 "
 `;
 
-exports[`extract-code plugin works on meta file 1`] = `
+exports[`compile-code plugin works on meta file 1`] = `
 "Testing meta
 
 \`\`\`fail skip foo
@@ -47,10 +47,20 @@ prefix
 \`\`\`
 
     prefix
+
+\`\`\`meta bar
+baz
+\`\`\`
+
+    baz
+
+\`\`\`meta
+don't run this
+\`\`\`
 "
 `;
 
-exports[`extract-code plugin works on nodebin file 1`] = `
+exports[`compile-code plugin works on nodebin file 1`] = `
 "Some snippets
 
 \`\`\`ts
@@ -68,7 +78,7 @@ sadfj asd fasdf
 "
 `;
 
-exports[`extract-code plugin works on nodes file 1`] = `
+exports[`compile-code plugin works on nodes file 1`] = `
 "Some snippets reflected in files
 
 \`\`\`echonode
@@ -81,7 +91,7 @@ foo
 {
   "lang": "echonode",
   "meta": "",
-  "cwd": ".docusaurus/docusaurus-remark-plugin-compile-code/echonode/15c18188e8e42d94e4918be26812eeecda6b3bdc"
+  "cwd": ".docusaurus/docusaurus-remark-plugin-compile-code/cache/echonode/15c18188e8e42d94e4918be26812eeecda6b3bdc"
 }
 \`\`\`
 "

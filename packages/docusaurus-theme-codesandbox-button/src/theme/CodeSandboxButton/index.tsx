@@ -47,6 +47,7 @@ export default function CodeSandboxButton(props: Props) {
         CODESANDBOXES[template] ||
         CODESANDBOXES[DEFAULT_CODESANDBOX];
 
+    console.debug({ templates, template, sandbox });
     const [error, setError] = useState<string | undefined>();
     const [importing, setImporting] = useState(false);
 
@@ -100,6 +101,7 @@ export default function CodeSandboxButton(props: Props) {
             )}
             onClick={handleClick}
             disabled={importing}
+            data-template={template}
         >
             {label}
             {error && `!!!`}

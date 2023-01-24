@@ -25,3 +25,11 @@ prefix
 ```echo prefix
 prefix
 ```
+
+```meta bar
+baz
+```
+
+```meta
+don't run this
+```

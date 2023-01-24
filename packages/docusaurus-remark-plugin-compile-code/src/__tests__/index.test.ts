@@ -20,8 +20,15 @@ const options: PluginOptions = {
             nodeBin: "tsc",
         },
         {
+            lang: "meta",
+            meta: "bar",
+            compile: async (source, langOptions) => ({
+                stdout: source,
+            }),
+        },
+        {
             lang: "fail",
-            langMeta: "foo",
+            meta: "foo",
             compile: async (source, langOptions) => {
                 throw new Error("fail");
             },
@@ -54,7 +61,7 @@ const options: PluginOptions = {
     ],
 };
 
-describe("extract-code plugin", () => {
+describe("compile-code plugin", () => {
     it("works on compile file", async () => {
         const result = await processFixture("compile", options);
         expect(result).toMatchSnapshot();

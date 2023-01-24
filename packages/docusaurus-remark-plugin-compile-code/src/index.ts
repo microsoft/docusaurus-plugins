@@ -11,7 +11,7 @@ import {
     removeSync,
     writeJSONSync,
 } from "fs-extra";
-import { join, resolve } from "path";
+import { join, resolve, basename, dirname } from "node:path";
 import {
     CustomLangOptions,
     LangOptions,
@@ -162,13 +162,19 @@ function parseMeta(meta: string = "") {
 
 const plugin: Plugin<[PluginOptions?]> = (options = undefined) => {
     const {
-        outputPath = "./.docusaurus/docusaurus-remark-plugin-compile-code/",
+        cachePath = "./.docusaurus/docusaurus-remark-plugin-compile-code/cache/",
+        outputPath = "./.docusaurus/docusaurus-remark-plugin-compile-code/src/",
         langs = [],
         cache = !process.env.RISE_COMPILE_CODE_NO_CACHE,
         failFast,
     } = options || {};
 
     return async (root, vfile) => {
+        let snippet = 0;
+        const { history } = vfile;
+        const fpath = vfile.path || history[history.length - 1] || "unknown";
+        const fbase = basename(fpath);
+
         let errors = 0;
         const visited = new Set<Code>(); // visit called twice on async
         const todo: {
@@ -191,7 +197,7 @@ const plugin: Plugin<[PluginOptions?]> = (options = undefined) => {
             const langOptions = langs.find(
                 (o) =>
                     o.lang === lang &&
-                    (!o.langMeta || (meta || "").indexOf(o.langMeta) > -1)
+                    (!o.meta || (meta || "").indexOf(o.meta) > -1)
             );
             if (!langOptions) continue;
             const { skip, ignoreErrors: ignoreErrorsMeta } = parseMeta(
@@ -216,10 +222,17 @@ const plugin: Plugin<[PluginOptions?]> = (options = undefined) => {
                 continue;
             }
 
+            // save source in tree
+            snippet++;
+            const fn = join(outputPath, fbase, `code${snippet}.${lang}`);
+            ensureDirSync(dirname(fn));
+            writeFileSync(fn, value, { encoding: "utf-8" });
+
+            // compute output
             let nextIndex = parent.children.indexOf(node) + 1;
             const ignoreErrors = ignoreErrorsLang || ignoreErrorsMeta;
             const hash = hashCode(value, meta || "", langOptions);
-            const cwd = join(outputPath, lang, hash);
+            const cwd = join(cachePath, lang, hash);
             const res = await compileCode(
                 cwd,
                 value,
