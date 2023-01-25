@@ -2,7 +2,9 @@ import type { Config, ThemeConfig } from "@docusaurus/types";
 import type { PluginOptions, Options } from "./options";
 import appInsightPlugin from "@rise4fun/docusaurus-plugin-application-insights";
 import npm2yarnPlugin from "@docusaurus/remark-plugin-npm2yarn";
-import compileCodePlugin from "@rise4fun/docusaurus-remark-plugin-compile-code";
+import compileCodePlugin, {
+    ToolLangOptions,
+} from "@rise4fun/docusaurus-remark-plugin-compile-code";
 import codeTabsPlugin from "@rise4fun/docusaurus-remark-plugin-code-tabs";
 import codeElementPlugin from "@rise4fun/docusaurus-remark-plugin-code-element";
 import sideEditorPlugin from "@rise4fun/docusaurus-remark-plugin-side-editor";
@@ -18,12 +20,11 @@ export type { PluginOptions, Options };
 /**
  * Injects rise4fun specific configurations
  * @param configuration
- * @returns
  */
-export function configure(
+export async function configure(
     configuration: Config,
     options: PluginOptions = {}
-): Config {
+): Promise<Config> {
     const {
         appInsights,
         compileCode,
@@ -156,6 +157,22 @@ export function configure(
         prism.additionalLanguages || (prism.additionalLanguages = []);
     const extraPrismLanguages: Set<string> = new Set(["lisp"]);
     if (compileCode) {
+        // resolve npm package versions
+        await Promise.all(
+            compileCode.langs
+                .filter(
+                    (o) => !o.version && !!(o as ToolLangOptions).npmPackage
+                )
+                .map(async (o) => {
+                    const { npmPackage } = o as ToolLangOptions;
+                    const pkgJson = `${npmPackage}/package.json`;
+                    // @ts-ignore
+                    const langVersion = (
+                        await import(pkgJson, { assert: { type: "json" } })
+                    ).default.version;
+                    o.version = langVersion;
+                })
+        );
         injectBeforeDefaultRemarkPlugin(compileCodePlugin, compileCode);
         compileCode.langs.forEach(({ inputLang }) => {
             if (inputLang) extraPrismLanguages.add(inputLang);
