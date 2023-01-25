@@ -17,7 +17,7 @@ async function createConfig() {
             baseUrl: "/docusaurus-plugins-rise4fun",
             onBrokenLinks: "throw",
             onBrokenMarkdownLinks: "warn",
-            favicon: "img/favicon.ico",
+            favicon: "img/logo.svg",
             projectName: "docusaurus-plugins-rise4fun",
             presets: [
                 [
