@@ -16,8 +16,17 @@ on how to [migrate versions](https://docusaurus.io/docs/migration).
 
 You can use **yarn** to upgrade the reference to `@rise4fun/docusaurus-plugin-rise4fun` to the latest released version.
 
+If you haven't yet, install `npm-check-updates` (`ncu`),
+
 ```bash
-yarn upgrade @rise4fun/docusaurus-plugin-rise4fun
+npm install -g npm-check-updates
+```
+
+Run the update script to upgrade @rise4fun dependencies.
+
+```bash
+ncu -u --filter @rise4fun/*
+yarn install
 ```
 
 Once this upgrade is done, make sure to run your build and tests.
