@@ -193,7 +193,7 @@ async function compileCodeNodeCache(
 }
 
 function parseMeta(meta: string = "") {
-    const skip = /\s?skip\s?/i.test(meta);
+    const skip = /\s?skip|no-build\s?/i.test(meta);
     const ignoreErrors = /\s?ignore-?errors\s?/i.test(meta);
     return { skip, ignoreErrors };
 }
