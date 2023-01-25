@@ -106,12 +106,23 @@ async function compileCodeNodeCache(
         successReturnCode = 0,
         ignoreReturnCode,
         outputFiles = [],
+        inputFiles = {},
     } = langOptions as ToolLangOptions;
     if (command || nodeBin) {
         const ifn = `input.${extension || lang}`;
         const iargs = [...args, ifn];
         ensureDirSync(cwd);
         writeFileSync(join(cwd, ifn), source);
+
+        // write prefiles
+        Object.entries(inputFiles).map(([name, content]) =>
+            writeFileSync(
+                join(cwd, name),
+                typeof content === "object" ? JSON.stringify(content) : content,
+                { encoding: "utf-8" }
+            )
+        );
+
         writeJSONSync(join(cwd, "options.json"), {
             ...langOptions,
             meta,

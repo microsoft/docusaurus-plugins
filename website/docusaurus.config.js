@@ -163,6 +163,18 @@ async function createConfig() {
                     {
                         lang: "ts",
                         nodeBin: "tsc",
+                        inputFiles: {
+                            "tsconfig.json": {
+                                "compilerOptions": {
+                                    "target": "ES2015",
+                                    "module": "commonjs",
+                                    "strict": true,
+                                    "esModuleInterop": true,
+                                    "skipLibCheck": true,
+                                    "forceConsistentCasingInFileNames": true
+                                },
+                            }
+                        }
                     },
                     {
                         lang: "echo",

@@ -109,11 +109,14 @@ export interface ToolLangOptions extends LangOptions {
      * Ignore tool return code.
      */
     ignoreReturnCode?: boolean;
-
     /**
      * Sets of files that should be included in the final output
      */
     outputFiles?: OutputFile[];
+    /**
+     * Additional files to write in the folder before running tool
+     */
+    inputFiles?: Record<string, string | object>;
 }
 
 export interface CustomLangOptions extends LangOptions {

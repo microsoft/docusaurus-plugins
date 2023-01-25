@@ -230,41 +230,26 @@ let x = 0;
 After processing the source, replace the `lang` value
 with `inputLang`, so that it gets syntax colored with that language.
 
-#### `skip`
+#### `inputFiles`
 
-Completely ignore snippet by adding `skip` in the meta.
+Specify a set of files to be written in the working folder before running the tool.
 
-````markdown
-```echo skip
-just ignore me
+```js title="./docusaurus.config.js"
+    ...
+    {
+        lang: "ts",
+        nodeBin: "tsc",
+        inputFiles: {
+            // highlight-start
+            "tsconfig.json": {
+                "compilerOptions": {
+                    ...
+                },
+            }
+            // highlight-end
+        }
+    },
 ```
-````
-
-<BrowserWindow>
-
-```echo skip
-just ignore me
-```
-
-</BrowserWindow>
-
-#### `ignore-errors`
-
-Don't fail the rendering step if errors occur.
-
-````markdown
-```ts ignore-errors
-console.lllllog("yup, there's a typo");
-```
-````
-
-<BrowserWindow>
-
-```ts ignore-errors
-console.lllllog("yup, there's a typo");
-```
-
-</BrowserWindow>
 
 #### `outputFiles`
 
@@ -296,6 +281,44 @@ the files gets imported in the output.
         // highlight-end
     },
 ```
+
+### Meta flags
+
+#### `skip`
+
+Completely ignore snippet by adding `skip` in the meta.
+
+````markdown
+```echo skip
+just ignore me
+```
+````
+
+<BrowserWindow>
+
+```echo skip
+just ignore me
+```
+
+</BrowserWindow>
+
+#### `ignoreErrors`
+
+Don't fail the rendering step if errors occur.
+
+````markdown
+```ts ignoreErrors
+console.lllllog("yup, there's a typo");
+```
+````
+
+<BrowserWindow>
+
+```ts ignoreErrors
+console.lllllog("yup, there's a typo");
+```
+
+</BrowserWindow>
 
 ## Outputs and cache
 
