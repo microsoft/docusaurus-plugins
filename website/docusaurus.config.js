@@ -9,7 +9,7 @@ const { configure } = require("@rise4fun/docusaurus-plugin-rise4fun");
 async function createConfig() {
     return configure(
         {
-            title: "rise4fu",
+            title: "rise4fun",
             tagline:
                 "Docusaurus plugins for awesome Programming Language documentation.",
             organizationName: "Microsoft",
