@@ -23,9 +23,21 @@ npm install -g yarn
 npx create-docusaurus@latest website classic
 ```
 
+:::tip
+
+If you are using [yarn workspaces](https://yarnpkg.com/features/workspaces), add `website` to your workspace list and run `yarn install` again.
+
+:::
+
 ## Rise4fun configuration
 
-Install the [rise4fun plugin](https://www.npmjs.com/package/@rise4fun/docusaurus-plugin-rise4fun).
+Let's work on the docusaurus website folder.
+
+```bash
+cd website
+```
+
+Install the [rise4fun plugin](https://www.npmjs.com/package/@rise4fun/docusaurus-plugin-rise4fun)
 
 ```bash npm2yarn
 npm install @rise4fun/docusaurus-plugin-rise4fun
@@ -53,7 +65,7 @@ const config = configure(
 
 :::tip
 
-Microsoft projects: make sure that `organizationName` is set to `Microsoft`, to enable automatic legal footer injection
+Microsoft projects: make sure that `organizationName` is set to `microsoft`, to enable automatic legal footer injection
 
 ```js title="website/docusaurus.config.js"
 // highlight-next-line
@@ -64,7 +76,7 @@ const config = configure(
     {
         ...
         // highlight-next-line
-        organizationName: "Microsoft",
+        organizationName: "microsoft",
     }
 ...
 ```
