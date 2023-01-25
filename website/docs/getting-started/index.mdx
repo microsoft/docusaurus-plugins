@@ -20,7 +20,14 @@ and create a new Docusaurus site:
 
 ```bash
 npm install -g yarn
-npx create-docusaurus@latest website classic
+npx create-docusaurus@latest website classic --typescript
+```
+
+Try it out! Go to website and start docusaurus.
+
+```bash
+cd website
+yarn start
 ```
 
 :::tip
@@ -28,6 +35,25 @@ npx create-docusaurus@latest website classic
 If you are using [yarn workspaces](https://yarnpkg.com/features/workspaces), add `website` to your workspace list and run `yarn install` again.
 
 :::
+
+## Setup typescript
+
+Install typescript and typing files to support TypeScript in Docusaurus.
+
+```bash
+yarn add --dev typescript @docusaurus/module-type-aliases @tsconfig/docusaurus
+```
+
+and add a TypeScript configuration file improve the experience in VS Code.
+
+```json file="website/tsconfig.json"
+{
+    "extends": "@tsconfig/docusaurus/tsconfig.json",
+    "compilerOptions": {
+        "baseUrl": "."
+    }
+}
+```
 
 ## Rise4fun configuration
 
