@@ -48,13 +48,12 @@ export default () => null;
 The `react` template is configured in your `docusaurus.config.js` file
 using the same format as described in the [CodeSandbox API](https://codesandbox.io/docs/learn/getting-started/your-first-sandbox#how-it-works).
 
-The default template is `default` and can also be overriden.
-
 ```js title="./docusaurus.config.js"
 const config = configure({
     ...
 }, {
     codeSandbox: {
+        defaultTemplate: "react",
         templates: {
             react: {
                 files: {

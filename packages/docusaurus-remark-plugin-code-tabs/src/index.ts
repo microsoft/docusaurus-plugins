@@ -420,9 +420,11 @@ const plugin: Plugin<[PluginOptions?]> = (options = undefined) => {
                     type: "jsx",
                     value: `<CodeSandboxButton startFile=${JSON.stringify(
                         startFile
-                    )} files={${JSON.stringify({
-                        ...files,
-                    })}} template={${JSON.stringify(codesandbox)}} />`,
+                    )} files={${JSON.stringify(files)}} ${
+                        codesandbox
+                            ? `template={${JSON.stringify(codesandbox)}}`
+                            : ""
+                    } />`,
                 } as any);
                 nextIndex++;
                 needsCodeSandboxImport = true;

@@ -8,22 +8,19 @@ import type {
     ThemeConfig,
 } from "@rise4fun/docusaurus-theme-codesandbox-button";
 
-const DEFAULT_CODESANDBOX = "default";
-const CODESANDBOXES: Record<string, CodeSandboxOptions> = {
-    [DEFAULT_CODESANDBOX]: {
-        files: {
-            "package.json": {
-                content: {
-                    dependencies: {},
-                },
+const DEFAULT_CODESANDBOX: CodeSandboxOptions = {
+    files: {
+        "package.json": {
+            content: {
+                dependencies: {},
             },
-            "sandbox.config.json": {
-                content: {
-                    template: "node",
-                    view: "terminal",
-                    container: {
-                        node: "18",
-                    },
+        },
+        "sandbox.config.json": {
+            content: {
+                template: "node",
+                view: "terminal",
+                container: {
+                    node: "18",
                 },
             },
         },
@@ -39,26 +36,31 @@ export default function CodeSandboxButton(props: Props) {
         className,
         files,
         startFile,
-        template = defaultTemplate || DEFAULT_CODESANDBOX,
+        template = defaultTemplate,
         label = "CodeSandbox",
     } = props;
-    const sandbox =
-        templates?.[template] ||
-        CODESANDBOXES[template] ||
-        CODESANDBOXES[DEFAULT_CODESANDBOX];
+    const sandbox = templates?.[template || ""] || DEFAULT_CODESANDBOX;
 
-    console.debug({ templates, template, sandbox });
+    console.debug({
+        templates,
+        template,
+        sandbox,
+        props,
+        defaultTemplate,
+        files,
+        startFile,
+    });
     const [error, setError] = useState<string | undefined>();
     const [importing, setImporting] = useState(false);
 
     const handleClick = async () => {
         const f = files;
-        const body = JSON.stringify({
+        const body = {
             files: {
                 ...(sandbox?.files || {}),
                 ...f,
             },
-        });
+        };
         try {
             setError(undefined);
             setImporting(true);
@@ -70,7 +72,7 @@ export default function CodeSandboxButton(props: Props) {
                         "Content-Type": "application/json",
                         Accept: "application/json",
                     },
-                    body,
+                    body: JSON.stringify(body),
                 }
             );
             if (!x.ok) throw new Error("codesandbox.io api call failed");
@@ -101,7 +103,6 @@ export default function CodeSandboxButton(props: Props) {
             )}
             onClick={handleClick}
             disabled={importing}
-            data-template={template}
         >
             {label}
             {error && `!!!`}
