@@ -4,4 +4,4 @@ Docusaurus plugin for Microsoft Research Rise4fun web sites ([npm.js](https://ww
 
 ## Usage
 
-See [docusaurus-plugin-rise4fun](https://microsoft.github.io/docusaurus-plugins-rise4fun/docs/plugins/).
+See [docusaurus-plugin-rise4fun documentation](https://microsoft.github.io/docusaurus-plugins-rise4fun/docs/plugins/).
