@@ -48,8 +48,6 @@ Open `website/docusaurus.config.js` and update it as follows.
 ```js title="website/docusaurus.config.js"
 // highlight-next-line
 const { configure } = require("@rise4fun/docusaurus-plugin-rise4fun");
-
-/** @type {import('@docusaurus/types').Config} */
 // highlight-next-line
 const config = configure(
     {
@@ -63,15 +61,20 @@ const config = configure(
 // highlight-end
 ```
 
-:::tip
+## Cleanup time!
+
+The default Docusaurus template comes with a lot of content. Make sure to give a pass through `docusaurus.config.js`:
+
+-   review the names, url, project name and so forth
+-   if you don't need a blog, set `blog: false` and delete the `blog` folder
+-   if you're already familiar with Docusaurus, delete the repopulated content of `docs`
+
+:::note
 
 Microsoft projects: make sure that `organizationName` is set to `microsoft`, to enable automatic legal footer injection
 
 ```js title="website/docusaurus.config.js"
-// highlight-next-line
 const { configure } = require("@rise4fun/docusaurus-plugin-rise4fun");
-
-/** @type {import('@docusaurus/types').Config} */
 const config = configure(
     {
         ...
