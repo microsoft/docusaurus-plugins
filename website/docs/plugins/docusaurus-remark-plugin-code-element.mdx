@@ -1,0 +1,37 @@
+---
+sidebar_position: 5
+---
+
+# Remark plugin code element
+
+Docusaurus remark pluging to replace fenced code section with themed MDX markdown.s
+
+## Usage
+
+Read the [Code Element documentation](/docs/markdown-features/code-element).
+
+## Configuration
+
+Install the plugin
+
+```bash npm2yarn
+npm install @rise4fun/docusaurus-remark-code-element
+```
+
+and add to your `docusaurus.configuration.js` file as other remark plugins.
+
+```js
+const config = {
+    plugins: [
+        ...,
+        // highlight-start
+        ["@rise4fun/docusaurus-remark-code-element", {
+            langs: [{
+                lang: 'dot',
+                element: 'Dot'
+            }]
+        }]
+        // highlight-end
+    ]
+}
+```
