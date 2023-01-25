@@ -295,7 +295,7 @@ function injectThemeImport(root: Root, element: string) {
             (n: { type: string; value?: string }) =>
                 n.type === "import" &&
                 n.value &&
-                n.value?.indexOf(`@theme/${element}`) > -1
+                n.value?.includes(`@theme/${element}`)
         )
     ) {
         root.children.unshift({
