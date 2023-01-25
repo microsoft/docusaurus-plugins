@@ -4,6 +4,7 @@ import appInsightPlugin from "@rise4fun/docusaurus-plugin-application-insights";
 import npm2yarnPlugin from "@docusaurus/remark-plugin-npm2yarn";
 import compileCodePlugin from "@rise4fun/docusaurus-remark-plugin-compile-code";
 import codeTabsPlugin from "@rise4fun/docusaurus-remark-plugin-code-tabs";
+import codeElementPlugin from "@rise4fun/docusaurus-remark-plugin-code-element";
 import sideEditorPlugin from "@rise4fun/docusaurus-remark-plugin-side-editor";
 
 const mathPlugin = require("remark-math");
@@ -33,6 +34,7 @@ export function configure(
         codeTabs,
         codeSandbox,
         sideEditor,
+        codeElement,
     } = options;
 
     // injecting legal terms
@@ -189,6 +191,8 @@ export function configure(
             className: "header-github-link",
             "aria-label": "GitHub repository",
         });
+
+    if (codeElement) injectRemarkPlugin(codeElementPlugin, codeElement);
 
     return configuration;
 

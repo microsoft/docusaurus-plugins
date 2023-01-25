@@ -1,9 +1,10 @@
 import type { ApplicationInsightsOptions } from "@rise4fun/docusaurus-plugin-application-insights";
 import type { PluginOptions as CompileCodePluginOptions } from "@rise4fun/docusaurus-remark-plugin-compile-code";
 import type { PluginOptions as CodeTabsPluginOptions } from "@rise4fun/docusaurus-remark-plugin-code-tabs";
+import type { PluginOptions as CodeElementPluginOptions } from "@rise4fun/docusaurus-remark-plugin-code-element";
 import type { PluginOptions as SideEditorRemarkPluginOptions } from "@rise4fun/docusaurus-remark-plugin-side-editor";
 import type { SideEditorThemeConfig } from "@rise4fun/docusaurus-theme-side-editor";
-import type { CodeSandboxButtonThemeConfig } from "@rise4fun/docusaurus-theme-codesandbox-button"
+import type { CodeSandboxButtonThemeConfig } from "@rise4fun/docusaurus-theme-codesandbox-button";
 
 export type PluginOptions = {
     /**
@@ -41,6 +42,11 @@ export type PluginOptions = {
      * Sets the side editor options
      */
     sideEditor?: SideEditorRemarkPluginOptions & SideEditorThemeConfig;
+
+    /**
+     * Configure code to MDX plugin
+     */
+    codeElement?: CodeElementPluginOptions;
 };
 
 export type Options = Partial<PluginOptions>;

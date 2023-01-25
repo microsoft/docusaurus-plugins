@@ -195,6 +195,14 @@ async function createConfig() {
                     },
                 ],
             },
+            codeElement: {
+                langs: [
+                    {
+                        lang: "dot",
+                        element: "Dot"
+                    }
+                ]
+            },
             sideEditor: {
                 editors: [
                     {

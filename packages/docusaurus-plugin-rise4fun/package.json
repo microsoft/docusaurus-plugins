@@ -30,6 +30,7 @@
         "@rise4fun/docusaurus-remark-plugin-side-editor": "*",
         "@rise4fun/docusaurus-theme-codesandbox-button": "*",
         "@rise4fun/docusaurus-theme-side-editor": "*",
+        "@rise4fun/docusaurus-remark-plugin-code-element": "*",
         "hast-util-is-element": "1.1.0",
         "rehype-katex": "5",
         "remark-math": "3",
