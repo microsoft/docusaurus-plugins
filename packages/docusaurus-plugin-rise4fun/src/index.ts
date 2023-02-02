@@ -8,6 +8,8 @@ import compileCodePlugin, {
 import codeTabsPlugin from "@rise4fun/docusaurus-remark-plugin-code-tabs";
 import codeElementPlugin from "@rise4fun/docusaurus-remark-plugin-code-element";
 import sideEditorPlugin from "@rise4fun/docusaurus-remark-plugin-side-editor";
+import { join, resolve } from "node:path";
+import { ensureDirSync, writeJSONSync } from "fs-extra";
 
 const mathPlugin = require("remark-math");
 const katexPlugin = require("rehype-katex");
@@ -37,6 +39,7 @@ export async function configure(
         sideEditor,
         codeElement,
         algolia,
+        githubButton,
     } = options;
 
     // injecting legal terms
@@ -210,17 +213,38 @@ export async function configure(
     navbar.hideOnScroll = true;
 
     if (
+        githubButton !== false &&
         repo &&
         !navbar.items.find((i: any) => i.className === "header-github-link")
-    )
+    ) {
+        // this is a big ugly, injecting our style in the global custom css
+        presets
+            .filter(
+                (preset) => Array.isArray(preset) && preset[0] === "classic"
+            )
+            .forEach((preset) => {
+                const t = (preset as any)[1]?.theme;
+                if (t.customCss && !Array.isArray(t.customCss))
+                    t.customCss = [t.customCss];
+                const customCss = t.customCss || (t.customCss = []);
+                customCss.push(resolve(__dirname, "rise4fun.css"));
+            });
         navbar.items.push({
             href: `https://github.com/${repo}`,
             position: "right",
             className: "header-github-link",
             "aria-label": "GitHub repository",
         });
+    }
 
     if (codeElement) injectRemarkPlugin(codeElementPlugin, codeElement);
+
+    // save a debug copy
+    const assetsPath = ".docusaurus/docusaurus-plugin-rise4fun";
+    ensureDirSync(assetsPath);
+    writeJSONSync(join(assetsPath, "docusaurus.config.js"), null, {
+        spaces: 4,
+    });
 
     return configuration;
 

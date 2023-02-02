@@ -9,7 +9,7 @@
     },
     "scripts": {
         "clear": "rm -Rf lib",
-        "build": "tsc --build",
+        "build": "tsc --build && node ../../admin/scripts/copyUntypedFiles.mjs",
         "watch": "tsc --build --watch"
     },
     "repository": {
@@ -25,12 +25,13 @@
         "@docusaurus/types": "^2.3.0",
         "@docusaurus/utils-validation": "^2.3.0",
         "@rise4fun/docusaurus-plugin-application-insights": "*",
-        "@rise4fun/docusaurus-remark-plugin-compile-code": "*",
+        "@rise4fun/docusaurus-remark-plugin-code-element": "*",
         "@rise4fun/docusaurus-remark-plugin-code-tabs": "*",
+        "@rise4fun/docusaurus-remark-plugin-compile-code": "*",
         "@rise4fun/docusaurus-remark-plugin-side-editor": "*",
         "@rise4fun/docusaurus-theme-codesandbox-button": "*",
         "@rise4fun/docusaurus-theme-side-editor": "*",
-        "@rise4fun/docusaurus-remark-plugin-code-element": "*",
+        "fs-extra": "^11.1.0",
         "hast-util-is-element": "1.1.0",
         "rehype-katex": "5",
         "remark-math": "3",
