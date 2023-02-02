@@ -165,20 +165,21 @@ executes Z3 and prints the result to the console.
 To support custom scenario, you can provide a `compile` function
 and wire it up as you please.
 
-In this example, we create a `echo` tool that copies the capitalized input source
-into the output.
+In this example, we use [cowsay](https://github.com/piuccio/cowsay) to create silly looking cows.
 
 ```js title="./docusaurus.config.js"
+const { say } = require("cowsay")
+
+...
     compileCode: {
         langs: [
         ...,
 // highlight-start
         {
-            lang: "echo",
-            compile: async (source, langOptions) => ({
-                code: 0,
-                stdout: source.toUppercase(),
-            }),
+            lang: "cowsay",
+            compile: async (text, langOptions) => ({
+                stdout: say({ text })
+            })
         }
 // highlight-end
     ]}
@@ -187,7 +188,7 @@ into the output.
 Let's take a look at this example in action.
 
 ````markdown
-```echo
+```cowsay
 hello
 ```
 ````
@@ -198,7 +199,7 @@ underneath with the capitalized text.
 
 <BrowserWindow>
 
-```echo
+```cowsay
 hello
 ```
 

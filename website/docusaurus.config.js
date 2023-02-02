@@ -5,6 +5,7 @@ const lightCodeTheme = require("prism-react-renderer/themes/github");
 const darkCodeTheme = require("prism-react-renderer/themes/dracula");
 
 const { configure } = require("@rise4fun/docusaurus-plugin-rise4fun");
+const { say } = require("cowsay")
 
 const config = configure(
     {
@@ -195,6 +196,12 @@ const config = configure(
                     compile: async (source) => ({
                         stdout: source.toUpperCase(),
                     }),
+                },
+                {
+                    lang: "cowsay",
+                    compile: async (text) => ({
+                        stdout: say({ text })
+                    })
                 },
                 {
                     lang: "z3wasm",
