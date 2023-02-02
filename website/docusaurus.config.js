@@ -50,6 +50,12 @@ const config = configure(
                             docId: "intro",
                             label: "Docs",
                         },
+                        {
+                            type: "doc",
+                            position: "left",
+                            docId: "markdown-features/index",
+                            label: "Markdown",
+                        },
                     ],
                 },
                 footer: {
@@ -65,6 +71,10 @@ const config = configure(
                                 {
                                     label: "Getting Started",
                                     to: "/docs/getting-started",
+                                },
+                                {
+                                    label: "Markdown Features",
+                                    to: "/docs/markdown-features",
                                 },
                                 {
                                     label: "Plugins",
