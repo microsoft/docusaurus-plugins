@@ -6,6 +6,21 @@ import type { PluginOptions as SideEditorRemarkPluginOptions } from "@rise4fun/d
 import type { SideEditorThemeConfig } from "@rise4fun/docusaurus-theme-side-editor";
 import type { CodeSandboxButtonThemeConfig } from "@rise4fun/docusaurus-theme-codesandbox-button";
 
+export interface AlgoliaOptions {
+    /**
+     * The application ID provided by Algolia
+     */
+    appId: string;
+    /**
+     * Public API key: it is safe to commit it
+     */
+    apiKey: string;
+    /**
+     * Index name provided by algolia
+     */
+    indexName: string;
+}
+
 export type PluginOptions = {
     /**
      * Disable injecting Microsoft legal links
@@ -47,6 +62,11 @@ export type PluginOptions = {
      * Configure code to MDX plugin
      */
     codeElement?: CodeElementPluginOptions;
+
+    /**
+     * Limited Algolia options
+     */
+    algolia?: AlgoliaOptions;
 };
 
 export type Options = Partial<PluginOptions>;

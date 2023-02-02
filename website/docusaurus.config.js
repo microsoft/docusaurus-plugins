@@ -79,10 +79,14 @@ const config = configure(
                     darkTheme: darkCodeTheme,
                 },
             }),
-
         plugins: [],
     },
     {
+        algolia: {
+            appId: "CO2Z4A2ENY",
+            apiKey: "07dbf88eedb219c92c00332228bc26b9",
+            indexName: "rise4fun",
+        },
         appInsights: {
             instrumentationKey: "ec147bad-05d9-4959-922d-e5fc3dd0930b",
         },

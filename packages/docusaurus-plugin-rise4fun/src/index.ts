@@ -36,6 +36,7 @@ export async function configure(
         codeSandbox,
         sideEditor,
         codeElement,
+        algolia,
     } = options;
 
     // injecting legal terms
@@ -122,6 +123,16 @@ export async function configure(
                 "sha384-odtC+0UGzzFL/6PNoE8rX/SPcQDXBJ+uRepguP4QkPCm2LBxH3FA3y+fKSiJ+AmM",
             crossorigin: "anonymous",
         });
+    }
+
+    // search algolia
+    if (algolia) {
+        themeConfig.algolia = {
+            contextualSearch: true,
+            searchParameters: {},
+            searchPagePath: "search",
+            ...algolia,
+        };
     }
 
     // mermaid
