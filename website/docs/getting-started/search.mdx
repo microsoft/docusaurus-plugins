@@ -11,7 +11,31 @@ Docusaurus provides an awesome integration with the [Algolia DocSearch](https://
 The service is **free for any open-source project**: just make sure to [read the checklist](https://docsearch.algolia.com/docs/who-can-apply/)
 and [apply to the DocSearch program](https://docsearch.algolia.com/apply/).
 
-<img src={searchPng} alt="A screenshot of z3" style={{ maxWidth: "18rem" }} />
+<img
+    src={searchPng}
+    alt="A screenshot of the search window"
+    style={{ maxWidth: "18rem" }}
+/>
 
 Get started with the [Docusaurus search guide](https://docusaurus.io/docs/search#using-algolia-docsearch).
 
+## Configuration
+
+If you project is accepted and you receive the api key from Algolia, you can configure it directly through the `rise4fun` configuration section. `rise4fun` will add additional options
+to Algolia to preconfigure it.
+
+```js title="./docusaurus.config.js"
+const config = configure({ ... }, {
+    ...
+    // highlight-start
+    algolia: {
+        // The application ID provided by Algolia
+        appId: 'YOUR_APP_ID',
+        // Public API key: it is safe to commit it
+        apiKey: 'YOUR_SEARCH_API_KEY',
+        // index name as provided by Algolia
+        indexName: 'YOUR_INDEX_NAME',
+    }
+    // highlight-end
+})
+```

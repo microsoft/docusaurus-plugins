@@ -5,7 +5,7 @@
         "website"
     ],
     "devDependencies": {
-        "nx": "15.6.0"
+        "nx": "15.6.3"
     },
     "scripts": {
         "clear": "nx run-many --target=clear && nx reset",
