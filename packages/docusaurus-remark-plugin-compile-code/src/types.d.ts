@@ -119,6 +119,36 @@ export interface ToolLangOptions extends LangOptions {
     inputFiles?: Record<string, string | object>;
 }
 
+/**
+ * A tool that runs in puppeteer
+ */
+export interface PuppeteerLangOptions extends LangOptions {
+    /**
+     * Generates the HTML that will drive puppeteer
+     * @param options
+     * @returns
+     */
+    createDriverHtml: (options: PuppeteerLangOptions) => string;
+    /**
+     * Creates a message that will make the driver do a compilation request
+     * @param msg
+     * @returns
+     */
+    createCompileRequest?: (msg: {
+        id: string;
+        source: string;
+        options: LangOptions & SnippetOptions;
+    }) => object;
+    /**
+     * Give a received message from puppeteer, convert to a render rest if any
+     * @param msg
+     * @returns
+     */
+    resolveCompileResponse?: (msg: object) => {
+        id: string;
+    } & LangResult;
+}
+
 export interface CustomLangOptions extends LangOptions {
     compile?: CompileFunction;
 }

@@ -19,11 +19,13 @@ import {
     LangOptions,
     LangResult,
     PluginOptions,
+    PuppeteerLangOptions,
     ToolLangOptions,
 } from "./types";
 import hashCode from "./hash";
 import { spawnSync } from "child_process";
 import { minimatch } from "minimatch";
+import puppeteer, { Browser, Page } from "puppeteer";
 
 const RESULT_FILE = "result.json";
 
@@ -42,6 +44,76 @@ function readCachedResult(cwd: string): LangResult | undefined {
             removeSync(cwd);
         }
     }
+    return undefined;
+}
+
+let nextId = 0;
+const puppets: Record<
+    string,
+    {
+        page: Page;
+        pendingRequests: Record<string, (msg: object) => void>;
+    }
+> = {};
+async function puppeteerCodeNoCache(
+    cwd: string,
+    source: string,
+    meta: string,
+    langOptions: PuppeteerLangOptions,
+    hash: string
+): Promise<LangResult | undefined> {
+    let { page, pendingRequests } = puppets[langOptions.lang] || {};
+    if (!page) {
+        pendingRequests = {};
+        const browser = await puppeteer.launch({ headless: true });
+        const puppeteerVersion = await browser.version();
+        console.info(`puppeteer: browser ${puppeteerVersion}`);
+        page = await browser.newPage();
+        if (!page) throw Error("page could not load");
+        page.on("console", (msg) => console.log(msg.text()));
+        const html = langOptions.createDriverHtml(langOptions);
+        await page.exposeFunction("rise4funPostMessage", (msg: object) => {
+            const resp: any = langOptions.resolveCompileResponse?.(msg) || msg;
+            const id = resp?.id;
+            const resolve = pendingRequests?.[id];
+            if (resolve) {
+                console.debug(`puppeteer: received ${id}`);
+                delete pendingRequests?.[id];
+                resolve(resp);
+            }
+        });
+        const ready = new Promise<void>(async (resolve, reject) => {
+            await page?.exposeFunction("rise4funReady", () => {
+                resolve();
+            });
+        });
+        await page.setContent(html);
+        await ready;
+
+        console.debug(`puppeteer: waiting for ready message`);
+        // wait for ready message
+        puppets[langOptions.lang] = { page, pendingRequests };
+    }
+    // send and wait for message
+    const id = hash;
+    const request = {
+        id,
+        source,
+        options: {
+            ...langOptions,
+            meta,
+            cwd,
+        },
+    };
+    const msg = langOptions.createCompileRequest?.(request) || request;
+    const processing = new Promise((resolve) => {
+        console.debug(`puppeteer: schedule ${id}`);
+        (pendingRequests as any)[id] = resolve;
+        page?.evaluate(async (msg) => {
+            window.postMessage(msg, "*");
+        }, msg);
+    });
+    await processing;
     return undefined;
 }
 
@@ -90,6 +162,24 @@ async function compileCodeNodeCache(
                 meta,
                 cwd,
             });
+        } catch (e) {
+            return {
+                error: e + "",
+            };
+        }
+    }
+
+    // puppeteer
+    const { createDriverHtml } = langOptions as PuppeteerLangOptions;
+    if (!!createDriverHtml) {
+        try {
+            return await puppeteerCodeNoCache(
+                cwd,
+                source,
+                meta,
+                langOptions as PuppeteerLangOptions,
+                hash
+            );
         } catch (e) {
             return {
                 error: e + "",
