@@ -38,22 +38,22 @@
         "clear": "rm -Rf ./lib"
     },
     "dependencies": {
-        "@docusaurus/core": "^2.2.0",
-        "@docusaurus/types": "^2.2.0",
-        "@docusaurus/utils-validation": "^2.2.0",
+        "@docusaurus/core": "^2.3.0",
+        "@docusaurus/types": "^2.3.0",
+        "@docusaurus/utils-validation": "^2.3.0",
         "@mdx-js/react": "^1.6.22",
         "@monaco-editor/react": "^4.4.6",
         "clsx": "^1.2.1",
         "monaco-editor": "^0.34.1",
-        "react-resizable-panels": "^0.0.35",
-        "tslib": "^2.4.1"
+        "react-resizable-panels": "^0.0.36",
+        "tslib": "^2.5.0"
     },
     "devDependencies": {
         "@types/mdx-js__react": "^1.5.5"
     },
     "peerDependencies": {
-        "react": "^16.8.4 || ^17.0.0 || ^18.0.0",
-        "react-dom": "^16.8.4 || ^17.0.0 || ^18.0.0"
+        "react": "^16.8.4 || ^17.0.0",
+        "react-dom": "^16.8.4 || ^17.0.0"
     },
     "engines": {
         "node": ">=16.14"
