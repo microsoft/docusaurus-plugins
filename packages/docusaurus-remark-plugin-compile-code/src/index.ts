@@ -47,13 +47,24 @@ function readCachedResult(cwd: string): LangResult | undefined {
     return undefined;
 }
 
-const puppets: Record<
+let puppets: Record<
     string,
     {
         page: Page;
+        close: () => Promise<void>;
         pendingRequests: Record<string, (msg: object) => void>;
     }
 > = {};
+
+async function cleanupPuppets() {
+    Object.keys(puppets).forEach((k) => {
+        const { close } = puppets[k] || {};
+        console.debug(`${k}:puppet> cleanup`);
+        close?.();
+    });
+    puppets = {}
+}
+
 async function puppeteerCodeNoCache(
     cwd: string,
     source: string,
@@ -71,6 +82,10 @@ async function puppeteerCodeNoCache(
         page = await browser.newPage();
         if (!page) throw Error("page could not load");
         page.on("console", (msg) => console.log(msg.text()));
+        const close: () => Promise<void> = async () => {
+            await page?.close();
+            await browser?.close();
+        };
         const html = langOptions.createDriverHtml(langOptions);
         await page.exposeFunction("rise4funPostMessage", (msg: object) => {
             const resp: any = langOptions.resolveCompileResponse?.(msg) || msg;
@@ -96,7 +111,7 @@ async function puppeteerCodeNoCache(
         console.debug(`${msgp}waiting browser`);
         await ready;
         // wait for ready message
-        puppets[langOptions.lang] = { page, pendingRequests };
+        puppets[langOptions.lang] = { page, pendingRequests, close };
     }
     // send and wait for message
     const id = hash;
@@ -417,6 +432,9 @@ const plugin: Plugin<[PluginOptions?]> = (options = undefined) => {
                     throw new Error("error while compiling code snippet");
             }
         }
+
+        // cleanup pupppets
+        await cleanupPuppets();
 
         if (errors) throw new Error("errors while compile code snippets");
     };
