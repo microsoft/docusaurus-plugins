@@ -157,7 +157,7 @@ export type PluginOptions = {
     /**
      * List of compilers
      */
-    langs: (ToolLangOptions | CustomLangOptions)[];
+    langs: (ToolLangOptions | CustomLangOptions | PuppeteerLangOptions)[];
 
     /**
      * Use cache folder, default is true.

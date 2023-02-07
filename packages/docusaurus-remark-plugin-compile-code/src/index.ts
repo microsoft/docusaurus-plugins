@@ -67,7 +67,8 @@ async function puppeteerCodeNoCache(
         pendingRequests = {};
         const browser = await puppeteer.launch({ headless: true });
         const puppeteerVersion = await browser.version();
-        console.info(`puppeteer: browser ${puppeteerVersion}`);
+        const msgp = `${langOptions.lang}:driver> `;
+        console.info(`${msgp}starting browser ${puppeteerVersion}`);
         page = await browser.newPage();
         if (!page) throw Error("page could not load");
         page.on("console", (msg) => console.log(msg.text()));
@@ -77,20 +78,21 @@ async function puppeteerCodeNoCache(
             const id = resp?.id;
             const resolve = pendingRequests?.[id];
             if (resolve) {
-                console.debug(`puppeteer: received ${id}`);
+                console.debug(`${msgp}received ${id}`, JSON.stringify(resp, null, 2));
                 delete pendingRequests?.[id];
                 resolve(resp);
             }
         });
-        const ready = new Promise<void>(async (resolve, reject) => {
-            await page?.exposeFunction("rise4funReady", () => {
-                resolve();
-            });
+        let readyResolve: () => void;
+        const ready = new Promise<void>(async (resolve) => {
+            readyResolve = resolve;
+        });
+        await page?.exposeFunction("rise4funReady", () => {
+            readyResolve();
         });
         await page.setContent(html);
+        console.debug(`${msgp}waiting browser`);
         await ready;
-
-        console.debug(`puppeteer: waiting for ready message`);
         // wait for ready message
         puppets[langOptions.lang] = { page, pendingRequests };
     }
@@ -98,6 +100,7 @@ async function puppeteerCodeNoCache(
     const id = hash;
     const request = {
         id,
+        type: "puppet",
         source,
         options: {
             ...langOptions,
@@ -107,7 +110,7 @@ async function puppeteerCodeNoCache(
     };
     const msg = langOptions.createCompileRequest?.(request) || request;
     const processing = new Promise((resolve) => {
-        console.debug(`puppeteer: schedule ${id}`);
+        console.debug(`${langOptions.lang}:puppeteer> schedule ${id}`);
         (pendingRequests as any)[id] = resolve;
         page?.evaluate(async (msg) => {
             window.postMessage(msg, "*");

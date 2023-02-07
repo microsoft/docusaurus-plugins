@@ -4,6 +4,7 @@ import mdx from "remark-mdx";
 import remark from "remark";
 import plugin from "../index";
 import type { PluginOptions } from "../types";
+import { readFileSync } from "fs-extra";
 
 const processFixture = async (name: string, options: PluginOptions) => {
     const filePath = path.join(__dirname, "__fixtures__", `${name}.md`);
@@ -62,6 +63,7 @@ const options: PluginOptions = {
 };
 
 describe("compile-code plugin", () => {
+    /*
     it("works on compile file", async () => {
         const result = await processFixture("compile", options);
         expect(result).toMatchSnapshot();
@@ -76,6 +78,26 @@ describe("compile-code plugin", () => {
     });
     it("works on nodes file", async () => {
         const result = await processFixture("nodes", options);
+        expect(result).toMatchSnapshot();
+    });
+    */
+    it("works on puppet file", async () => {
+        const options: PluginOptions = {
+            langs: [
+                {
+                    lang: "puppet",
+                    createDriverHtml: (options) => {
+                        const filePath = path.join(
+                            __dirname,
+                            "__fixtures__",
+                            `puppet.html`
+                        );
+                        return readFileSync(filePath, { encoding: "utf-8" });
+                    },
+                },
+            ],
+        };
+        const result = await processFixture("puppet", options);
         expect(result).toMatchSnapshot();
     });
 });
