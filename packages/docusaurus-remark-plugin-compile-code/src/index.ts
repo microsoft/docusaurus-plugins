@@ -114,7 +114,7 @@ async function puppeteerCodeNoCache(
     const processing = new Promise<LangResult | undefined>((resolve) => {
         console.debug(`${langOptions.lang}:puppeteer> schedule ${id}`);
         (pendingRequests as any)[id] = resolve;
-        page?.evaluate(async (msg) => {
+        page!.evaluate(async (msg) => {
             window.postMessage(msg, "*");
         }, msg);
     });
