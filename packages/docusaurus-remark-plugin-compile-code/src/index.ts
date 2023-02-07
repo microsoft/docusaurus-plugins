@@ -47,7 +47,6 @@ function readCachedResult(cwd: string): LangResult | undefined {
     return undefined;
 }
 
-let nextId = 0;
 const puppets: Record<
     string,
     {
@@ -78,7 +77,10 @@ async function puppeteerCodeNoCache(
             const id = resp?.id;
             const resolve = pendingRequests?.[id];
             if (resolve) {
-                console.debug(`${msgp}received ${id}`, JSON.stringify(resp, null, 2));
+                console.debug(
+                    `${msgp}received ${id}`,
+                    JSON.stringify(resp, null, 2)
+                );
                 delete pendingRequests?.[id];
                 resolve(resp);
             }
@@ -109,15 +111,14 @@ async function puppeteerCodeNoCache(
         },
     };
     const msg = langOptions.createCompileRequest?.(request) || request;
-    const processing = new Promise((resolve) => {
+    const processing = new Promise<LangResult | undefined>((resolve) => {
         console.debug(`${langOptions.lang}:puppeteer> schedule ${id}`);
         (pendingRequests as any)[id] = resolve;
         page?.evaluate(async (msg) => {
             window.postMessage(msg, "*");
         }, msg);
     });
-    await processing;
-    return undefined;
+    return processing;
 }
 
 async function compileCode(
