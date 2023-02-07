@@ -3,22 +3,25 @@ title: Docusaurus Extras
 sidebar_position: 0.5
 ---
 
-import BrowserWindow from '@site/src/theme/BrowserWindow'
+import Image from "@theme/IdealImage";
+import thumbnail from "./img.png";
+import BrowserWindow from "@site/src/theme/BrowserWindow";
 
-export const Highlight = ({children, color}) => (
-  <span
-    style={{
-      backgroundColor: color,
-      borderRadius: '20px',
-      color: '#fff',
-      padding: '10px',
-      cursor: 'pointer',
-    }}
-    onClick={() => {
-      alert(`You clicked the color ${color} with label ${children}`);
-    }}>
-    {children}
-  </span>
+export const Highlight = ({ children, color }) => (
+    <span
+        style={{
+            backgroundColor: color,
+            borderRadius: "20px",
+            color: "#fff",
+            padding: "10px",
+            cursor: "pointer",
+        }}
+        onClick={() => {
+            alert(`You clicked the color ${color} with label ${children}`);
+        }}
+    >
+        {children}
+    </span>
 );
 
 Docusaurus supports extra **[Markdown features](https://docusaurus.io/docs/markdown-features)** out of the box.
@@ -85,9 +88,7 @@ Markdown code blocks are supported with Syntax highlighting.
 ````markdown
 ```jsx title="src/components/HelloDocusaurus.js"
 function HelloDocusaurus() {
-    return (
-        <h1>Hello, Docusaurus!</h1>
-    )
+    return <h1>Hello, Docusaurus!</h1>;
 }
 ```
 ````
@@ -96,7 +97,7 @@ function HelloDocusaurus() {
 
 ```jsx title="src/components/HelloDocusaurus.js"
 function HelloDocusaurus() {
-  return <h1>Hello, Docusaurus!</h1>;
+    return <h1>Hello, Docusaurus!</h1>;
 }
 ```
 
@@ -134,6 +135,30 @@ This action is dangerous
 
 </BrowserWindow>
 
+## Ideal image
+
+The [plugin-ideal-image](https://docusaurus.io/docs/api/plugins/@docusaurus/plugin-ideal-image) plugin
+to generate an almost ideal image (responsive, lazy-loading, and low quality placeholder) for png/jpeg images.
+
+This plugin is useful to display large images.
+
+```mdx
+import Image from "@theme/IdealImage";
+import thumbnail from "./img.png";
+
+// your React code
+<Image img={thumbnail} />
+
+// or
+<Image img={require("./img.png")} />
+```
+
+<BrowserWindow>
+
+<Image img={thumbnail} />
+
+</BrowserWindow>
+
 ## MDX and React Components
 
 [MDX](https://mdxjs.com/) can make your documentation more **interactive** and allows using any **React components inside Markdown**:
@@ -163,4 +188,3 @@ This is <Highlight color="#25c2a0">Docusaurus green</Highlight> !
 This is <Highlight color="#25c2a0">Docusaurus green</Highlight> !
 
 </BrowserWindow>
-

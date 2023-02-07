@@ -5,6 +5,7 @@ import type { PluginOptions as CodeElementPluginOptions } from "@rise4fun/docusa
 import type { PluginOptions as SideEditorRemarkPluginOptions } from "@rise4fun/docusaurus-remark-plugin-side-editor";
 import type { SideEditorThemeConfig } from "@rise4fun/docusaurus-theme-side-editor";
 import type { CodeSandboxButtonThemeConfig } from "@rise4fun/docusaurus-theme-codesandbox-button";
+import type { PluginOptions as IdealImagePluginOptions } from "@docusaurus/plugin-ideal-image"
 
 export interface AlgoliaOptions {
     /**
@@ -72,6 +73,11 @@ export type PluginOptions = {
      * Set to false to disable button
      */
     githubButton?: boolean;
+
+    /**
+     * Configures or disables the ideal image plugin
+     */
+    idealImage?: false | IdealImagePluginOptions
 };
 
 export type Options = Partial<PluginOptions>;

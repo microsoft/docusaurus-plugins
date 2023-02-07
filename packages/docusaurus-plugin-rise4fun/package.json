@@ -24,6 +24,7 @@
         "@docusaurus/theme-mermaid": "^2.3.0",
         "@docusaurus/types": "^2.3.0",
         "@docusaurus/utils-validation": "^2.3.0",
+        "@docusaurus/plugin-ideal-image": "*",
         "@rise4fun/docusaurus-plugin-application-insights": "*",
         "@rise4fun/docusaurus-remark-plugin-code-element": "*",
         "@rise4fun/docusaurus-remark-plugin-code-tabs": "*",

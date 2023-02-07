@@ -8,6 +8,7 @@ import compileCodePlugin, {
 import codeTabsPlugin from "@rise4fun/docusaurus-remark-plugin-code-tabs";
 import codeElementPlugin from "@rise4fun/docusaurus-remark-plugin-code-element";
 import sideEditorPlugin from "@rise4fun/docusaurus-remark-plugin-side-editor";
+import idealImagePlugin from "@docusaurus/plugin-ideal-image";
 import { join, resolve } from "node:path";
 import { ensureDirSync, writeJSONSync } from "fs-extra";
 
@@ -40,6 +41,7 @@ export async function configure(
         codeElement,
         algolia,
         githubButton,
+        idealImage,
     } = options;
 
     // injecting legal terms
@@ -111,6 +113,9 @@ export async function configure(
             disableCookiesUsage: true,
             ...appInsights,
         });
+
+    // ideal image
+    if (idealImage !== false) injectPlugin(idealImagePlugin, idealImage);
 
     //  npm2yarn
     if (npm2yarn !== false) injectRemarkPlugin(npm2yarnPlugin, { sync: true }); // npm/yarn
