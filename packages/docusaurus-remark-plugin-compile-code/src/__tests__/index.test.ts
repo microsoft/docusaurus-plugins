@@ -19,6 +19,18 @@ const options: PluginOptions = {
         {
             lang: "ts",
             nodeBin: "tsc",
+            inputFiles: {
+                "tsconfig.json": {
+                    "compilerOptions": {
+                        "target": "esnext",
+                        "skipLibCheck": true,
+                        "lib": ["esnext", "dom"]
+                    },
+                    "include": [
+                        "input.ts"
+                    ]
+                }
+            }
         },
         {
             lang: "meta",
@@ -63,7 +75,6 @@ const options: PluginOptions = {
 };
 
 describe("compile-code plugin", () => {
-    /*
     it("works on compile file", async () => {
         const result = await processFixture("compile", options);
         expect(result).toMatchSnapshot();
@@ -80,7 +91,6 @@ describe("compile-code plugin", () => {
         const result = await processFixture("nodes", options);
         expect(result).toMatchSnapshot();
     });
-    */
     it("works on puppet file", async () => {
         const options: PluginOptions = {
             langs: [

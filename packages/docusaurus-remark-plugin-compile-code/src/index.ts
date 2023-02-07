@@ -52,17 +52,27 @@ let puppets: Record<
     {
         page: Page;
         close: () => Promise<void>;
-        pendingRequests: Record<string, (msg: object) => void>;
+        pendingRequests: Record<
+            string,
+            {
+                resolve: (msg: object) => void;
+                reject: () => void;
+            }
+        >;
     }
 > = {};
 
 async function cleanupPuppets() {
     Object.keys(puppets).forEach((k) => {
-        const { close } = puppets[k] || {};
+        const { close, pendingRequests } = puppets[k] || {};
+        if (pendingRequests)
+            Object.keys(pendingRequests).forEach((r) => {
+                pendingRequests[r]!.reject?.();
+            });
         console.debug(`${k}:puppet> cleanup`);
         close?.();
     });
-    puppets = {}
+    puppets = {};
 }
 
 async function puppeteerCodeNoCache(
@@ -90,7 +100,7 @@ async function puppeteerCodeNoCache(
         await page.exposeFunction("rise4funPostMessage", (msg: object) => {
             const resp: any = langOptions.resolveCompileResponse?.(msg) || msg;
             const id = resp?.id;
-            const resolve = pendingRequests?.[id];
+            const { resolve } = pendingRequests?.[id] || {};
             if (resolve) {
                 console.debug(
                     `${msgp}received ${id}`,
@@ -126,13 +136,15 @@ async function puppeteerCodeNoCache(
         },
     };
     const msg = langOptions.createCompileRequest?.(request) || request;
-    const processing = new Promise<LangResult | undefined>((resolve) => {
-        console.debug(`${langOptions.lang}:puppeteer> schedule ${id}`);
-        (pendingRequests as any)[id] = resolve;
-        page!.evaluate(async (msg) => {
-            window.postMessage(msg, "*");
-        }, msg);
-    });
+    const processing = new Promise<LangResult | undefined>(
+        (resolve, reject) => {
+            console.debug(`${langOptions.lang}:puppeteer> schedule ${id}`);
+            pendingRequests![id] = { resolve, reject };
+            page!.evaluate(async (msg) => {
+                window.postMessage(msg, "*");
+            }, msg);
+        }
+    );
     return processing;
 }
 
@@ -219,7 +231,7 @@ async function compileCodeNodeCache(
     } = langOptions as ToolLangOptions;
     if (command || nodeBin) {
         const ifn = `input.${extension || lang}`;
-        const iargs = [...args, ifn];
+        const iargs = [...args];
         ensureDirSync(cwd);
         writeFileSync(join(cwd, ifn), source);
 
