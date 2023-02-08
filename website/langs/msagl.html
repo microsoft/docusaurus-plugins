@@ -9,14 +9,12 @@
             const renderer = new msagl.RendererSvg();
             // handle rendering of dot sources
             window.addEventListener("message", (msg) => {
-                const { type, lang, source, id } = ev.data;
-                console.log(ev.data);
+                const { type, lang, source, id } = msg.data;
                 if (type === "puppet" && lang == "msagl") {
                     const graph = msagl.parseDot(source);
                     renderer.setGraph(graph);
                     const svg = renderer.getSvgString();
 
-                    console.log(`msagl ready`);
                     window.rise4funPostMessage?.({
                         id,
                         stdout: svg,

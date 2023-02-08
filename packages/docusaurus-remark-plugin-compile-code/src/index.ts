@@ -97,7 +97,9 @@ async function puppeteerCodeNoCache(
             await browser?.close();
         };
         const html =
-            langOptions.html || langOptions.createDriverHtml?.(langOptions);
+            (langOptions.html &&
+                readFileSync(langOptions.html, { encoding: "utf-8" })) ||
+            langOptions.createDriverHtml?.(langOptions);
         await page.exposeFunction("rise4funPostMessage", (msg: object) => {
             const resp: any = langOptions.resolveCompileResponse?.(msg) || msg;
             const id = resp?.id;
