@@ -62,13 +62,14 @@ let puppets: Record<
         >;
     }
 > = {};
+let nextPuppetId = 1;
 
 async function cleanupPuppets() {
     Object.keys(puppets).forEach((k) => {
         const { close, pendingRequests } = puppets[k] || {};
         if (pendingRequests)
             Object.keys(pendingRequests).forEach((r) => {
-                pendingRequests[r]!.reject?.("dangling request");
+                pendingRequests[r]!.reject?.(`dangling request ${r}`);
             });
         console.debug(`${k}:puppet> cleanup`);
         close?.();
@@ -134,7 +135,7 @@ async function puppeteerCodeNoCache(
         puppets[langOptions.lang] = { page, pendingRequests, close };
     }
     // send and wait for message
-    const id = hash;
+    const id = langOptions.lang + (nextPuppetId++).toString();
     const request = {
         id,
         type: "puppet",
