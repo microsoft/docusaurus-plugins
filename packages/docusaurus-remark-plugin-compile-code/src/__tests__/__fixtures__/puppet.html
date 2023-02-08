@@ -1,0 +1,32 @@
+<html>
+    <title>Offscreen renderer</title>
+</html>
+<style></style>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        console.log(`puppet:browser> puppet loading`);
+        window.addEventListener("message", (msg) => {
+            const { data } = msg;
+            const { type } = data;
+            if (type === "puppet") {
+                console.log(
+                    "puppet:browser> msg",
+                    JSON.stringify(data, null, 2)
+                );
+                const { id, source } = data;
+
+                // send answer async
+                setTimeout(() => {
+                    window.rise4funPostMessage({
+                        id,
+                        stdout: "browser says: " + source,
+                    });
+                }, 500);
+            }
+        });
+
+        window.rise4funReady();
+        console.log(`puppet:browser> puppet waiting for render messages`);
+    });
+</script>
+<body></body>

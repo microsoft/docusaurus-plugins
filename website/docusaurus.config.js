@@ -175,6 +175,17 @@ const config = configure(
         compileCode: {
             langs: [
                 {
+                    lang: "msagl",
+                    html: "./langs/msagl.html",
+                    timeout: 10000,
+                    outputFiles: [
+                        {
+                            name: "output.svg",
+                            title: "Generated graph",
+                        },
+                    ]
+                },
+                {
                     lang: "ts",
                     nodeBin: "tsc",
                     npmPackage: "typescript",
@@ -231,8 +242,8 @@ const config = configure(
         codeElement: {
             langs: [
                 {
-                    lang: "dot",
-                    element: "Dot"
+                    lang: "cow",
+                    element: "Cow"
                 }
             ]
         },

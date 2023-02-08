@@ -6,36 +6,18 @@ import BrowserWindow from "@site/src/theme/BrowserWindow";
 # 📦 remark-plugin-code-element
 
 Docusaurus remark pluging to replace fenced code section with themed MDX markdown.
-For example, replace `dot` code to `Dot` JSX.
+For example, replace `cow` code to `Cow` JSX.
 
 ````markdown
-```dot
- digraph G {
-    main -> parse -> execute;
-    main -> init;
-    main -> cleanup;
-    execute -> make_string;
-    execute -> printf
-    init -> make_string;
-    main -> printf;
-    execute -> compare;
-}
+```cow
+Book!
 ```
 ````
 
 <BrowserWindow>
 
-```dot
- digraph G {
-    main -> parse -> execute;
-    main -> init;
-    main -> cleanup;
-    execute -> make_string;
-    execute -> printf
-    init -> make_string;
-    main -> printf;
-    execute -> compare;
-}
+```Cow
+Boo!
 ```
 
 </BrowserWindow>
