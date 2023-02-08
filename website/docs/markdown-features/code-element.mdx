@@ -7,53 +7,36 @@ import BrowserWindow from "@site/src/theme/BrowserWindow";
 # Code Element
 
 This features provides a convinient way to map a fenced code region to a custom MDX element.
-In this example, we map `dot` to a custom graph layout rendering element `Dot`.
+In this example, we map `figlet` to
+a [figlet.js](https://www.npmjs.com/package/figlet) rendering element `Figlet`.
 
-```tsx title="./src/theme/Dot/index.tsx"
-import React from "react";
+```tsx title="./src/theme/Figlet/index.tsx"
+import React, { useEffect, useState } from "react";
+...
 
-export default function Dot(props: {
-    // 'dot'
+export default function Cow(props: {
     lang: string;
-    // pre-parsed meta string
     meta: object;
-    // text in code region
     value: string;
 }) {
-    return <div>...</div>;
+    const { value } = props;
+    ...
+    return <pre>{renderered}</pre>;
 }
 ```
 
 So that this code section gets replaced with the MDX code using `Dot`.
 
 ````markdown
-```dot
- digraph G {
-    main -> parse -> execute;
-    main -> init;
-    main -> cleanup;
-    execute -> make_string;
-    execute -> printf
-    init -> make_string;
-    main -> printf;
-    execute -> compare;
-}
+```figlet
+Boo!
 ```
 ````
 
 <BrowserWindow>
 
-```dot
- digraph G {
-    main -> parse -> execute;
-    main -> init;
-    main -> cleanup;
-    execute -> make_string;
-    execute -> printf
-    init -> make_string;
-    main -> printf;
-    execute -> compare;
-}
+```figlet
+Boo!
 ```
 
 </BrowserWindow>
@@ -69,8 +52,8 @@ const config = configure({ ... }, {
     codeElement: {
         langs: [
             {
-                lang: "dot",
-                element: "Dot"
+                lang: "cow",
+                element: "Cow"
             }
         ]
     },

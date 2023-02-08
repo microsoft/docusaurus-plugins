@@ -26,6 +26,7 @@
         "@rise4fun/docusaurus-plugin-rise4fun": "*",
         "clsx": "^1.2.1",
         "cowsay": "^1.5.0",
+        "figlet": "^1.5.2",
         "prism-react-renderer": "^1.3.5",
         "react": "^17.0.0",
         "react-dom": "^17.0.0",
@@ -52,7 +53,7 @@
         ]
     },
     "engines": {
-        "node": ">=16.14"
+        "node": ">=18"
     },
     "targetDefaults": {
         "build": {
