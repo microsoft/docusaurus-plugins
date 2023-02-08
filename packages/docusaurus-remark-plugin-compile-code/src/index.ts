@@ -320,35 +320,38 @@ async function compileCodeNodeCache(
 
     function generateNodesFromOutputFiles(result: LangResult) {
         if (outputFiles) {
-            result.nodes = outputFiles
-                .filter(({ name }) => existsSync(join(cwd, name)))
-                .map(({ name, title, lang: outputLang, meta }) => {
-                    const fn = name;
-                    if (/\.(svg|png|jpg|jpeg)$/i.test(fn)) {
-                        // copy file to static folder
-                        const snd = join(assetsPath, lang, hash);
-                        ensureDirSync(snd);
-                        copyFileSync(join(cwd, fn), join(snd, fn));
+            result.nodes = [
+                ...(result.nodes || []),
+                ...outputFiles
+                    .filter(({ name }) => existsSync(join(cwd, name)))
+                    .map(({ name, title, lang: outputLang, meta }) => {
+                        const fn = name;
+                        if (/\.(svg|png|jpg|jpeg)$/i.test(fn)) {
+                            // copy file to static folder
+                            const snd = join(assetsPath, lang, hash);
+                            ensureDirSync(snd);
+                            copyFileSync(join(cwd, fn), join(snd, fn));
 
-                        return <Image>{
-                            type: "image",
-                            alt: title || fn,
-                            url: `/${join(lang, hash, fn)}`,
-                        };
-                    } else {
-                        const text = readFileSync(join(cwd, fn), {
-                            encoding: "utf-8",
-                        });
-                        return <Code>{
-                            type: "code",
-                            lang: outputLang || extname(fn).slice(1),
-                            meta: `tabs title=${JSON.stringify(title || fn)} ${
-                                meta || ""
-                            }`,
-                            value: text,
-                        };
-                    }
-                });
+                            return <Image>{
+                                type: "image",
+                                alt: title || fn,
+                                url: `/${join(lang, hash, fn)}`,
+                            };
+                        } else {
+                            const text = readFileSync(join(cwd, fn), {
+                                encoding: "utf-8",
+                            });
+                            return <Code>{
+                                type: "code",
+                                lang: outputLang || extname(fn).slice(1),
+                                meta: `tabs title=${JSON.stringify(
+                                    title || fn
+                                )} ${meta || ""}`,
+                                value: text,
+                            };
+                        }
+                    }),
+            ];
         }
     }
 }
