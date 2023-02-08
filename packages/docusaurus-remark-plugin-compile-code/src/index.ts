@@ -57,7 +57,7 @@ let puppets: Record<
             string,
             {
                 resolve: (msg: object) => void;
-                reject: () => void;
+                reject: (reason: any) => void;
             }
         >;
     }
@@ -68,7 +68,7 @@ async function cleanupPuppets() {
         const { close, pendingRequests } = puppets[k] || {};
         if (pendingRequests)
             Object.keys(pendingRequests).forEach((r) => {
-                pendingRequests[r]!.reject?.();
+                pendingRequests[r]!.reject?.("dangling request");
             });
         console.debug(`${k}:puppet> cleanup`);
         close?.();
@@ -113,7 +113,7 @@ async function puppeteerCodeNoCache(
             }
         });
         let readyResolve: (() => void) | undefined = undefined;
-        let readyReject: (() => void) | undefined = undefined;
+        let readyReject: ((reason: any) => void) | undefined = undefined;
         const ready = new Promise<void>(async (resolve, reject) => {
             readyResolve = resolve;
             readyReject = reject;
@@ -125,8 +125,9 @@ async function puppeteerCodeNoCache(
         await page.setContent(html!);
         console.debug(`${msgp}waiting browser`);
         setTimeout(() => {
+            console.error(`${msgp}browser timeout`);
             readyResolve = undefined;
-            readyReject?.();
+            readyReject?.("browser timeout");
         }, 30000);
         await ready;
         // wait for ready message
@@ -158,8 +159,11 @@ async function puppeteerCodeNoCache(
     // concurrent timeout
     setTimeout(() => {
         const req = pendingRequests?.[id];
-        delete pendingRequests?.[id];
-        req?.reject?.();
+        if (req) {
+            console.error(`${langOptions.lang}:puppeteer> timeout ${id}`);
+            delete pendingRequests?.[id];
+            req?.reject?.("render timeout");
+        }
     }, timeout);
     return processing;
 }
@@ -483,8 +487,8 @@ const plugin: Plugin<[PluginOptions?]> = (options = undefined) => {
 
             if (!ignoreErrors && res?.error) {
                 errors++;
-                console.error(`${vfile.path}: ${res.error}`);
-                console.debug(value);
+                console.error(`error ${vfile.path}: ${res.error}`);
+                console.debug({ lang, value });
 
                 if (failFast)
                     throw new Error("error while compiling code snippet");

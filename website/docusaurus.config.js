@@ -177,6 +177,7 @@ const config = configure(
                 {
                     lang: "msagl",
                     html: "./langs/msagl.html",
+                    timeout: 10000,
                     outputFiles: [
                         {
                             name: "output.svg",
