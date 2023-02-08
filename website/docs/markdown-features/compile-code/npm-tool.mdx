@@ -1,0 +1,61 @@
+---
+id: npm-tool
+sidebar_position: 2
+---
+
+import BrowserWindow from "@site/src/theme/BrowserWindow";
+
+# Tools published on npm
+
+There is a special support for tools that can be installed through `npm`.
+
+Let's take the TypeScript compiler as an example. Add a `compileCode` language entry
+that will run all `ts` code section through the `tsc` node executable.
+
+By default, the tool generates a unique folder and write the source as `input.ts`, and the options as `options.json`.
+The tool is executed within the generated folder and can tune how your tool is called in the options.
+
+```js title="./docusaurus.config.js"
+compileCode: {
+    langs: [
+        ...,
+        // highlight-start
+        {
+            lang: "ts",
+            nodeBin: "tsc",
+            inputFiles: {
+                "tsconfig.json": {
+                    "compilerOptions": {
+                        "target": "esnext",
+                        "skipLibCheck": true,
+                        "lib": ["esnext", "dom"]
+                    },
+                    "include": [
+                        "input.ts"
+                    ]
+                }
+            }
+        },
+        // highlight-end
+    ];
+}
+```
+
+Let's take a look at this example in action.
+
+````markdown
+```ts showLineNumbers ignoreErrors
+console.llog("typo!");
+```
+````
+
+When rendered in the docs, this snippet looks like any other code snippet. But you'll also notice an additional box
+underneath with the TypeScript compiler output. This output was computed at build time.
+
+<BrowserWindow>
+
+```ts showLineNumbers ignoreErrors
+console.llog("typo!");
+```
+
+</BrowserWindow>

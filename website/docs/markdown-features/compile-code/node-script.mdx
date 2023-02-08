@@ -1,0 +1,84 @@
+---
+id: node-script
+sidebar_position: 3
+---
+
+import BrowserWindow from "@site/src/theme/BrowserWindow";
+
+# Node.JS script
+
+A `command` parameter ending in `.js` or `.mjs` will automatically
+be executed through node.js.
+Each snippet will be run in its individual process.
+
+The example below execute the [Z3](https://github.com/Z3Prover/z3) constraint solver.
+
+```js
+compileCode: {
+    langs: [
+        ...,
+        // highlight-start
+        {
+            lang: "z3wasm",
+            extension: "z3",
+            inputLang: "lisp",
+            command: "./langs/z3.mjs",
+        },
+        // highlight-end
+    ];
+}
+```
+
+where `z3.mjs` is a node script that reads `input.z3`, `options.json` from the current working directory,
+executes Z3 and prints the result to the console.
+
+```js title="./langs/z3.mjs"
+import { readFileSync } from "node:fs";
+import z3 from "z3-solver";
+
+async function run() {
+    const { Z3 } = await z3.init();
+    const input = readFileSync(`./input.z3`, { encoding: "utf8" });
+    const options = JSON.parse(
+        readFileSync(`./options.json`, { encoding: "utf8" })
+    );
+    const { timeout = 10000 } = options;
+
+    ...
+
+    console.log(output)
+    if (error)
+        console.error(error)
+}
+
+(async () => {
+    try {
+        await run();
+        process.exit(0);
+    } catch (e) {
+        process.exit(1);
+    }
+})();
+```
+
+````markdown
+```z3wasm
+(declare-const a Int)
+(declare-fun f (Int Bool) Int)
+(assert (= a 10))
+(assert (= (f a true) 100))
+(check-sat)
+```
+````
+
+<BrowserWindow>
+
+```z3wasm
+(declare-const a Int)
+(declare-fun f (Int Bool) Int)
+(assert (= a 10))
+(assert (= (f a true) 100))
+(check-sat)
+```
+
+</BrowserWindow>

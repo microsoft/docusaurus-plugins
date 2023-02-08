@@ -17,6 +17,10 @@ export interface LangResult {
      * Extra markdown node to be added after the output
      */
     nodes?: Node[];
+    /**
+     * In memory generated files
+     */
+    outputFiles?: Record<string, string | Uint8Array>;
 }
 
 export interface SnippetOptions {
@@ -78,6 +82,10 @@ export interface LangOptions {
      * minimatch filter to exclude files from generation
      */
     excludedFiles?: string[];
+    /**
+     * Sets of files that should be included in the final output
+     */
+    outputFiles?: OutputFile[];
 }
 
 export interface ToolLangOptions extends LangOptions {
@@ -110,13 +118,43 @@ export interface ToolLangOptions extends LangOptions {
      */
     ignoreReturnCode?: boolean;
     /**
-     * Sets of files that should be included in the final output
-     */
-    outputFiles?: OutputFile[];
-    /**
      * Additional files to write in the folder before running tool
      */
     inputFiles?: Record<string, string | object>;
+}
+
+/**
+ * A tool that runs in puppeteer
+ */
+export interface PuppeteerLangOptions extends LangOptions {
+    /**
+     * File path to the HTML driver
+     */
+    html?: string;
+    /**
+     * Generates the HTML that will drive puppeteer
+     * @param options
+     * @returns
+     */
+    createDriverHtml?: (options: PuppeteerLangOptions) => string;
+    /**
+     * Creates a message that will make the driver do a compilation request
+     * @param msg
+     * @returns
+     */
+    createCompileRequest?: (msg: {
+        id: string;
+        source: string;
+        options: LangOptions & SnippetOptions;
+    }) => object;
+    /**
+     * Give a received message from puppeteer, convert to a render rest if any
+     * @param msg
+     * @returns
+     */
+    resolveCompileResponse?: (msg: object) => {
+        id: string;
+    } & LangResult;
 }
 
 export interface CustomLangOptions extends LangOptions {
@@ -127,7 +165,7 @@ export type PluginOptions = {
     /**
      * List of compilers
      */
-    langs: (ToolLangOptions | CustomLangOptions)[];
+    langs: (ToolLangOptions | CustomLangOptions | PuppeteerLangOptions)[];
 
     /**
      * Use cache folder, default is true.

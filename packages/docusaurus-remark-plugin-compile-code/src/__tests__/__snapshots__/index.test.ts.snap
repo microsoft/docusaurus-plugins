@@ -96,3 +96,30 @@ foo
 \`\`\`
 "
 `;
+
+exports[`compile-code plugin works on puppet file 1`] = `
+"\`\`\`puppet
+hello world
+\`\`\`
+
+    browser says: hello world
+
+\`\`\`puppet
+hello world 2
+\`\`\`
+
+    browser says: hello world 2
+
+\`\`\`puppet
+hello
+world
+foo
+bar
+\`\`\`
+
+    browser says: hello
+    world
+    foo
+    bar
+"
+`;
