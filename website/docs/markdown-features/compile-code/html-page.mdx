@@ -20,10 +20,50 @@ the script running in the headless browser.
 // highlight-start
         {
             lang: "msgl",
-            html: "./langs/msagl.html"
+            html: "./langs/msagl.html",
+            outputFiles: [{
+                name: "output.svg",
+                title: "Generated graph",
+            }]
         }
 // highlight-end
     ]}
+```
+
+The file `msagl.html` is a HTML page that receives render requests and send back results.
+
+```html title="./langs/msagl.html"
+<html>
+    <head>
+        ...
+    </head>
+    <script type="module">
+        document.addEventListener("DOMContentLoaded", () => {
+            // setup renderer
+            ...
+            // handle rendering requests
+            window.addEventListener("message", (msg) => {
+                const { type, lang, source, id } = msg.data;
+                // it's a request for us!
+                if (type === "puppet" && lang == "msagl") {
+                    // compute response
+                    const svg = ...(source)
+                    // send response back
+                    window.rise4funPostMessage?.({
+                        id,
+                        outputFiles: {
+                            "output.svg": svg,
+                        },
+                    });
+                }
+            });
+
+            // notify driver we are ready
+            window.rise4funReady?.();
+        });
+    </script>
+    <body></body>
+</html>
 ```
 
 Let's take a look at this example in action.

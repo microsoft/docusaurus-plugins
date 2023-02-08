@@ -6,15 +6,17 @@
     </head>
     <script type="module">
         document.addEventListener("DOMContentLoaded", () => {
+            // setup renderer
             const renderer = new msagl.RendererSvg();
-            // handle rendering of dot sources
+            // handle rendering requests
             window.addEventListener("message", (msg) => {
                 const { type, lang, source, id } = msg.data;
+                // it's a request for us!
                 if (type === "puppet" && lang == "msagl") {
                     const graph = msagl.parseDot(source);
                     renderer.setGraph(graph);
                     const svg = renderer.getSvgString();
-
+                    // send response back
                     window.rise4funPostMessage?.({
                         id,
                         outputFiles: {
@@ -25,7 +27,6 @@
             });
 
             // notify driver we are ready
-            console.log(`msagl ready`);
             window.rise4funReady?.();
         });
     </script>
