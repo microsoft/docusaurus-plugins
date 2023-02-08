@@ -32,6 +32,35 @@ compileCode: {
 where `z3.mjs` is a node script that reads `input.z3`, `options.json` from the current working directory,
 executes Z3 and prints the result to the console.
 
+```js title="./langs/z3.mjs"
+import { readFileSync } from "node:fs";
+import z3 from "z3-solver";
+
+async function run() {
+    const { Z3 } = await z3.init();
+    const input = readFileSync(`./input.z3`, { encoding: "utf8" });
+    const options = JSON.parse(
+        readFileSync(`./options.json`, { encoding: "utf8" })
+    );
+    const { timeout = 10000 } = options;
+
+    ...
+
+    console.log(output)
+    if (error)
+        console.error(error)
+}
+
+(async () => {
+    try {
+        await run();
+        process.exit(0);
+    } catch (e) {
+        process.exit(1);
+    }
+})();
+```
+
 ````markdown
 ```z3wasm
 (declare-const a Int)
