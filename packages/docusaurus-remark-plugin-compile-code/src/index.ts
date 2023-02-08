@@ -83,6 +83,7 @@ async function puppeteerCodeNoCache(
     langOptions: PuppeteerLangOptions,
     hash: string
 ): Promise<LangResult | undefined> {
+    const { timeout = 60000 } = langOptions;
     let { page, pendingRequests } = puppets[langOptions.lang] || {};
     if (!page) {
         pendingRequests = {};
@@ -147,6 +148,12 @@ async function puppeteerCodeNoCache(
             }, msg);
         }
     );
+    // concurrent timeout
+    setTimeout(() => {
+        const req = pendingRequests?.[id];
+        req?.reject?.();
+        delete pendingRequests?.[id];
+    }, timeout);
     return processing;
 }
 
