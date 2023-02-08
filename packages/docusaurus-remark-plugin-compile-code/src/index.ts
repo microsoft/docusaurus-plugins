@@ -118,7 +118,7 @@ async function puppeteerCodeNoCache(
         await page?.exposeFunction("rise4funReady", () => {
             readyResolve();
         });
-        await page.setContent(html);
+        await page.setContent(html!);
         console.debug(`${msgp}waiting browser`);
         await ready;
         // wait for ready message
@@ -322,7 +322,7 @@ async function compileCodeNodeCache(
 
     // unknown configuration
     return {
-        error: "invalid configuration",
+        error: `invalid configuration ${langOptions.lang}`,
     };
 }
 
