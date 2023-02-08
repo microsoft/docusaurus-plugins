@@ -67,6 +67,11 @@ export type PluginOptions = {
      * Limited Algolia options
      */
     algolia?: AlgoliaOptions;
+
+    /**
+     * Set to false to disable button
+     */
+    githubButton?: boolean;
 };
 
 export type Options = Partial<PluginOptions>;

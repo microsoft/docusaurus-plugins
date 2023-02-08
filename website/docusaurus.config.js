@@ -5,6 +5,7 @@ const lightCodeTheme = require("prism-react-renderer/themes/github");
 const darkCodeTheme = require("prism-react-renderer/themes/dracula");
 
 const { configure } = require("@rise4fun/docusaurus-plugin-rise4fun");
+const { say } = require("cowsay")
 
 const config = configure(
     {
@@ -50,6 +51,12 @@ const config = configure(
                             docId: "intro",
                             label: "Docs",
                         },
+                        {
+                            type: "doc",
+                            position: "left",
+                            docId: "markdown-features/index",
+                            label: "Markdown",
+                        },
                     ],
                 },
                 footer: {
@@ -65,6 +72,10 @@ const config = configure(
                                 {
                                     label: "Getting Started",
                                     to: "/docs/getting-started",
+                                },
+                                {
+                                    label: "Markdown Features",
+                                    to: "/docs/markdown-features",
                                 },
                                 {
                                     label: "Plugins",
@@ -189,6 +200,12 @@ const config = configure(
                     compile: async (source) => ({
                         stdout: source.toUpperCase(),
                     }),
+                },
+                {
+                    lang: "cowsay",
+                    compile: async (text) => ({
+                        stdout: say({ text })
+                    })
                 },
                 {
                     lang: "z3wasm",
