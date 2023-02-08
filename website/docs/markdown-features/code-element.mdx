@@ -7,12 +7,10 @@ import BrowserWindow from "@site/src/theme/BrowserWindow";
 # Code Element
 
 This features provides a convinient way to map a fenced code region to a custom MDX element.
-In this example, we map `figlet` to
-a [figlet.js](https://www.npmjs.com/package/figlet) rendering element `Figlet`.
+In this example, we map `cow` to rendering element `Cow`.
 
-```tsx title="./src/theme/Figlet/index.tsx"
-import React, { useEffect, useState } from "react";
-...
+```tsx title="./src/theme/Cow/index.tsx"
+import React from "react";
 
 export default function Cow(props: {
     lang: string;
@@ -20,22 +18,21 @@ export default function Cow(props: {
     value: string;
 }) {
     const { value } = props;
-    ...
-    return <pre>{renderered}</pre>;
+    return <pre>cow says: {value}</pre>;
 }
 ```
 
 So that this code section gets replaced with the MDX code using `Dot`.
 
 ````markdown
-```figlet
+```Cow
 Boo!
 ```
 ````
 
 <BrowserWindow>
 
-```figlet
+```cow
 Boo!
 ```
 
@@ -52,8 +49,8 @@ const config = configure({ ... }, {
     codeElement: {
         langs: [
             {
-                lang: "figlet",
-                element: "Figlet"
+                lang: "cow",
+                element: "Cow"
             }
         ]
     },

@@ -242,8 +242,8 @@ const config = configure(
         codeElement: {
             langs: [
                 {
-                    lang: "figlet",
-                    element: "Figlet"
+                    lang: "cow",
+                    element: "Cow"
                 }
             ]
         },
