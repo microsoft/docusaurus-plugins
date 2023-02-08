@@ -96,7 +96,8 @@ async function puppeteerCodeNoCache(
             await page?.close();
             await browser?.close();
         };
-        const html = langOptions.createDriverHtml(langOptions);
+        const html =
+            langOptions.html || langOptions.createDriverHtml?.(langOptions);
         await page.exposeFunction("rise4funPostMessage", (msg: object) => {
             const resp: any = langOptions.resolveCompileResponse?.(msg) || msg;
             const id = resp?.id;
@@ -128,6 +129,7 @@ async function puppeteerCodeNoCache(
     const request = {
         id,
         type: "puppet",
+        lang: langOptions.lang,
         source,
         options: {
             ...langOptions,
@@ -201,8 +203,8 @@ async function compileCodeNodeCache(
     }
 
     // puppeteer
-    const { createDriverHtml } = langOptions as PuppeteerLangOptions;
-    if (!!createDriverHtml) {
+    const { html, createDriverHtml } = langOptions as PuppeteerLangOptions;
+    if (!!createDriverHtml || !!html) {
         try {
             return await puppeteerCodeNoCache(
                 cwd,

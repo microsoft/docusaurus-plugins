@@ -164,6 +164,10 @@ const config = configure(
         compileCode: {
             langs: [
                 {
+                    lang: "msagl",
+                    html: "./langs/msagl.html"
+                },
+                {
                     lang: "ts",
                     nodeBin: "tsc",
                     npmPackage: "typescript",

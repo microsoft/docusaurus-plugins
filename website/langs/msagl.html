@@ -1,0 +1,32 @@
+<html>
+    <script src="https://unpkg.com/msagl-js@latest/dist.min.js"></script>
+    <script src="https://unpkg.com/@msagl/parser@latest/dist.min.js"></script>
+    <script src="https://unpkg.com/@msagl/renderer@latest/dist.min.js"></script>
+    <body>
+        <script type="module">
+            const renderer = new msagl.RendererSvg();
+            // handle rendering of dot sources
+            window.addEventListener("message", (msg) => {
+                const { type, lang, source, id } = ev.data;
+                console.log(ev.data);
+                if (type === "puppet" && lang == "msagl") {
+                    const graph = msagl.parseDot(source);
+                    renderer.setGraph(graph);
+                    const svg = renderer.getSvgString();
+
+                    console.log(`msagl ready`);
+                    window.rise4funPostMessage({
+                        id,
+                        outputFiles: {
+                            "output.svg": svg,
+                        },
+                    });
+                }
+            });
+
+            // notify driver we are ready
+            console.log(`msagl ready`);
+            window.rise4funReady();
+        </script>
+    </body>
+</html>

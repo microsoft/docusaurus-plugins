@@ -124,11 +124,15 @@ export interface ToolLangOptions extends LangOptions {
  */
 export interface PuppeteerLangOptions extends LangOptions {
     /**
+     * File path to the HTML driver
+     */
+    html?: string;
+    /**
      * Generates the HTML that will drive puppeteer
      * @param options
      * @returns
      */
-    createDriverHtml: (options: PuppeteerLangOptions) => string;
+    createDriverHtml?: (options: PuppeteerLangOptions) => string;
     /**
      * Creates a message that will make the driver do a compilation request
      * @param msg
