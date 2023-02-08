@@ -176,7 +176,13 @@ const config = configure(
             langs: [
                 {
                     lang: "msagl",
-                    html: "./langs/msagl.html"
+                    html: "./langs/msagl.html",
+                    outputFiles: [
+                        {
+                            name: "output.svg",
+                            title: "Generated graph",
+                        },
+                    ]
                 },
                 {
                     lang: "ts",

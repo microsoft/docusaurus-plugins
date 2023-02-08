@@ -17,6 +17,10 @@ export interface LangResult {
      * Extra markdown node to be added after the output
      */
     nodes?: Node[];
+    /**
+     * In memory generated files
+     */
+    outputFiles?: Record<string, string | Uint8Array>;
 }
 
 export interface SnippetOptions {
@@ -78,6 +82,10 @@ export interface LangOptions {
      * minimatch filter to exclude files from generation
      */
     excludedFiles?: string[];
+    /**
+     * Sets of files that should be included in the final output
+     */
+    outputFiles?: OutputFile[];
 }
 
 export interface ToolLangOptions extends LangOptions {
@@ -109,10 +117,6 @@ export interface ToolLangOptions extends LangOptions {
      * Ignore tool return code.
      */
     ignoreReturnCode?: boolean;
-    /**
-     * Sets of files that should be included in the final output
-     */
-    outputFiles?: OutputFile[];
     /**
      * Additional files to write in the folder before running tool
      */

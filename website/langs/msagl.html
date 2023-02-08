@@ -17,7 +17,9 @@
 
                     window.rise4funPostMessage?.({
                         id,
-                        stdout: svg,
+                        outputFiles: {
+                            "output.svg": svg,
+                        },
                     });
                 }
             });

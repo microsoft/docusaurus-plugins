@@ -18,6 +18,7 @@ import {
     CustomLangOptions,
     LangOptions,
     LangResult,
+    OutputFile,
     PluginOptions,
     PuppeteerLangOptions,
     ToolLangOptions,
@@ -91,7 +92,7 @@ async function puppeteerCodeNoCache(
         console.info(`${msgp}starting browser ${puppeteerVersion}`);
         page = await browser.newPage();
         if (!page) throw Error("page could not load");
-        page.on("console", (msg) => console.log(msg.text()));
+        page.on("console", (msg) => console.debug(msg.text()));
         const close: () => Promise<void> = async () => {
             await page?.close();
             await browser?.close();
@@ -105,10 +106,7 @@ async function puppeteerCodeNoCache(
             const id = resp?.id;
             const { resolve } = pendingRequests?.[id] || {};
             if (resolve) {
-                console.debug(
-                    `${msgp}received ${id}`,
-                    JSON.stringify(resp, null, 2)
-                );
+                console.debug(`${msgp}received ${id}`);
                 delete pendingRequests?.[id];
                 resolve(resp);
             }
@@ -186,17 +184,22 @@ async function compileCodeNodeCache(
     langOptions: LangOptions,
     hash: string
 ): Promise<LangResult | undefined> {
-    const { timeout, lang } = langOptions;
+    const { timeout, lang, outputFiles = [] } = langOptions;
 
     // custom function
     const { compile } = langOptions as CustomLangOptions;
     if (compile) {
         try {
-            return await compile(source, {
+            const res = await compile(source, {
                 ...langOptions,
                 meta,
                 cwd,
             });
+            if (res) {
+                writeGeneratedOutputFiles(res);
+                generateNodesFromOutputFiles(res);
+            }
+            return res;
         } catch (e) {
             return {
                 error: e + "",
@@ -208,13 +211,18 @@ async function compileCodeNodeCache(
     const { html, createDriverHtml } = langOptions as PuppeteerLangOptions;
     if (!!createDriverHtml || !!html) {
         try {
-            return await puppeteerCodeNoCache(
+            const res = await puppeteerCodeNoCache(
                 cwd,
                 source,
                 meta,
                 langOptions as PuppeteerLangOptions,
                 hash
             );
+            if (res) {
+                writeGeneratedOutputFiles(res);
+                generateNodesFromOutputFiles(res);
+            }
+            return res;
         } catch (e) {
             return {
                 error: e + "",
@@ -230,7 +238,6 @@ async function compileCodeNodeCache(
         args = [],
         successReturnCode = 0,
         ignoreReturnCode,
-        outputFiles = [],
         inputFiles = {},
     } = langOptions as ToolLangOptions;
     if (command || nodeBin) {
@@ -280,39 +287,7 @@ async function compileCodeNodeCache(
                 stderr: res.stderr?.toString() || "",
                 error,
             };
-
-            if (outputFiles) {
-                result.nodes = outputFiles
-                    .filter(({ name }) => existsSync(join(cwd, name)))
-                    .map(({ name, title, lang: outputLang, meta }) => {
-                        const fn = name;
-                        if (/\.(svg|png|jpg|jpeg)$/i.test(fn)) {
-                            // copy file to static folder
-                            const snd = join(assetsPath, lang, hash);
-                            ensureDirSync(snd);
-                            copyFileSync(join(cwd, fn), join(snd, fn));
-
-                            return <Image>{
-                                type: "image",
-                                alt: title || fn,
-                                url: `/${join(lang, hash, fn)}`,
-                            };
-                        } else {
-                            const text = readFileSync(join(cwd, fn), {
-                                encoding: "utf-8",
-                            });
-                            return <Code>{
-                                type: "code",
-                                lang: outputLang || extname(fn).slice(1),
-                                meta: `tabs title=${JSON.stringify(
-                                    title || fn
-                                )} ${meta || ""}`,
-                                value: text,
-                            };
-                        }
-                    });
-            }
-
+            generateNodesFromOutputFiles(result);
             return result;
         } catch (e) {
             return {
@@ -326,6 +301,56 @@ async function compileCodeNodeCache(
     return {
         error: `invalid configuration (${langOptions.lang})`,
     };
+
+    function writeGeneratedOutputFiles(res: LangResult) {
+        const ros = res?.outputFiles || {};
+        Object.keys(ros)
+            .filter((fn) =>
+                outputFiles.includes((o: OutputFile) => o.name === fn)
+            )
+            .forEach((fn) => {
+                const content = ros[fn];
+                if (typeof content === "string")
+                    writeFileSync(join(cwd, fn), content, {
+                        encoding: "utf-8",
+                    });
+                else writeFileSync(join(cwd, fn), content as Uint8Array);
+            });
+    }
+
+    function generateNodesFromOutputFiles(result: LangResult) {
+        if (outputFiles) {
+            result.nodes = outputFiles
+                .filter(({ name }) => existsSync(join(cwd, name)))
+                .map(({ name, title, lang: outputLang, meta }) => {
+                    const fn = name;
+                    if (/\.(svg|png|jpg|jpeg)$/i.test(fn)) {
+                        // copy file to static folder
+                        const snd = join(assetsPath, lang, hash);
+                        ensureDirSync(snd);
+                        copyFileSync(join(cwd, fn), join(snd, fn));
+
+                        return <Image>{
+                            type: "image",
+                            alt: title || fn,
+                            url: `/${join(lang, hash, fn)}`,
+                        };
+                    } else {
+                        const text = readFileSync(join(cwd, fn), {
+                            encoding: "utf-8",
+                        });
+                        return <Code>{
+                            type: "code",
+                            lang: outputLang || extname(fn).slice(1),
+                            meta: `tabs title=${JSON.stringify(title || fn)} ${
+                                meta || ""
+                            }`,
+                            value: text,
+                        };
+                    }
+                });
+        }
+    }
 }
 
 function parseMeta(meta: string = "") {
