@@ -112,15 +112,22 @@ async function puppeteerCodeNoCache(
                 resolve(resp);
             }
         });
-        let readyResolve: () => void;
-        const ready = new Promise<void>(async (resolve) => {
+        let readyResolve: (() => void) | undefined = undefined;
+        let readyReject: (() => void) | undefined = undefined;
+        const ready = new Promise<void>(async (resolve, reject) => {
             readyResolve = resolve;
+            readyReject = reject;
         });
         await page?.exposeFunction("rise4funReady", () => {
-            readyResolve();
+            readyReject = undefined;
+            readyResolve?.();
         });
         await page.setContent(html!);
         console.debug(`${msgp}waiting browser`);
+        setTimeout(() => {
+            readyResolve = undefined;
+            readyReject?.();
+        }, 30000);
         await ready;
         // wait for ready message
         puppets[langOptions.lang] = { page, pendingRequests, close };
@@ -151,8 +158,8 @@ async function puppeteerCodeNoCache(
     // concurrent timeout
     setTimeout(() => {
         const req = pendingRequests?.[id];
-        req?.reject?.();
         delete pendingRequests?.[id];
+        req?.reject?.();
     }, timeout);
     return processing;
 }
