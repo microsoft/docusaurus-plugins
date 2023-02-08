@@ -322,7 +322,7 @@ async function compileCodeNodeCache(
 
     // unknown configuration
     return {
-        error: `invalid configuration ${langOptions.lang}`,
+        error: `invalid configuration (${langOptions.lang})`,
     };
 }
 

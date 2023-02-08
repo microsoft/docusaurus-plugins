@@ -1,9 +1,11 @@
 <html>
-    <script src="https://unpkg.com/msagl-js@latest/dist.min.js"></script>
-    <script src="https://unpkg.com/@msagl/parser@latest/dist.min.js"></script>
-    <script src="https://unpkg.com/@msagl/renderer@latest/dist.min.js"></script>
-    <body>
-        <script type="module">
+    <head>
+        <script src="https://unpkg.com/msagl-js@latest/dist.min.js"></script>
+        <script src="https://unpkg.com/@msagl/parser@latest/dist.min.js"></script>
+        <script src="https://unpkg.com/@msagl/renderer@latest/dist.min.js"></script>
+    </head>
+    <script type="module">
+        document.addEventListener("DOMContentLoaded", () => {
             const renderer = new msagl.RendererSvg();
             // handle rendering of dot sources
             window.addEventListener("message", (msg) => {
@@ -15,18 +17,17 @@
                     const svg = renderer.getSvgString();
 
                     console.log(`msagl ready`);
-                    window.rise4funPostMessage({
+                    window.rise4funPostMessage?.({
                         id,
-                        outputFiles: {
-                            "output.svg": svg,
-                        },
+                        stdout: svg,
                     });
                 }
             });
 
             // notify driver we are ready
             console.log(`msagl ready`);
-            window.rise4funReady();
-        </script>
-    </body>
+            window.rise4funReady?.();
+        });
+    </script>
+    <body></body>
 </html>
