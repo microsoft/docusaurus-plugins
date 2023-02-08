@@ -1,0 +1,53 @@
+---
+id: html-page
+sidebar_position: 4
+---
+
+import BrowserWindow from "@site/src/theme/BrowserWindow";
+
+# HTML page
+
+Some tools need to be executed within a browser to work. To support this scenario, rise4fun uses [puppeteer]()
+to launch headless browsers and run the code with it.
+
+This scenario is a bit more involved because it involves sending messages back and forth between the driver and
+the script running in the headless browser.
+
+In this example, we create a `echo` tool that copies the capitalized input source
+into the output.
+
+```js title="./docusaurus.config.js"
+    compileCode: {
+        langs: [
+        ...,
+// highlight-start
+        {
+            lang: "echo",
+            compile: async (source, langOptions) => ({
+                code: 0,
+                stdout: source.toUppercase(),
+            }),
+        }
+// highlight-end
+    ]}
+```
+
+Let's take a look at this example in action.
+
+````markdown
+```echo
+hello
+```
+````
+
+When rendered in the docs, this snippet looks like any other code snippe.
+But you'll also notice an additional box
+underneath with the capitalized text.
+
+<BrowserWindow>
+
+```echo
+hello
+```
+
+</BrowserWindow>
