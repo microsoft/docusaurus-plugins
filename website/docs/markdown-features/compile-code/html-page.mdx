@@ -13,20 +13,14 @@ to launch headless browsers and run the code with it.
 This scenario is a bit more involved because it involves sending messages back and forth between the driver and
 the script running in the headless browser.
 
-In this example, we create a `echo` tool that copies the capitalized input source
-into the output.
-
 ```js title="./docusaurus.config.js"
     compileCode: {
         langs: [
         ...,
 // highlight-start
         {
-            lang: "echo",
-            compile: async (source, langOptions) => ({
-                code: 0,
-                stdout: source.toUppercase(),
-            }),
+            lang: "msgl",
+            html: "./langs/msagl.html"
         }
 // highlight-end
     ]}
@@ -36,7 +30,13 @@ Let's take a look at this example in action.
 
 ````markdown
 ```msagl
-hello
+graph G {
+    kspacey -- swilliams;
+    swilliams -- kbacon;
+    bpitt -- kbacon;
+    hford -- lwilson;
+    lwilson -- kbacon;
+}
 ```
 ````
 
@@ -46,8 +46,14 @@ underneath with the capitalized text.
 
 <BrowserWindow>
 
-```echo
-hello
+```msagl
+graph G {
+    kspacey -- swilliams;
+    swilliams -- kbacon;
+    bpitt -- kbacon;
+    hford -- lwilson;
+    lwilson -- kbacon;
+}
 ```
 
 </BrowserWindow>
