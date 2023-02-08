@@ -143,12 +143,13 @@ const plugin: Plugin<[PluginOptions?]> = (options = undefined) => {
             });
             await page.setContent(html!);
             console.debug(`${msgp}waiting browser`);
-            setTimeout(() => {
+            let readyTimeoutId = setTimeout(() => {
                 console.error(`${msgp}browser timeout`);
                 readyResolve = undefined;
                 readyReject?.("browser timeout");
             }, 30000);
             await ready;
+            clearTimeout(readyTimeoutId);
             // wait for ready message
             puppets[langOptions.lang] = { page, pendingRequests, close };
         }
