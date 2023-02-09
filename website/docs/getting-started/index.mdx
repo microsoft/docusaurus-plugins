@@ -15,11 +15,10 @@ enable the rise4fun plugins in it.
 It has an extensive documentation which we recommend taking a peek later on. For simplicity,
 the installation tutorial is repeated here:
 
-Install [Node.js](https://nodejs.org/en/download/) and [yarn](https://yarnpkg.com/), open a terminal on your project root
+Install [Node.js](https://nodejs.org/en/download/) 18+, open a terminal on your project root
 and create a new Docusaurus site:
 
 ```bash
-npm install -g yarn
 npx create-docusaurus@latest website classic --typescript
 ```
 
@@ -36,25 +35,6 @@ If you are using [yarn workspaces](https://yarnpkg.com/features/workspaces), add
 
 :::
 
-## Setup typescript
-
-Install typescript and typing files to support TypeScript in Docusaurus.
-
-```bash
-yarn add --dev typescript @docusaurus/module-type-aliases @tsconfig/docusaurus
-```
-
-and add a TypeScript configuration file improve the experience in VS Code.
-
-```json file="website/tsconfig.json"
-{
-    "extends": "@tsconfig/docusaurus/tsconfig.json",
-    "compilerOptions": {
-        "baseUrl": "."
-    }
-}
-```
-
 ## Rise4fun configuration
 
 Let's work on the docusaurus website folder.
@@ -65,15 +45,16 @@ cd website
 
 Install the [rise4fun plugin](https://www.npmjs.com/package/@rise4fun/docusaurus-plugin-rise4fun)
 
-```bash npm2yarn
-npm install @rise4fun/docusaurus-plugin-rise4fun
+```bash
+yarn add @rise4fun/docusaurus-plugin-rise4fun
 ```
 
-Open `website/docusaurus.config.js` and update it as follows.
+Open `./docusaurus.config.js` and update it as follows.
 
-```js title="website/docusaurus.config.js"
+```js title="./docusaurus.config.js"
 // highlight-next-line
 const { configure } = require("@rise4fun/docusaurus-plugin-rise4fun");
+...
 // highlight-next-line
 const config = configure(
     {
@@ -101,6 +82,7 @@ Microsoft projects: make sure that `organizationName` is set to `microsoft`, to 
 
 ```js title="website/docusaurus.config.js"
 const { configure } = require("@rise4fun/docusaurus-plugin-rise4fun");
+...
 const config = configure(
     {
         ...
