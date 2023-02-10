@@ -158,6 +158,9 @@ export interface PuppeteerLangOptions extends LangOptions {
 }
 
 export interface CustomLangOptions extends LangOptions {
+    /**
+     * Custom function that compiles the source and returns a result object
+     */
     compile?: CompileFunction;
 }
 

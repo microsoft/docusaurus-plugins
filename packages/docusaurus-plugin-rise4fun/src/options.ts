@@ -26,11 +26,17 @@ export type PluginOptions = {
      * Disable injecting Microsoft legal links
      */
     legal?: false;
+
     /**
      * Application Insights configuration to enable analytics
      */
     appInsights?: ApplicationInsightsOptions;
+
+    /**
+     * Precompiled snippets configuration
+     */
     compileCode?: CompileCodePluginOptions;
+
     /**
      * Set as false to disable injecting `npm2yarn` plugin
      */
