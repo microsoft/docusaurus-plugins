@@ -26,7 +26,6 @@
     "license": "MIT",
     "dependencies": {
         "fs-extra": "^11.1.0",
-        "npm-to-yarn": "^1.0.1",
         "p-all": "^4.0.0",
         "tslib": "^2.4.0",
         "typescript": "^4.9.4",
