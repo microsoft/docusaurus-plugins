@@ -77,7 +77,12 @@ export type PluginOptions = {
     /**
      * Set to false to disable button
      */
-    githubButton?: boolean;
+    githubButton?: false;
+
+    /**
+     * Set to false to disable partial imports
+     */
+    importPartial?: false
 };
 
 export type Options = Partial<PluginOptions>;
