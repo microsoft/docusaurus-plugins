@@ -13,14 +13,22 @@ module.exports = function () {
                 node.children[0] &&
                 node.children[0].type === "text"
             ) {
-                const m = /{@import (.+)}/.exec(node.children[0].value || "");
-                if (m?.[1]) {
-                    const filePath = m[1];
+                const m = /{@import(?<optional>\s+optional)?\s+(?<filePath>.+)}/.exec(
+                    node.children[0].value || ""
+                );
+                if (m) {
+                    const { filePath, optional } = m.groups || {};
                     const fileAbsPath = resolve(file.dirname, filePath);
 
                     if (existsSync(fileAbsPath)) {
                         const rawMd = readFileSync(fileAbsPath, "utf-8");
                         node.children = unified.parse(rawMd).children;
+                    } else {
+                        if (!optional)
+                            throw new Error(
+                                `import error: ${fileAbsPath} not found`
+                            );
+                        else node.children = [];
                     }
                 }
             }

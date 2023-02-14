@@ -1,4 +1,5 @@
 /**
  * Plugin options.
  */
-export interface PluginOptions {}
+export interface PluginOptions {
+}

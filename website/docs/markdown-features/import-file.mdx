@@ -9,13 +9,13 @@ import BrowserWindow from "@site/src/theme/BrowserWindow";
 
 Rise4fun automatically add support for importing patial markdown files using [remark-import-partial](https://github.com/dotansimha/remark-import-partial).
 
-````markdown
+```markdown
 Some content.
 
-{@import ./partial-demo._md}
+{@import ./hello.mdp}
 
 More content.
-````
+```
 
 The file path is relative to the current file location.
 
@@ -23,8 +23,44 @@ The file path is relative to the current file location.
 
 Some content.
 
-{@import ./partial-demo._md}
+{@import ./hello.mdp}
 
 More content.
 
 </BrowserWindow>
+
+## Optional imports
+
+By default, the importer throws if the file is not found. You can make the file import optinal by using `optional`
+
+```markdown
+This file below should be imported if present.
+
+{@import optional ./missing.mdp}
+
+More content.
+```
+
+<BrowserWindow>
+
+This file below should be imported if present.
+
+{@import optional ./missing.mdp}
+
+More content.
+
+</BrowserWindow>
+
+## Hiding partial files
+
+By default, all markdown files will end up in the sidebar and generated as pages. To avoid this, you can use
+a different file extension, like `.mdp`. To get tooling support in VS code, add a file association entry in the settings.
+
+```json title=".vscode/settings.json"
+{
+    "files.associations": {
+        // highlight-next-line
+        "*.mdp": "markdown"
+    }
+}
+```
