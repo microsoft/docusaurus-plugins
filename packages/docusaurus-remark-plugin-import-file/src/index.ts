@@ -2,6 +2,7 @@ const { readFileSync, existsSync } = require("fs");
 const { resolve } = require("path");
 const visit = require("unist-util-visit");
 
+// inspired from https://github.com/dotansimha/remark-import-partial
 module.exports = function () {
     const unified: any = this;
 
