@@ -1,6 +1,6 @@
 {
     "files.associations": {
-        "*.mdp": "markdown"
+        "*.mdp": "mdx"
     },
     "cSpell.words": [
         "codesandbox",

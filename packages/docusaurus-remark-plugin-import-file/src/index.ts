@@ -7,8 +7,9 @@ module.exports = function () {
     const unified: any = this;
 
     return function transformer(tree: any, file: any) {
-        visit(tree, "paragraph", (node: any) => {
+        visit(tree, "paragraph", (node: any, index: number, parent: any) => {
             if (
+                parent &&
                 node.children &&
                 node.children[0] &&
                 node.children[0].type === "text"
@@ -22,7 +23,7 @@ module.exports = function () {
 
                     if (existsSync(fileAbsPath)) {
                         const rawMd = readFileSync(fileAbsPath, "utf-8");
-                        node.children = unified.parse(rawMd).children;
+                        parent.children.splice(index, 1, ...unified.parse(rawMd).children)
                     } else {
                         if (!optional)
                             throw new Error(

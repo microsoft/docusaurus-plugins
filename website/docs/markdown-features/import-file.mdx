@@ -54,13 +54,14 @@ More content.
 ## Hiding partial files
 
 By default, all markdown files will end up in the sidebar and generated as pages. To avoid this, you can use
-a different file extension, like `.mdp`. To get tooling support in VS code, add a file association entry in the settings.
+a different file extension, like `.mdp`. To get tooling support in VS code, add a file association entry in the settings and
+install the [MDX extension](https://marketplace.visualstudio.com/items?itemName=unifiedjs.vscode-mdx).
 
 ```json title=".vscode/settings.json"
 {
     "files.associations": {
         // highlight-next-line
-        "*.mdp": "markdown"
+        "*.mdp": "mdx"
     }
 }
 ```
