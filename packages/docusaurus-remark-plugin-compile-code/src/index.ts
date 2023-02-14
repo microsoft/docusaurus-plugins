@@ -115,10 +115,22 @@ const plugin: Plugin<[PluginOptions?]> = (options = undefined) => {
                 await page?.close();
                 await browser?.close();
             };
-            const html =
+            let html =
                 (langOptions.html &&
                     readFileSync(langOptions.html, { encoding: "utf-8" })) ||
                 langOptions.createDriverHtml?.(langOptions);
+
+            // exapnd scripts
+            html = html?.replace(
+                /<script src="file:\/\/([^"]+)">\s*<\/script>/gi,
+                (m, n) => {
+                    const js = readFileSync(n, { encoding: "utf-8" });
+                    console.debug(`inlining ${n}`);
+                    page?.addScriptTag({ content: js });
+                    return `<!-- inlined ${n} -->`;
+                }
+            );
+
             await page.exposeFunction("rise4funPostMessage", (msg: object) => {
                 const resp: any =
                     langOptions.resolveCompileResponse?.(msg) || msg;

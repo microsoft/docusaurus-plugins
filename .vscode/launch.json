@@ -8,28 +8,43 @@
             "type": "node",
             "request": "launch",
             "name": "docusaurus start",
-            "skipFiles": ["<node_internals>/**"],
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
             "cwd": "${workspaceFolder}/website",
             "program": "node_modules/.bin/docusaurus",
-            "args": ["start"]
+            "args": [
+                "start"
+            ],
+            "runtimeVersion": "18",
+            "nodeVersionHint": 18
         },
         {
             "type": "node",
             "request": "launch",
             "name": "docusaurus build",
-            "skipFiles": ["<node_internals>/**"],
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
             "cwd": "${workspaceFolder}/website",
             "program": "node_modules/.bin/docusaurus",
-            "args": ["build"]
+            "args": [
+                "build"
+            ],
+            "nodeVersionHint": 18
         },
         {
             "type": "node",
             "request": "launch",
             "name": "code-tabs",
-            "skipFiles": ["<node_internals>/**"],
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
             "cwd": "${workspaceFolder}/packages/docusaurus-remark-plugin-code-tabs",
             "program": "node_modules/.bin/jest",
-            "args": [""]
+            "args": [
+                ""
+            ]
         }
     ]
 }
