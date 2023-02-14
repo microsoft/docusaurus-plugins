@@ -65,7 +65,6 @@ const plugin: Plugin<[PluginOptions?]> = (options = undefined) => {
         cache = !process.env.RISE_COMPILE_CODE_NO_CACHE,
         failFast,
     } = options || {};
-    let nextPuppetId = 1;
     let puppets: Record<
         string,
         {
@@ -83,12 +82,11 @@ const plugin: Plugin<[PluginOptions?]> = (options = undefined) => {
     const cleanupPuppets = async () => {
         Object.keys(puppets).forEach((k) => {
             const { close, pendingRequests } = puppets[k] || {};
-            if (pendingRequests)
-                Object.keys(pendingRequests).forEach((r) => {
-                    pendingRequests[r]!.reject?.(`dangling request ${r}`);
-                });
-            console.debug(`${k}:puppet> cleanup`);
-            close?.();
+            if (pendingRequests && !Object.keys(pendingRequests).length) {
+                console.debug(`${k}:puppet> cleanup`);
+                close?.();
+                delete puppets[k];
+            }
         });
         puppets = {};
     };
@@ -165,7 +163,7 @@ const plugin: Plugin<[PluginOptions?]> = (options = undefined) => {
             puppets[langOptions.lang] = { page, pendingRequests, close };
         }
         // send and wait for message
-        const id = langOptions.lang + (nextPuppetId++).toString();
+        const id = langOptions.lang + Math.random().toString();
         const request = {
             id,
             type: "puppet",
