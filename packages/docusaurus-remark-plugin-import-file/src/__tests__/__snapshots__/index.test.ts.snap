@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`compile-code plugin works on compile file 1`] = `
+"Some snippets
+
+this is imported.
+
+More snippets
+"
+`;

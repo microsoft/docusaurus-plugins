@@ -13,7 +13,7 @@ import { ensureDirSync, writeJSONSync } from "fs-extra";
 
 const mathPlugin = require("remark-math");
 const katexPlugin = require("rehype-katex");
-const importPartialPlugin = require("remark-import-partial")
+const importFilePlugin = require("@rise4fun/docusaurus-remark-plugin-import-file")
 
 const repo = process.env.GITHUB_REPOSITORY;
 const sha = process.env.GITHUB_SHA;
@@ -41,7 +41,7 @@ export async function configure(
         codeElement,
         algolia,
         githubButton,
-        importPartial
+        importFile,
     } = options;
 
     // injecting legal terms
@@ -108,8 +108,8 @@ export async function configure(
     const presets = configuration.presets || (configuration.presets = []);
 
     // import partial first
-    if (importPartial !== false)
-        injectBeforeDefaultRemarkPlugin(importPartialPlugin, importPartial)
+    if (importFile !== false)
+        injectBeforeDefaultRemarkPlugin(importFilePlugin, importFile);
 
     // inject app insights
     if (appInsights)

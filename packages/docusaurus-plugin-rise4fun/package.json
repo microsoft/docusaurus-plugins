@@ -29,12 +29,12 @@
         "@rise4fun/docusaurus-remark-plugin-code-tabs": "*",
         "@rise4fun/docusaurus-remark-plugin-compile-code": "*",
         "@rise4fun/docusaurus-remark-plugin-side-editor": "*",
+        "@rise4fun/docusaurus-remark-plugin-import-file": "*",
         "@rise4fun/docusaurus-theme-codesandbox-button": "*",
         "@rise4fun/docusaurus-theme-side-editor": "*",
         "fs-extra": "^11.1.0",
         "hast-util-is-element": "1.1.0",
         "rehype-katex": "5",
-        "remark-import-partial": "^0.0.2",
         "remark-math": "3",
         "tslib": "^2.5.0"
     },
