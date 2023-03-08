@@ -250,6 +250,15 @@ const plugin: Plugin<[PluginOptions?]> = (options = undefined) => {
                 else writeFileSync(join(cwd, fn), content as Uint8Array);
             });
         };
+        const cleanOutputFiles = (cwd: string) => {
+            outputFiles?.forEach((f) => {
+                try {
+                    removeSync(join(cwd, f.name));
+                } catch (e) {
+                    console.debug(e);
+                }
+            });
+        };
         const generateNodesFromOutputFiles = (result: LangResult) => {
             if (outputFiles) {
                 result.nodes = [
@@ -374,6 +383,7 @@ const plugin: Plugin<[PluginOptions?]> = (options = undefined) => {
             }
             writeFileSync(join(cwd, "run.sh"), `${cmd} ${iargs.join(" ")}`);
             try {
+                cleanOutputFiles(cwd);
                 const res = spawnSync(cmd, iargs, {
                     timeout,
                     cwd,
