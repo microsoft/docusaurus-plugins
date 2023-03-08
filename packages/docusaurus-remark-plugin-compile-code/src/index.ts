@@ -499,7 +499,8 @@ const plugin: Plugin<[PluginOptions?]> = (options = undefined) => {
                 nextIndex--;
                 parent.children.splice(nextIndex, 1);
             } else if (inputLang) node.lang = inputLang;
-            if (out?.length) {
+
+            if (outputLang !== null && out?.length) {
                 parent.children.splice(nextIndex++, 0, <Code>{
                     type: "code",
                     lang: outputLang,

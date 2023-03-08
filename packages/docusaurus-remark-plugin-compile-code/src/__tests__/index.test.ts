@@ -57,6 +57,7 @@ const options: PluginOptions = {
         {
             lang: "echonull",
             inputLang: null,
+            outputLang: null,
             compile: async (source, langOptions) => ({
                 stdout: source,
             }),

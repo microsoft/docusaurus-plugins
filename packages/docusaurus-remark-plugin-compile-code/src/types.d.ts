@@ -67,9 +67,9 @@ export interface LangOptions {
      */
     timeout?: number;
     /**
-     * Output markdown language code identifier, default `code`
+     * Output markdown language code identifier, default `code`. Set to `null` to hide standard output.
      */
-    outputLang?: string;
+    outputLang?: string | null;
     /**
      * Output meta, default empty.
      */
