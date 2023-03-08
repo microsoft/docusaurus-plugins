@@ -484,7 +484,11 @@ const plugin: Plugin<[PluginOptions?]> = (options = undefined) => {
                 stderr ? `-- error\n${stderr.trimEnd()}` : undefined,
                 error,
             ].filter((s) => !!s);
-            if (inputLang) node.lang = inputLang;
+            if (inputLang === null) {
+                // remove code
+                nextIndex--;
+                parent.children.splice(nextIndex, 1);
+            } else if (inputLang) node.lang = inputLang;
             if (out?.length) {
                 parent.children.splice(nextIndex++, 0, <Code>{
                     type: "code",

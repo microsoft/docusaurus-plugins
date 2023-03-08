@@ -55,6 +55,13 @@ const options: PluginOptions = {
             }),
         },
         {
+            lang: "echonull",
+            inputLang: null,
+            compile: async (source, langOptions) => ({
+                stdout: source,
+            }),
+        },
+        {
             lang: "echonode",
             compile: async (source, langOptions) => ({
                 nodes: [

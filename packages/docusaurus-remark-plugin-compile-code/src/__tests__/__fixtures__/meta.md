@@ -26,6 +26,10 @@ prefix
 prefix
 ```
 
+```echonull
+remove me
+```
+
 ```meta bar
 baz
 ```

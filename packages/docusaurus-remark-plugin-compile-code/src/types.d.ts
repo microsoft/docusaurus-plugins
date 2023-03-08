@@ -55,9 +55,9 @@ export interface LangOptions {
     prefix?: string;
     /**
      * Replace language with the `prism` language for syntax coloring
-     * after processing
+     * after processing. Set to 'null' to remove code.
      */
-    inputLang?: string;
+    inputLang?: string | null;
     /**
      * Version of the tool, used when hashing pre-compiled solution
      */
