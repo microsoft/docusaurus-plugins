@@ -71,6 +71,10 @@ export interface LangOptions {
      */
     outputLang?: string | null;
     /**
+     * Error markdown language code identifier, default `console`. Set to `null` to hide standard output.
+     */
+    errorLang?: string;
+    /**
      * Output meta, default empty.
      */
     outputMeta?: string;

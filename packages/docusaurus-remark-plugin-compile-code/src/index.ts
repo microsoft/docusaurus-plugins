@@ -452,9 +452,10 @@ const plugin: Plugin<[PluginOptions?]> = (options = undefined) => {
             if (skip) continue;
 
             const {
-                outputMeta,
-                errorMeta,
+                outputMeta = "",
+                errorMeta = "",
                 outputLang,
+                errorLang,
                 inputLang,
                 ignoreErrors: ignoreErrorsLang,
                 excludedFiles,
@@ -514,8 +515,8 @@ const plugin: Plugin<[PluginOptions?]> = (options = undefined) => {
             if (errorMeta !== null && err?.length) {
                 parent.children.splice(nextIndex++, 0, <Code>{
                     type: "code",
-                    lang: "txt",
-                    meta: `title="Error"`,
+                    lang: errorLang || "console",
+                    meta: outputMeta + ` title="Error"`,
                     value: err.join("\n"),
                 });
             }

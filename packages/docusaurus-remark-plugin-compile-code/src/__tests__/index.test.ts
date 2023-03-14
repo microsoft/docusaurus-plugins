@@ -21,16 +21,14 @@ const options: PluginOptions = {
             nodeBin: "tsc",
             inputFiles: {
                 "tsconfig.json": {
-                    "compilerOptions": {
-                        "target": "esnext",
-                        "skipLibCheck": true,
-                        "lib": ["esnext", "dom"]
+                    compilerOptions: {
+                        target: "esnext",
+                        skipLibCheck: true,
+                        lib: ["esnext", "dom"],
                     },
-                    "include": [
-                        "input.ts"
-                    ]
-                }
-            }
+                    include: ["input.ts"],
+                },
+            },
         },
         {
             lang: "meta",
@@ -41,6 +39,8 @@ const options: PluginOptions = {
         },
         {
             lang: "fail",
+            errorLang: "console",
+            errorMeta: "console",
             meta: "foo",
             compile: async (source, langOptions) => {
                 throw new Error("fail");
