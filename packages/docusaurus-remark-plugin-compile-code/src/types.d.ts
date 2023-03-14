@@ -75,6 +75,10 @@ export interface LangOptions {
      */
     outputMeta?: string;
     /**
+     * Error meta, default empty.
+     */
+    errorMeta?: string;
+    /**
      * Do not fail build when tools return errors
      */
     ignoreErrors?: boolean;

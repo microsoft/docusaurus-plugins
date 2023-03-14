@@ -18,7 +18,6 @@ import {
     CustomLangOptions,
     LangOptions,
     LangResult,
-    OutputFile,
     PluginOptions,
     PuppeteerLangOptions,
     ToolLangOptions,
@@ -454,6 +453,7 @@ const plugin: Plugin<[PluginOptions?]> = (options = undefined) => {
 
             const {
                 outputMeta,
+                errorMeta,
                 outputLang,
                 inputLang,
                 ignoreErrors: ignoreErrorsLang,
@@ -489,9 +489,11 @@ const plugin: Plugin<[PluginOptions?]> = (options = undefined) => {
                 hash
             );
             const { stdout, stderr, error, nodes } = res || {};
-            const out: (string | undefined)[] = [
-                stdout?.trimEnd(),
-                stderr ? `-- error\n${stderr.trimEnd()}` : undefined,
+            const out: (string | undefined)[] = [stdout?.trimEnd()].filter(
+                (s) => !!s
+            );
+            const err: (string | undefined)[] = [
+                stderr?.trimEnd(),
                 error,
             ].filter((s) => !!s);
             if (inputLang === null) {
@@ -509,15 +511,23 @@ const plugin: Plugin<[PluginOptions?]> = (options = undefined) => {
                 });
             }
 
+            if (errorMeta !== null && err?.length) {
+                parent.children.splice(nextIndex++, 0, <Code>{
+                    type: "code",
+                    lang: "txt",
+                    meta: `title="Error"`,
+                    value: err.join("\n"),
+                });
+            }
+
             if (nodes?.length) {
                 parent.children.splice(nextIndex, 0, ...nodes);
                 nextIndex += nodes.length;
             }
 
-            if (!ignoreErrors && res?.error) {
+            if (!ignoreErrors && res && (res?.error || stderr)) {
                 errors++;
-                console.error(`error ${vfile.path}: ${res.error}`);
-                console.debug({ lang, value });
+                console.error(`error ${vfile.path}: ${res.error || ""}`);
 
                 if (failFast)
                     throw new Error("error while compiling code snippet");
