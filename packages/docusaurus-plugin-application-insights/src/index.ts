@@ -4,7 +4,7 @@ import type {
     Plugin,
     OptionValidationContext,
 } from "@docusaurus/types";
-import { ApplicationInsightsOptions, Options } from "./options";
+import type { ApplicationInsightsOptions, Options } from "./options";
 import { resolve } from "node:path";
 
 export default function pluginApplicationInsights(

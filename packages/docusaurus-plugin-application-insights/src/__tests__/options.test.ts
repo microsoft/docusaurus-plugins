@@ -1,6 +1,6 @@
 import { normalizePluginOptions } from "@docusaurus/utils-validation";
 import { validateOptions } from "../index";
-import { Options, ApplicationInsightsOptions } from "../options";
+import type { Options, ApplicationInsightsOptions } from "../options";
 import type { Validate } from "@docusaurus/types";
 
 function testValidateOptions(options: Options) {
