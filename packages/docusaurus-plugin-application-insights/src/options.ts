@@ -1,5 +1,6 @@
 export type ApplicationInsightsOptions = {
-  instrumentationKey: string;
+    instrumentationKey: string;
+    connectionString: string;
 };
 
 export type Options = Partial<ApplicationInsightsOptions>;

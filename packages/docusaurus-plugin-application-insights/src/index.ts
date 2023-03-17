@@ -4,7 +4,7 @@ import type {
     Plugin,
     OptionValidationContext,
 } from "@docusaurus/types";
-import type { ApplicationInsightsOptions, Options } from "./options";
+import { ApplicationInsightsOptions, Options } from "./options";
 import { resolve } from "node:path";
 
 export default function pluginApplicationInsights(
@@ -38,8 +38,9 @@ export default function pluginApplicationInsights(
 }
 
 const pluginOptionsSchema = Joi.object<ApplicationInsightsOptions>({
-    instrumentationKey: Joi.string().required(),
-});
+    instrumentationKey: Joi.string().empty(""),
+    connectionString: Joi.string().empty(""),
+}).xor("instrumentationKey", "connectionString");
 
 export function validateOptions({
     validate,
