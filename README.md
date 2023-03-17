@@ -6,7 +6,11 @@ This repository contains plugins for Docusaurus to support creating rich documen
 
 ## Development
 
-Install node v18+, yarn and run the install script.
+Install [Volta](https://docs.volta.sh/guide/getting-started), if you haven't got it installed already.
+
+Once installed, Volta will automatically install the correct version of Node.js and Yarn for this project - no need to install them manually.
+
+Install dependencies,
 
 ```bash
 yarn install
