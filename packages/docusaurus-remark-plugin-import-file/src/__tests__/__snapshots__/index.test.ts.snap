@@ -1,4 +1,19 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`compile-code plugin > works on compile file 1`] = `
+"Some snippets
+
+test.md
+
+this is imported.
+
+Missing 
+
+
+
+More snippets
+"
+`;
 
 exports[`compile-code plugin works on compile file 1`] = `
 "Some snippets

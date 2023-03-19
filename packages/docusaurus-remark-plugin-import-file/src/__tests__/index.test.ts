@@ -1,8 +1,9 @@
+import { describe, it, expect } from "vitest";
 import path from "path";
 import vfile from "to-vfile";
 import mdx from "remark-mdx";
 import remark from "remark";
-const plugin = require("../index")
+import plugin from "../index";
 import type { PluginOptions } from "../types";
 
 const processFixture = async (name: string, options: PluginOptions) => {

@@ -1,4 +1,170 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`code-tabs plugin > works on codesandbox file 1`] = `
+"import CodeSandboxButton from '@theme/CodeSandboxButton';
+
+import Tabs from '@theme/Tabs';
+
+import TabItem from '@theme/TabItem';
+
+Tabs with codesandbox
+
+<Tabs  groupId={\\"default\\"}>
+
+<Tab value={\\"main.js\\"} label={\\"main.js\\"}>
+
+\`\`\`js tabs codesandbox title=\\"main.js\\"
+js
+\`\`\`
+
+</Tab>
+
+<Tab value={\\"main.ts\\"} label={\\"main.ts\\"}>
+
+\`\`\`ts title=\\"main.ts\\"
+ts
+\`\`\`
+
+</Tab>
+
+</Tabs>
+
+<CodeSandboxButton startFile=\\"main.js\\" files={{\\"main.js\\":{\\"content\\":\\"js\\"},\\"main.ts\\":{\\"content\\":\\"ts\\"}}}  />
+
+Codesandbox alone
+
+\`\`\`js codesandbox
+console.log(\\"show codesandbox button\\")
+\`\`\`
+
+<CodeSandboxButton startFile=\\"main.js\\" files={{\\"main.js\\":{\\"content\\":\\"console.log(\\\\\\"show codesandbox button\\\\\\")\\"}}}  />
+
+\`\`\`js
+console.log(\\"don't showc codesandbox button)
+\`\`\`
+"
+`;
+
+exports[`code-tabs plugin > works on groups file 1`] = `
+"import Tabs from '@theme/Tabs';
+
+import TabItem from '@theme/TabItem';
+
+Some snippets
+
+<Tabs  groupId={\\"group\\"}>
+
+<Tab value={\\"js\\"} label={\\"JavaScript\\"}>
+
+\`\`\`js tabs=group
+jsvalue
+\`\`\`
+
+</Tab>
+
+<Tab value={\\"ts\\"} label={\\"TypeScript\\"}>
+
+\`\`\`ts
+tsvalue
+\`\`\`
+
+</Tab>
+
+</Tabs>
+
+And a paragraph and another tabs group
+
+<Tabs  groupId={\\"group\\"}>
+
+<Tab value={\\"yml\\"} label={\\"YAML\\"}>
+
+\`\`\`yml tabs=group
+jsvalue
+\`\`\`
+
+</Tab>
+
+<Tab value={\\"cs\\"} label={\\"C#\\"}>
+
+\`\`\`cs
+tsvalue
+\`\`\`
+
+</Tab>
+
+</Tabs>
+"
+`;
+
+exports[`code-tabs plugin > works on onetab file 1`] = `
+"import CodeSandboxButton from '@theme/CodeSandboxButton';
+
+Single snippets
+
+\`\`\`js tabs title=\\"main.js\\"
+js
+\`\`\`
+
+And now with codesandbox
+
+\`\`\`js tabs title=\\"main.js\\" codesandbox
+ts
+\`\`\`
+
+<CodeSandboxButton startFile=\\"main.js\\" files={{\\"main.js\\":{\\"content\\":\\"ts\\"}}}  />
+"
+`;
+
+exports[`code-tabs plugin > works on twotabs file 1`] = `
+"import Tabs from '@theme/Tabs';
+
+import TabItem from '@theme/TabItem';
+
+Some snippets
+
+<Tabs  groupId={\\"default\\"}>
+
+<Tab value={\\"JavaScript!\\"} label={\\"JavaScript!\\"}>
+
+\`\`\`js tabs title=\\"JavaScript!\\"
+js
+\`\`\`
+
+</Tab>
+
+<Tab value={\\"ts\\"} label={\\"TypeScript\\"}>
+
+\`\`\`ts
+ts
+\`\`\`
+
+</Tab>
+
+</Tabs>
+
+and lazy
+
+<Tabs lazy groupId={\\"default\\"}>
+
+<Tab value={\\"JavaScript!\\"} label={\\"JavaScript!\\"}>
+
+\`\`\`js tabs title=\\"JavaScript!\\" lazy
+js
+\`\`\`
+
+</Tab>
+
+<Tab value={\\"ts\\"} label={\\"TypeScript\\"}>
+
+\`\`\`ts
+ts
+\`\`\`
+
+</Tab>
+
+</Tabs>
+"
+`;
 
 exports[`code-tabs plugin works on codesandbox file 1`] = `
 "import CodeSandboxButton from '@theme/CodeSandboxButton';
