@@ -4,6 +4,7 @@ const visit = require("unist-util-visit");
 
 // inspired from https://github.com/dotansimha/remark-import-partial
 export default function () {
+    // @ts-ignore
     const unified: any = this;
 
     return function transformer(tree: any, file: any) {
