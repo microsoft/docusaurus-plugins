@@ -3,7 +3,7 @@
   "private": true,
   "repository": {
     "type": "git",
-    "url": "https://github.com/microsoft/docusaurus-plugins-rise4fun.git"
+    "url": "https://github.com/microsoft/docusaurus-plugins.git"
   },
   "workspaces": [
     "packages/*",

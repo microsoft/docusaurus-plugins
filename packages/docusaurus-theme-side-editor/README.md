@@ -4,4 +4,4 @@ A Docusaurus theme component that creates a side editor  ([npm.js](https://www.n
 
 ## Usage
 
-See [documentation](https://microsoft.github.io/docusaurus-plugins-rise4fun/docs/plugins/docusaurus-theme-side-editor).
+See [documentation](https://microsoft.github.io/docusaurus-plugins/docs/plugins/docusaurus-theme-side-editor).

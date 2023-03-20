@@ -6,4 +6,4 @@ Docusaurus theme component that displays a button to create/open a CodeSandbox p
 
 ## Usage
 
-See [documentation](https://microsoft.github.io/docusaurus-plugins-rise4fun/docs/plugins/docusaurus-theme-codesandbox-button).
+See [documentation](https://microsoft.github.io/docusaurus-plugins/docs/plugins/docusaurus-theme-codesandbox-button).
