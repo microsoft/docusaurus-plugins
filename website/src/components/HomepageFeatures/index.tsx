@@ -19,6 +19,12 @@ const FeatureList: FeatureItem[] = [
         ),
     },
     {
+        title: "Application Insights",
+        description: (
+            <>Analytics support for Azure Monitor/Application Insights.</>
+        ),
+    },
+    {
         title: "Battery included for CS",
         description: (
             <>Out of the box, accessibility, analytics, math, diagrams, ...</>

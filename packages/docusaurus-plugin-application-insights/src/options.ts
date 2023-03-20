@@ -3,4 +3,4 @@ export type ApplicationInsightsOptions = {
     connectionString: string;
 };
 
-export type Options = Partial<ApplicationInsightsOptions>;
+export type PluginOptions = Partial<ApplicationInsightsOptions>;
