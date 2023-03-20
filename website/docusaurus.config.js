@@ -14,11 +14,11 @@ const config = configure(
             "Docusaurus plugins for awesome Programming Language documentation.",
         organizationName: "Microsoft",
         url: "https://microsoft.github.io",
-        baseUrl: "/docusaurus-plugins-rise4fun",
+        baseUrl: "/docusaurus-plugins",
         onBrokenLinks: "throw",
         onBrokenMarkdownLinks: "warn",
         favicon: "img/logo.svg",
-        projectName: "docusaurus-plugins-rise4fun",
+        projectName: "docusaurus-plugins",
         presets: [
             [
                 "classic",

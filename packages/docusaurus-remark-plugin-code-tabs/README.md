@@ -4,4 +4,4 @@ Docusaurus remark plugin that assembles code sections into tabs, with optional C
 
 ## Usage
 
-See [docusaurus-remark-plugin-code-tabs documentation](https://microsoft.github.io/docusaurus-plugins-rise4fun/docs/plugins/docusaurus-remark-plugin-code-tabs).
+See [docusaurus-remark-plugin-code-tabs documentation](https://microsoft.github.io/docusaurus-plugins/docs/plugins/docusaurus-remark-plugin-code-tabs).

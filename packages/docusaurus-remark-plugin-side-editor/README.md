@@ -4,4 +4,4 @@ Docusaurus remark plugin that injects `Edit` button after code section that open
 
 ## Usage
 
-See [docusaurus-remark-plugin-side-editor documentation](https://microsoft.github.io/docusaurus-plugins-rise4fun/docs/plugins/docusaurus-remark-plugin-side-editor).
+See [docusaurus-remark-plugin-side-editor documentation](https://microsoft.github.io/docusaurus-plugins/docs/plugins/docusaurus-remark-plugin-side-editor).

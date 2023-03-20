@@ -3,7 +3,7 @@
 ## Unreleased (2023-03-19)
 
 #### :house: Internal
-* [#17](https://github.com/microsoft/docusaurus-plugins-rise4fun/pull/17) Adds Volta configuration to specify node version ([@scalvert](https://github.com/scalvert))
+* [#17](https://github.com/microsoft/docusaurus-plugins/pull/17) Adds Volta configuration to specify node version ([@scalvert](https://github.com/scalvert))
 
 #### Committers: 1
 - Steve Calvert ([@scalvert](https://github.com/scalvert))
@@ -13,7 +13,7 @@
 
 #### :house: Internal
 * `docusaurus-plugin-application-insights`, `docusaurus-plugin-rise4fun`, `docusaurus-remark-plugin-compile-code`, `docusaurus-theme-codesandbox-button`, `docusaurus-theme-side-editor`
-  * [#13](https://github.com/microsoft/docusaurus-plugins-rise4fun/pull/13) feat: puppeteer support ([@pelikhan](https://github.com/pelikhan))
+  * [#13](https://github.com/microsoft/docusaurus-plugins/pull/13) feat: puppeteer support ([@pelikhan](https://github.com/pelikhan))
 
 #### Committers: 1
 - Peli de Halleux ([@pelikhan](https://github.com/pelikhan))
@@ -23,7 +23,7 @@
 
 #### :house: Internal
 * `docusaurus-plugin-application-insights`, `docusaurus-plugin-rise4fun`, `docusaurus-remark-plugin-compile-code`, `docusaurus-theme-codesandbox-button`, `docusaurus-theme-side-editor`
-  * [#13](https://github.com/microsoft/docusaurus-plugins-rise4fun/pull/13) feat: puppeteer support ([@pelikhan](https://github.com/pelikhan))
+  * [#13](https://github.com/microsoft/docusaurus-plugins/pull/13) feat: puppeteer support ([@pelikhan](https://github.com/pelikhan))
 
 #### Committers: 1
 - Peli de Halleux ([@pelikhan](https://github.com/pelikhan))
@@ -33,7 +33,7 @@
 
 #### :house: Internal
 * `docusaurus-plugin-application-insights`, `docusaurus-plugin-rise4fun`, `docusaurus-remark-plugin-compile-code`, `docusaurus-theme-codesandbox-button`, `docusaurus-theme-side-editor`
-  * [#13](https://github.com/microsoft/docusaurus-plugins-rise4fun/pull/13) feat: puppeteer support ([@pelikhan](https://github.com/pelikhan))
+  * [#13](https://github.com/microsoft/docusaurus-plugins/pull/13) feat: puppeteer support ([@pelikhan](https://github.com/pelikhan))
 
 #### Committers: 1
 - Peli de Halleux ([@pelikhan](https://github.com/pelikhan))
@@ -43,7 +43,7 @@
 
 #### :house: Internal
 * `docusaurus-plugin-application-insights`, `docusaurus-plugin-rise4fun`, `docusaurus-remark-plugin-compile-code`, `docusaurus-theme-codesandbox-button`, `docusaurus-theme-side-editor`
-  * [#13](https://github.com/microsoft/docusaurus-plugins-rise4fun/pull/13) feat: puppeteer support ([@pelikhan](https://github.com/pelikhan))
+  * [#13](https://github.com/microsoft/docusaurus-plugins/pull/13) feat: puppeteer support ([@pelikhan](https://github.com/pelikhan))
 
 #### Committers: 1
 - Peli de Halleux ([@pelikhan](https://github.com/pelikhan))
@@ -53,7 +53,7 @@
 
 #### :house: Internal
 * `docusaurus-plugin-application-insights`, `docusaurus-plugin-rise4fun`, `docusaurus-remark-plugin-compile-code`, `docusaurus-theme-codesandbox-button`, `docusaurus-theme-side-editor`
-  * [#13](https://github.com/microsoft/docusaurus-plugins-rise4fun/pull/13) feat: puppeteer support ([@pelikhan](https://github.com/pelikhan))
+  * [#13](https://github.com/microsoft/docusaurus-plugins/pull/13) feat: puppeteer support ([@pelikhan](https://github.com/pelikhan))
 
 #### Committers: 1
 - Peli de Halleux ([@pelikhan](https://github.com/pelikhan))
@@ -63,7 +63,7 @@
 
 #### :house: Internal
 * `docusaurus-plugin-application-insights`, `docusaurus-plugin-rise4fun`, `docusaurus-remark-plugin-compile-code`, `docusaurus-theme-codesandbox-button`, `docusaurus-theme-side-editor`
-  * [#13](https://github.com/microsoft/docusaurus-plugins-rise4fun/pull/13) feat: puppeteer support ([@pelikhan](https://github.com/pelikhan))
+  * [#13](https://github.com/microsoft/docusaurus-plugins/pull/13) feat: puppeteer support ([@pelikhan](https://github.com/pelikhan))
 
 #### Committers: 1
 - Peli de Halleux ([@pelikhan](https://github.com/pelikhan))
@@ -73,7 +73,7 @@
 
 #### :rocket: Enhancement
 * `docusaurus-remark-plugin-compile-code`
-  * [#2](https://github.com/microsoft/docusaurus-plugins-rise4fun/pull/2) feat: async compile code ([@pelikhan](https://github.com/pelikhan))
+  * [#2](https://github.com/microsoft/docusaurus-plugins/pull/2) feat: async compile code ([@pelikhan](https://github.com/pelikhan))
 
 #### Committers: 1
 - Peli de Halleux ([@pelikhan](https://github.com/pelikhan))
@@ -83,7 +83,7 @@
 
 #### :rocket: Enhancement
 * `docusaurus-remark-plugin-compile-code`
-  * [#2](https://github.com/microsoft/docusaurus-plugins-rise4fun/pull/2) feat: async compile code ([@pelikhan](https://github.com/pelikhan))
+  * [#2](https://github.com/microsoft/docusaurus-plugins/pull/2) feat: async compile code ([@pelikhan](https://github.com/pelikhan))
 
 #### Committers: 1
 - Peli de Halleux ([@pelikhan](https://github.com/pelikhan))
