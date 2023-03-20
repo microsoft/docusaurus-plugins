@@ -31,7 +31,7 @@ export default function Home(): JSX.Element {
     const { siteConfig } = useDocusaurusContext();
     return (
         <Layout
-            title={`Rise4fun plugins`}
+            title={`Microsoft Docusaurus plugins`}
             description="Docusaurus plugins for awesome Programming Language documentation."
         >
             <HomepageHeader />

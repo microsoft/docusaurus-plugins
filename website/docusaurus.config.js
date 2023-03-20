@@ -41,7 +41,7 @@ const config = configure(
                 navbar: {
                     title: "rise4fun",
                     logo: {
-                        alt: "Rise4fun Logo",
+                        alt: "Microsoft Logo",
                         src: "img/logo.svg",
                     },
                     items: [

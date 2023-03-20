@@ -1,11 +1,11 @@
-import type { ApplicationInsightsOptions } from "@rise4fun/docusaurus-plugin-application-insights";
+import type { PluginOptions as ApplicationInsightsOptions } from "@rise4fun/docusaurus-plugin-application-insights";
 import type { PluginOptions as CompileCodePluginOptions } from "@rise4fun/docusaurus-remark-plugin-compile-code";
 import type { PluginOptions as CodeTabsPluginOptions } from "@rise4fun/docusaurus-remark-plugin-code-tabs";
 import type { PluginOptions as CodeElementPluginOptions } from "@rise4fun/docusaurus-remark-plugin-code-element";
 import type { PluginOptions as SideEditorRemarkPluginOptions } from "@rise4fun/docusaurus-remark-plugin-side-editor";
 import type { SideEditorThemeConfig } from "@rise4fun/docusaurus-theme-side-editor";
 import type { CodeSandboxButtonThemeConfig } from "@rise4fun/docusaurus-theme-codesandbox-button";
-import type { PluginOptions as ImportFilePluginOptions } from "@rise4fun/docusaurus-remark-plugin-import-file"
+import type { PluginOptions as ImportFilePluginOptions } from "@rise4fun/docusaurus-remark-plugin-import-file";
 
 export interface AlgoliaOptions {
     /**
@@ -83,7 +83,7 @@ export type PluginOptions = {
     /**
      * Set to false to disable partial imports
      */
-    importFile?: false | ImportFilePluginOptions
+    importFile?: false | ImportFilePluginOptions;
 };
 
 export type Options = Partial<PluginOptions>;
