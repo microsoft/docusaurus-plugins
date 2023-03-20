@@ -25,7 +25,8 @@
     "@release-it-plugins/lerna-changelog": "^5.0.0",
     "@release-it-plugins/workspaces": "^3.2.0",
     "nx": "15.6.3",
-    "release-it": "^15.5.0"
+    "release-it": "^15.5.0",
+    "vitest": "^0.29.3"
   },
   "volta": {
     "node": "18.15.0",

@@ -1,3 +1,4 @@
+import { describe, it, expect } from "vitest";
 import path from "path";
 import vfile from "to-vfile";
 import mdx from "remark-mdx";

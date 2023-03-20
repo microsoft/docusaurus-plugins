@@ -1,3 +1,4 @@
+import { describe, it, expect } from "vitest";
 import { normalizePluginOptions } from "@docusaurus/utils-validation";
 import { validateOptions } from "../index";
 import type { Options, ApplicationInsightsOptions } from "../options";
@@ -19,7 +20,7 @@ describe("application-insights options", () => {
             // @ts-expect-error: TS should error
             () => testValidateOptions(undefined)
         ).toThrowErrorMatchingInlineSnapshot(
-            `""value" must contain at least one of [instrumentationKey, connectionString]"`
+            '"\\"value\\" must contain at least one of [instrumentationKey, connectionString]"'
         );
     });
 
@@ -28,7 +29,7 @@ describe("application-insights options", () => {
             // @ts-expect-error: TS should error
             () => testValidateOptions(null)
         ).toThrowErrorMatchingInlineSnapshot(
-            `""value" must be of type object"`
+            '"\\"value\\" must be of type object"'
         );
     });
 
@@ -36,7 +37,7 @@ describe("application-insights options", () => {
         expect(() =>
             testValidateOptions({})
         ).toThrowErrorMatchingInlineSnapshot(
-            `""value" must contain at least one of [instrumentationKey, connectionString]"`
+            '"\\"value\\" must contain at least one of [instrumentationKey, connectionString]"'
         );
     });
 
@@ -45,7 +46,7 @@ describe("application-insights options", () => {
             // @ts-expect-error: TS should error
             () => testValidateOptions(42)
         ).toThrowErrorMatchingInlineSnapshot(
-            `""value" must be of type object"`
+            '"\\"value\\" must be of type object"'
         );
     });
 
@@ -54,7 +55,7 @@ describe("application-insights options", () => {
             // @ts-expect-error: TS should error
             () => testValidateOptions({ instrumentationKey: null })
         ).toThrowErrorMatchingInlineSnapshot(
-            `""instrumentationKey" must be a string"`
+            '"\\"instrumentationKey\\" must be a string"'
         );
     });
 
@@ -63,7 +64,7 @@ describe("application-insights options", () => {
             // @ts-expect-error: TS should error
             () => testValidateOptions({ instrumentationKey: 42 })
         ).toThrowErrorMatchingInlineSnapshot(
-            `""instrumentationKey" must be a string"`
+            '"\\"instrumentationKey\\" must be a string"'
         );
     });
 
@@ -72,7 +73,7 @@ describe("application-insights options", () => {
             // @ts-expect-error: TS should error
             () => testValidateOptions({ connectionString: null })
         ).toThrowErrorMatchingInlineSnapshot(
-            `""connectionString" must be a string"`
+            '"\\"connectionString\\" must be a string"'
         );
     });
 
@@ -81,7 +82,7 @@ describe("application-insights options", () => {
             // @ts-expect-error: TS should error
             () => testValidateOptions({ connectionString: 42 })
         ).toThrowErrorMatchingInlineSnapshot(
-            `""connectionString" must be a string"`
+            '"\\"connectionString\\" must be a string"'
         );
     });
 
@@ -91,7 +92,7 @@ describe("application-insights options", () => {
         expect(() => {
             testValidateOptions(options);
         }).toThrowErrorMatchingInlineSnapshot(
-            `""value" must contain at least one of [instrumentationKey, connectionString]"`
+            '"\\"value\\" must contain at least one of [instrumentationKey, connectionString]"'
         );
     });
 
@@ -104,7 +105,7 @@ describe("application-insights options", () => {
         expect(() => {
             testValidateOptions(options);
         }).toThrowErrorMatchingInlineSnapshot(
-            `""value" contains a conflict between exclusive peers [instrumentationKey, connectionString]"`
+            '"\\"value\\" contains a conflict between exclusive peers [instrumentationKey, connectionString]"'
         );
     });
 
