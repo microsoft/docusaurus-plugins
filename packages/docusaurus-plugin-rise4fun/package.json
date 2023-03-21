@@ -1,7 +1,7 @@
 {
     "name": "@rise4fun/docusaurus-plugin-rise4fun",
     "version": "1.0.0",
-    "description": "Docusaurus plugin for Microsoft Research RiSE projects.",
+    "description": "Docusaurus plugin for Microsoft projects.",
     "main": "lib/index.js",
     "types": "lib/index.d.ts",
     "publishConfig": {
