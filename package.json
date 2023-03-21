@@ -48,8 +48,7 @@
       "tagName": "v${version}"
     },
     "github": {
-      "release": true,
-      "tokenRef": "GITHUB_TOKEN"
+      "release": true
     },
     "npm": false
   }
