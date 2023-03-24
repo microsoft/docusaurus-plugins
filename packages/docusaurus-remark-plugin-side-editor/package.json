@@ -1,6 +1,6 @@
 {
     "name": "@rise4fun/docusaurus-remark-plugin-side-editor",
-    "version": "0.1.0",
+    "version": "2.0.0",
     "description": "Remark docusaurus plugin that assembles code sections in tabs.",
     "main": "lib/index.js",
     "types": "src/types.d.ts",
