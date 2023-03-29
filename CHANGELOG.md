@@ -1,5 +1,26 @@
 # Changelog
 
+
+## v2.0.0 (2023-03-29)
+
+#### :house: Internal
+* Other
+  * [#25](https://github.com/microsoft/docusaurus-plugins/pull/25) Adding publish workflow file to allow publishing via actions ([@scalvert](https://github.com/scalvert))
+  * [#23](https://github.com/microsoft/docusaurus-plugins/pull/23) Restricting packages for release-it ([@scalvert](https://github.com/scalvert))
+  * [#19](https://github.com/microsoft/docusaurus-plugins/pull/19) add release it ([@scalvert](https://github.com/scalvert))
+  * [#17](https://github.com/microsoft/docusaurus-plugins/pull/17) Adds Volta configuration to specify node version ([@scalvert](https://github.com/scalvert))
+* `docusaurus-plugin-rise4fun`
+  * [#24](https://github.com/microsoft/docusaurus-plugins/pull/24) Fixing star packages to point to explicit releases ([@scalvert](https://github.com/scalvert))
+* `docusaurus-plugin-application-insights`, `docusaurus-remark-plugin-code-element`, `docusaurus-remark-plugin-code-tabs`, `docusaurus-remark-plugin-compile-code`, `docusaurus-remark-plugin-import-file`, `docusaurus-remark-plugin-side-editor`
+  * [#20](https://github.com/microsoft/docusaurus-plugins/pull/20) Converts to vitest from jest ([@scalvert](https://github.com/scalvert))
+* `docusaurus-plugin-application-insights`, `docusaurus-plugin-rise4fun`, `docusaurus-remark-plugin-code-element`, `docusaurus-remark-plugin-code-tabs`, `docusaurus-remark-plugin-compile-code`, `docusaurus-remark-plugin-import-file`, `docusaurus-remark-plugin-side-editor`, `docusaurus-theme-codesandbox-button`, `docusaurus-theme-side-editor`
+  * [#21](https://github.com/microsoft/docusaurus-plugins/pull/21) fix: renaming to docusaurus-plugins ([@pelikhan](https://github.com/pelikhan))
+
+#### Committers: 2
+- Peli de Halleux ([@pelikhan](https://github.com/pelikhan))
+- Steve Calvert ([@scalvert](https://github.com/scalvert))
+
+
 ## Unreleased (2023-03-19)
 
 #### :house: Internal
