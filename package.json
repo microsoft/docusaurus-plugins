@@ -57,5 +57,6 @@
       "release": true
     },
     "npm": false
-  }
+  },
+  "packageManager": "yarn@3.5.0"
 }
