@@ -4,6 +4,7 @@ on:
     push:
         tags:
             - "v*"
+    workflow_dispatch: {}
 
 jobs:
     publish:
@@ -25,7 +26,9 @@ jobs:
                   for package in $(ls -d */); do
                     echo "Publishing $package..."
                     cd $package
-                    echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" >> .npmrc
-                    npm publish
+                    echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" >> .npmrc
+                    npm publish . --no-workspaces
                     cd ..
                   done
+              env:
+                NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
