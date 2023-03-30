@@ -27,7 +27,7 @@ jobs:
                     echo "Publishing $package..."
                     cd $package
                     echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" >> .npmrc
-                    npm publish .
+                    npm publish . --no-workspaces
                     cd ..
                   done
               env:
