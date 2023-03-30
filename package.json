@@ -32,7 +32,7 @@
   },
   "volta": {
     "node": "18.15.0",
-    "yarn": "1.22.19"
+    "yarn": "3.5.0"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org"
