@@ -108,7 +108,7 @@ const plugin: Plugin<[PluginOptions?]> = (options = undefined) => {
             page = await browser.newPage();
             if (!page) throw Error("page could not load");
             page.on("console", (msg) => {
-                console.log(msg.text())
+                console.log(msg.text());
             });
             const close: () => Promise<void> = async () => {
                 await page?.close();
@@ -120,15 +120,28 @@ const plugin: Plugin<[PluginOptions?]> = (options = undefined) => {
                 langOptions.createDriverHtml?.(langOptions);
 
             // exapnd scripts
+            const scriptPromises: Promise<void>[] = [];
             html = html?.replace(
                 /<script src="file:\/\/([^"]+)">\s*<\/script>/gi,
                 (m, n) => {
-                    const js = readFileSync(n, { encoding: "utf-8" });
                     console.debug(`inlining ${n}`);
-                    page?.addScriptTag({ content: js });
+                    const js = readFileSync(n, { encoding: "utf-8" });
+                    if (!page) return "missing page";
+                    scriptPromises.push(
+                        page
+                            .addScriptTag({ content: js })
+                            .then(() => {
+                                console.debug(`inlined ${n}`);
+                            })
+                            .catch((e) => {
+                                console.error(e);
+                                throw e;
+                            })
+                    );
                     return `<!-- inlined ${n} -->`;
                 }
             );
+            await Promise.all(scriptPromises);
 
             await page.exposeFunction("rise4funPostMessage", (msg: object) => {
                 const resp: any =
@@ -141,7 +154,7 @@ const plugin: Plugin<[PluginOptions?]> = (options = undefined) => {
                     resolve({
                         ...resp,
                         outputFiles: {
-                            driver: html,
+                            "driver.html": html,
                             ...(resp.outputFiles || {}),
                         },
                     });
@@ -164,7 +177,7 @@ const plugin: Plugin<[PluginOptions?]> = (options = undefined) => {
                 readyResolve = undefined;
                 readyReject?.({
                     message: "browser timeout",
-                    outputFiles: { driver: html },
+                    outputFiles: { "driver.html": html },
                 });
             }, 30000);
             await ready;
