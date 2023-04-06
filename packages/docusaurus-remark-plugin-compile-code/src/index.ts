@@ -136,7 +136,13 @@ const plugin: Plugin<[PluginOptions?]> = (options = undefined) => {
                 if (resolve) {
                     console.debug(`${msgp}received ${id}`);
                     delete pendingRequests?.[id];
-                    resolve(resp);
+                    resolve({
+                        ...resp,
+                        outputFiles: {
+                            driver: html,
+                            ...(resp.outputFiles || {}),
+                        },
+                    });
                 }
             });
             let readyResolve: (() => void) | undefined = undefined;
@@ -154,7 +160,10 @@ const plugin: Plugin<[PluginOptions?]> = (options = undefined) => {
             let readyTimeoutId = setTimeout(() => {
                 console.error(`${msgp}browser timeout`);
                 readyResolve = undefined;
-                readyReject?.("browser timeout");
+                readyReject?.({
+                    message: "browser timeout",
+                    outputFiles: { driver: html },
+                });
             }, 30000);
             await ready;
             clearTimeout(readyTimeoutId);
