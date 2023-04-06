@@ -107,7 +107,9 @@ const plugin: Plugin<[PluginOptions?]> = (options = undefined) => {
             console.info(`${msgp}starting browser ${puppeteerVersion}`);
             page = await browser.newPage();
             if (!page) throw Error("page could not load");
-            page.on("console", (msg) => console.debug(msg.text()));
+            page.on("console", (msg) => {
+                console.log(msg.text())
+            });
             const close: () => Promise<void> = async () => {
                 await page?.close();
                 await browser?.close();
