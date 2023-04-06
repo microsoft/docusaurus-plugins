@@ -6,23 +6,36 @@
     </head>
     <script type="module">
         document.addEventListener("DOMContentLoaded", () => {
+            console.log(`loading renderer...`);
             // setup renderer
             const renderer = new msagl.RendererSvg();
+            console.log(`renderer loaded...`);
             // handle rendering requests
             window.addEventListener("message", (msg) => {
                 const { type, lang, source, id } = msg.data;
                 // it's a request for us!
                 if (type === "puppet" && lang == "msagl") {
-                    const graph = msagl.parseDot(source);
-                    renderer.setGraph(graph);
-                    const svg = renderer.getSvgString();
-                    // send response back
-                    window.rise4funPostMessage?.({
-                        id,
-                        outputFiles: {
-                            "output.svg": svg,
-                        },
-                    });
+                    try {
+                        console.log(`rendering graph ${id}`);
+                        const graph = msagl.parseDot(source);
+                        renderer.setGraph(graph);
+                        const svg = renderer.getSvgString();
+                        console.log(`graph rendered...`);
+
+                        // send response back
+                        window.rise4funPostMessage?.({
+                            id,
+                            outputFiles: {
+                                "output.svg": svg,
+                            },
+                        });
+                    } catch (e) {
+                        console.error(e);
+                        window.rise4funPostMessage?.({
+                            id,
+                            error: e.message,
+                        });
+                    }
                 }
             });
 
