@@ -1,6 +1,6 @@
 {
     "name": "@rise4fun/docusaurus-remark-plugin-import-file",
-    "version": "2.0.0",
+    "version": "2.0.1",
     "description": "Import markdown file",
     "main": "lib/index.js",
     "types": "src/types.d.ts",
