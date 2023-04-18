@@ -398,13 +398,24 @@ const plugin: Plugin<[PluginOptions?]> = (options = undefined) => {
             // compile tool
             let cmd: string = command || "";
             if (nodeBin) {
-                iargs.unshift(resolve(join("node_modules", ".bin", nodeBin)));
-                cmd = "node";
+                if (process.platform === "win32") {
+                    cmd = resolve(
+                        join("node_modules", ".bin", nodeBin + ".cmd")
+                    );
+                } else {
+                    iargs.unshift(
+                        resolve(join("node_modules", ".bin", nodeBin))
+                    );
+                    cmd = "node";
+                }
             } else if (/\.m?js/.test(cmd)) {
                 iargs.unshift(resolve(cmd));
                 cmd = "node";
             }
-            writeFileSync(join(cwd, "run.sh"), `${cmd} ${iargs.join(" ")}`);
+            writeFileSync(
+                join(cwd, `run.${process.platform === "win32" ? "cmd" : "sh"}`),
+                `${cmd} ${iargs.join(" ")}`
+            );
             try {
                 cleanOutputFiles(cwd);
                 const res = spawnSync(cmd, iargs, {
