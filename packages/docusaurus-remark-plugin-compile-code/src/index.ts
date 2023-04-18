@@ -384,7 +384,7 @@ const plugin: Plugin<[PluginOptions?]> = (options = undefined) => {
                 writeFileSync(
                     join(cwd, name),
                     typeof content === "object"
-                        ? JSON.stringify(content)
+                        ? JSON.stringify(content, null, 2)
                         : content,
                     { encoding: "utf-8" }
                 )
