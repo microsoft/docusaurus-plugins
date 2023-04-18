@@ -10,6 +10,12 @@ Install [Volta](https://docs.volta.sh/guide/getting-started), if you haven't got
 
 Once installed, Volta will automatically install the correct version of Node.js and Yarn for this project - no need to install them manually.
 
+Switch to node 18
+
+```
+nvm use 18
+```
+
 Install dependencies,
 
 ```bash

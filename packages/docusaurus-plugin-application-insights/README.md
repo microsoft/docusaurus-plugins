@@ -4,4 +4,4 @@ Docusaurus plugin to support Microsoft Application Insights ([npm.js](https://ww
 
 ## Usage
 
-See [docusaurus-plugin-application-insights documentation](https://microsoft.github.io/docusaurus-plugins/docs/plugins/application-insights).
+See [docusaurus-plugin-application-insights documentation](https://microsoft.github.io/docusaurus-plugins/docs/plugins/docusaurus-plugin-application-insights).
