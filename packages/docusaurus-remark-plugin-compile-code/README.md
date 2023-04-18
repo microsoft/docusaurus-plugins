@@ -4,4 +4,4 @@ Docusaurus plugin to run a tool against code snippets at build time ([npm.js](ht
 
 ## Usage
 
-See [docusaurus-remark-plugin-compile-code documentation](https://microsoft.github.io/docusaurus-plugins/docs/plugins/docusaurus-remark-plugin-compile-code).
+See [docusaurus-remark-plugin-compile-code documentation](https://microsoft.github.io/docusaurus-plugins/docs/plugins/docusaurus-remark-plugin-compile-code/).

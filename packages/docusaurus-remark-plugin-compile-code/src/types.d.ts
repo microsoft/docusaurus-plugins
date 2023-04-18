@@ -94,6 +94,10 @@ export interface LangOptions {
      * Sets of files that should be included in the final output
      */
     outputFiles?: OutputFile[];
+    /**
+     * Optional hash files to consider when computing the hash of the source
+     */
+    hashFiles?: string[];
 }
 
 export interface ToolLangOptions extends LangOptions {
