@@ -181,6 +181,22 @@ the files gets imported in the output.
     },
 ```
 
+#### `hashFiles`
+
+A set of files to be included in the hash computation for the cache.
+
+```js title="./docusaurus.config.js"
+    ...
+    {
+        lang: "svgo",
+        // highlight-start
+        hashFiles: [
+            "package.json",
+        ],
+        // highlight-end
+    },
+```
+
 ### Meta flags
 
 #### `skip`
