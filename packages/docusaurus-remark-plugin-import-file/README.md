@@ -4,4 +4,4 @@ Docusaurus plugin to import markdown files ([npm.js](https://www.npmjs.com/packa
 
 ## Usage
 
-See [docusaurus-remark-plugin-import-file documentation](https://microsoft.github.io/docusaurus-plugins/docs/plugins/docusaurus-remark-plugin-import-files).
+See [docusaurus-remark-plugin-import-file documentation](https://microsoft.github.io/docusaurus-plugins/docs/plugins/docusaurus-remark-plugin-import-file).

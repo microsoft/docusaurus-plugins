@@ -3,7 +3,8 @@ const { resolve } = require("path");
 const visit = require("unist-util-visit");
 
 // inspired from https://github.com/dotansimha/remark-import-partial
-export default function () {
+// DO NOT convert to ES6 module, it will break the plugin
+module.exports = function () {
     // @ts-ignore
     const unified: any = this;
 
@@ -41,4 +42,4 @@ export default function () {
             }
         });
     };
-}
+};
