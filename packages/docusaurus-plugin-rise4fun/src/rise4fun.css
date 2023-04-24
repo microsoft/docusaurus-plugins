@@ -1,3 +1,7 @@
+:root {
+    --ifm-link-decoration: underline;
+}
+
 .header-github-link:hover {
     opacity: 0.6;
 }
