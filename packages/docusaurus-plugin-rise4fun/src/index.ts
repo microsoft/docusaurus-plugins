@@ -13,10 +13,9 @@ import { ensureDirSync, writeJSONSync } from "fs-extra";
 
 const mathPlugin = require("remark-math");
 const katexPlugin = require("rehype-katex");
-const importFilePlugin = require("@rise4fun/docusaurus-remark-plugin-import-file")
+const importFilePlugin = require("@rise4fun/docusaurus-remark-plugin-import-file");
 
 const repo = process.env.GITHUB_REPOSITORY;
-const sha = process.env.GITHUB_SHA;
 
 export type { PluginOptions, Options };
 
@@ -94,15 +93,6 @@ export async function configure(
     // sidebar collapse
     sidebar.hideable = true;
     sidebar.autoCollapseCategories = true;
-
-    // github versioning
-    if (repo && sha && footer.copyright) {
-        const link = `<a href=https://github.com/${repo}/commit/${sha} target="_blank" rel="noopener noreferrer">${sha.slice(
-            0,
-            8
-        )}</a> | `;
-        footer.copyright = link + footer.copyright;
-    }
 
     const plugins = configuration.plugins || (configuration.plugins = []);
     const presets = configuration.presets || (configuration.presets = []);
