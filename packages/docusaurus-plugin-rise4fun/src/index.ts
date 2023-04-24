@@ -208,23 +208,22 @@ export async function configure(
     // always get space back
     navbar.hideOnScroll = true;
 
+    // this is a big ugly, injecting our style in the global custom css
+    presets
+        .filter((preset) => Array.isArray(preset) && preset[0] === "classic")
+        .forEach((preset) => {
+            const t = (preset as any)[1]?.theme;
+            if (t.customCss && !Array.isArray(t.customCss))
+                t.customCss = [t.customCss];
+            const customCss = t.customCss || (t.customCss = []);
+            customCss.push(resolve(__dirname, "rise4fun.css"));
+        });
+
     if (
         githubButton !== false &&
         repo &&
         !navbar.items.find((i: any) => i.className === "header-github-link")
     ) {
-        // this is a big ugly, injecting our style in the global custom css
-        presets
-            .filter(
-                (preset) => Array.isArray(preset) && preset[0] === "classic"
-            )
-            .forEach((preset) => {
-                const t = (preset as any)[1]?.theme;
-                if (t.customCss && !Array.isArray(t.customCss))
-                    t.customCss = [t.customCss];
-                const customCss = t.customCss || (t.customCss = []);
-                customCss.push(resolve(__dirname, "rise4fun.css"));
-            });
         navbar.items.push({
             href: `https://github.com/${repo}`,
             position: "right",
