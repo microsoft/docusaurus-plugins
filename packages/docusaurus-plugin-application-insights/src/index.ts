@@ -12,7 +12,7 @@ export default function pluginApplicationInsights(
 ): Plugin {
   const isProd = process.env.NODE_ENV === 'production';
   return {
-    name: '@rise4fun/docusaurus-plugin-application-insights',
+    name: '@microsoft/docusaurus-plugin-application-insights',
 
     getClientModules() {
       return isProd ? [resolve(__dirname, './analytics')] : [];

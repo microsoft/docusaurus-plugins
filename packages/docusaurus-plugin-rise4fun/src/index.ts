@@ -1,13 +1,13 @@
 import type { Config, ThemeConfig } from '@docusaurus/types';
 import type { PluginOptions, Options } from './options';
-import appInsightPlugin from '@rise4fun/docusaurus-plugin-application-insights';
+import appInsightPlugin from '@microsoft/docusaurus-plugin-application-insights';
 import npm2yarnPlugin from '@docusaurus/remark-plugin-npm2yarn';
 import compileCodePlugin, {
   ToolLangOptions,
-} from '@rise4fun/docusaurus-remark-plugin-compile-code';
-import codeTabsPlugin from '@rise4fun/docusaurus-remark-plugin-code-tabs';
-import codeElementPlugin from '@rise4fun/docusaurus-remark-plugin-code-element';
-import sideEditorPlugin from '@rise4fun/docusaurus-remark-plugin-side-editor';
+} from '@microsoft/docusaurus-remark-plugin-compile-code';
+import codeTabsPlugin from '@microsoft/docusaurus-remark-plugin-code-tabs';
+import codeElementPlugin from '@microsoft/docusaurus-remark-plugin-code-element';
+import sideEditorPlugin from '@microsoft/docusaurus-remark-plugin-side-editor';
 import { join, resolve } from 'node:path';
 import { ensureDirSync, writeJSONSync } from 'fs-extra';
 import validatePeerDependencies from 'validate-peer-dependencies';
@@ -16,7 +16,7 @@ validatePeerDependencies(__dirname);
 
 const mathPlugin = require('remark-math');
 const katexPlugin = require('rehype-katex');
-const importFilePlugin = require('@rise4fun/docusaurus-remark-plugin-import-file');
+const importFilePlugin = require('@microsoft/docusaurus-remark-plugin-import-file');
 
 const repo = process.env.GITHUB_REPOSITORY;
 
@@ -138,14 +138,14 @@ export async function configure(
   }
 
   if (codeSandbox !== false) {
-    injectTheme('@rise4fun/docusaurus-theme-codesandbox-button', codeSandbox);
+    injectTheme('@microsoft/docusaurus-theme-codesandbox-button', codeSandbox);
     if (!themeConfig.codeSandbox) themeConfig.codeSandbox = codeSandbox;
   }
 
   // copy over side editor
   if (!themeConfig.sideEditor) themeConfig.sideEditor = sideEditor;
   if (themeConfig.sideEditor) {
-    injectTheme('@rise4fun/docusaurus-theme-side-editor', themeConfig.sideEditor);
+    injectTheme('@microsoft/docusaurus-theme-side-editor', themeConfig.sideEditor);
     injectBeforeDefaultRemarkPlugin(sideEditorPlugin, themeConfig.sideEditor);
   }
 

@@ -1,6 +1,6 @@
 /// <reference types="@docusaurus/module-type-aliases" />
 
-declare module '@rise4fun/docusaurus-theme-side-editor' {
+declare module '@microsoft/docusaurus-theme-side-editor' {
   export type ThemeConfig = {
     sideEditor: SideEditorThemeConfig;
   };
@@ -42,7 +42,7 @@ declare module '@theme/SideEditorRoot' {
 }
 
 declare module '@theme/IFrameEditor' {
-  import type { IFrameEditorConfig } from '@rise4fun/docusaurus-theme-side-editor';
+  import type { IFrameEditorConfig } from '@microsoft/docusaurus-theme-side-editor';
   export interface Props {
     source?: { text?: string };
     config: IFrameEditorConfig;
