@@ -3,6 +3,9 @@ import type {
   ThemeConfig,
   CodeSandboxButtonThemeConfig,
 } from '@rise4fun/docusaurus-theme-codesandbox-button';
+import validatePeerDependencies from 'validate-peer-dependencies';
+
+validatePeerDependencies(__dirname);
 
 export default function themeCodeSandboxButton(): Plugin<void> {
   return {

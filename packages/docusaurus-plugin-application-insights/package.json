@@ -25,7 +25,8 @@
   },
   "dependencies": {
     "@microsoft/applicationinsights-web": "^2.8.9",
-    "tslib": "^2.5.0"
+    "tslib": "^2.5.0",
+    "validate-peer-dependencies": "^2.2.0"
   },
   "devDependencies": {
     "@docusaurus/core": "^2.4.0",

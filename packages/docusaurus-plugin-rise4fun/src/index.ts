@@ -10,6 +10,9 @@ import codeElementPlugin from '@rise4fun/docusaurus-remark-plugin-code-element';
 import sideEditorPlugin from '@rise4fun/docusaurus-remark-plugin-side-editor';
 import { join, resolve } from 'node:path';
 import { ensureDirSync, writeJSONSync } from 'fs-extra';
+import validatePeerDependencies from 'validate-peer-dependencies';
+
+validatePeerDependencies(__dirname);
 
 const mathPlugin = require('remark-math');
 const katexPlugin = require('rehype-katex');
