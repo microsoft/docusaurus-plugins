@@ -12,10 +12,10 @@
   "scripts": {
     "build": "nx run-many --target=build",
     "clear": "nx run-many --target=clear && nx reset",
+    "patch": "release-it patch",
     "start": "cd website && yarn start",
     "test": "nx run-many --target=test",
-    "watch": "nx run-many --target=watch",
-    "patch": "release-it patch"
+    "watch": "nx run-many --target=watch"
   },
   "release": {
     "branches": [

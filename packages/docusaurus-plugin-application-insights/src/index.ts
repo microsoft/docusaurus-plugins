@@ -2,6 +2,9 @@ import { Joi } from '@docusaurus/utils-validation';
 import type { LoadContext, Plugin, OptionValidationContext } from '@docusaurus/types';
 import type { ApplicationInsightsOptions, PluginOptions } from './options';
 import { resolve } from 'node:path';
+import validatePeerDependencies from 'validate-peer-dependencies';
+
+validatePeerDependencies(__dirname);
 
 export default function pluginApplicationInsights(
   _context: LoadContext,
