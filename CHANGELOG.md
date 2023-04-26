@@ -1,5 +1,20 @@
 # Changelog
 
+
+## v3.0.0 (2023-04-26)
+
+#### :boom: Breaking Change
+* `docusaurus-plugin-application-insights`, `docusaurus-plugin-rise4fun`, `docusaurus-remark-plugin-code-element`, `docusaurus-remark-plugin-code-tabs`, `docusaurus-remark-plugin-compile-code`, `docusaurus-remark-plugin-import-file`, `docusaurus-remark-plugin-side-editor`, `docusaurus-theme-codesandbox-button`, `docusaurus-theme-side-editor`
+  * [#35](https://github.com/microsoft/docusaurus-plugins/pull/35) Moves Docusaurus dependencies to devDeps/peerDeps ([@scalvert](https://github.com/scalvert))
+
+#### :house: Internal
+* `docusaurus-plugin-application-insights`, `docusaurus-plugin-rise4fun`, `docusaurus-remark-plugin-code-element`, `docusaurus-remark-plugin-code-tabs`, `docusaurus-remark-plugin-compile-code`, `docusaurus-remark-plugin-import-file`, `docusaurus-remark-plugin-side-editor`, `docusaurus-theme-codesandbox-button`, `docusaurus-theme-side-editor`
+  * [#27](https://github.com/microsoft/docusaurus-plugins/pull/27) Update prettier settings with convetional config ([@scalvert](https://github.com/scalvert))
+
+#### Committers: 1
+- Steve Calvert ([@scalvert](https://github.com/scalvert))
+
+
 ## v2.1.3 (2023-04-24)
 
 ## v2.1.2 (2023-04-19)
