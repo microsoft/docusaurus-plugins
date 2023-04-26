@@ -1,5 +1,5 @@
 {
-  "name": "@microsoft/docusaurus-plugin-application-insights",
+  "name": "@rise4fun/docusaurus-plugin-application-insights",
   "version": "3.0.0",
   "description": "Microsoft Application Insights plugin for Docusaurus.",
   "keywords": [

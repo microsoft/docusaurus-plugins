@@ -1,12 +1,12 @@
 import type { Plugin } from '@docusaurus/types';
-import type { ThemeConfig, SideEditorThemeConfig } from '@microsoft/docusaurus-theme-side-editor';
+import type { ThemeConfig, SideEditorThemeConfig } from '@rise4fun/docusaurus-theme-side-editor';
 import validatePeerDependencies from 'validate-peer-dependencies';
 
 validatePeerDependencies(__dirname);
 
 export default function themeSideEditor(): Plugin<void> {
   return {
-    name: '@microsoft/docusaurus-theme-side-editor',
+    name: '@rise4fun/docusaurus-theme-side-editor',
 
     getThemePath() {
       return '../lib/theme';

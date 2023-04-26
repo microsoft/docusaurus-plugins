@@ -1,6 +1,6 @@
-# `@microsoft/docusaurus-remark-plugin-import-file`
+# `@rise4fun/docusaurus-remark-plugin-import-file`
 
-Docusaurus plugin to import markdown files ([npm.js](https://www.npmjs.com/package/@microsoft/docusaurus-remark-plugin-import-files)).
+Docusaurus plugin to import markdown files ([npm.js](https://www.npmjs.com/package/@rise4fun/docusaurus-remark-plugin-import-files)).
 
 ## Usage
 

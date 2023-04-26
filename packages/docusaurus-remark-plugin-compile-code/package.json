@@ -1,5 +1,5 @@
 {
-  "name": "@microsoft/docusaurus-remark-plugin-compile-code",
+  "name": "@rise4fun/docusaurus-remark-plugin-compile-code",
   "version": "3.0.0",
   "description": "Run tool and show output.",
   "keywords": [

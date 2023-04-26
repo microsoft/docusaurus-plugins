@@ -1,6 +1,6 @@
-# Microsoft Docusaurus plugins
+# Rise4fun Docusaurus plugins
 
-This repository contains plugins for Docusaurus, including but not limited to support for creating rich documentation for programming languages tools.
+This repository contains plugins for Docusaurus to support creating rich documentation for programming languages tools.
 
 - [Read the documentation](https://microsoft.github.io/docusaurus-plugins).
 

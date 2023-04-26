@@ -6,7 +6,7 @@ import styles from './styles.module.css';
 import type {
   CodeSandboxOptions,
   ThemeConfig,
-} from '@microsoft/docusaurus-theme-codesandbox-button';
+} from '@rise4fun/docusaurus-theme-codesandbox-button';
 
 const DEFAULT_CODESANDBOX: CodeSandboxOptions = {
   files: {
