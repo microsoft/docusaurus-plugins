@@ -3,6 +3,8 @@
 
 ## v3.0.0 (2023-04-26)
 
+## v3.0.0 (2023-04-26)
+
 #### :boom: Breaking Change
 * `docusaurus-plugin-application-insights`, `docusaurus-plugin-rise4fun`, `docusaurus-remark-plugin-code-element`, `docusaurus-remark-plugin-code-tabs`, `docusaurus-remark-plugin-compile-code`, `docusaurus-remark-plugin-import-file`, `docusaurus-remark-plugin-side-editor`, `docusaurus-theme-codesandbox-button`, `docusaurus-theme-side-editor`
   * [#35](https://github.com/microsoft/docusaurus-plugins/pull/35) Moves Docusaurus dependencies to devDeps/peerDeps ([@scalvert](https://github.com/scalvert))
