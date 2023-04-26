@@ -2,7 +2,7 @@
 
 This repository contains plugins for Docusaurus to support creating rich documentation for programming languages tools.
 
--   [Read the documentation](https://microsoft.github.io/docusaurus-plugins).
+- [Read the documentation](https://microsoft.github.io/docusaurus-plugins).
 
 ## Development
 
@@ -36,8 +36,8 @@ yarn start
 
 To create releases, use the semantic release commit syntax
 
--   `feat: ...` for a minor version bump
--   `fix: ...` for a patch version bump
+- `feat: ...` for a minor version bump
+- `fix: ...` for a patch version bump
 
 ## Contributing
 

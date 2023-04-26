@@ -3,8 +3,8 @@ id: side-editor
 sidebar_position: 6
 ---
 
-import BrowserWindow from "@theme/BrowserWindow";
-import SideEditorButton from "@theme/SideEditorButton";
+import BrowserWindow from '@theme/BrowserWindow';
+import SideEditorButton from '@theme/SideEditorButton';
 
 # Side Editor
 
@@ -59,7 +59,6 @@ console.log('hello')
 ```
 
 </BrowserWindow>
-
 
 ## Configuration
 
@@ -118,28 +117,28 @@ For example, the `msagljs` tool is wrapped as `./static/editors/msagl.html`.
 
 ```html title="./static/editors/msagl.html"
 <html>
-    <script src="https://unpkg.com/msagl-js@latest/dist.min.js"></script>
-    <script src="https://unpkg.com/@msagl/parser@latest/dist.min.js"></script>
-    <script src="https://unpkg.com/@msagl/renderer@latest/dist.min.js"></script>
-    <body>
-        <script type="module">
-            const renderer = new msagl.Renderer();
-            // handle rendering of dot sources
-            window.addEventListener("message", (ev) => {
-                const { type, dot } = ev.data
-                if (type === 'msagl') {
-                    const graph = msagl.parseDot(dot);
-                    renderer.setGraph(graph);
-                }
-            })
-            // tell parent, we're ready
-            if (window.parent && window.parent !== window)
-                window.parent.postMessage({
-                    type: 'msagl',
-                    state: 'ready'
-                })
-        </script>
-    </body>
+  <script src="https://unpkg.com/msagl-js@latest/dist.min.js"></script>
+  <script src="https://unpkg.com/@msagl/parser@latest/dist.min.js"></script>
+  <script src="https://unpkg.com/@msagl/renderer@latest/dist.min.js"></script>
+  <body>
+    <script type="module">
+      const renderer = new msagl.Renderer();
+      // handle rendering of dot sources
+      window.addEventListener('message', (ev) => {
+        const { type, dot } = ev.data;
+        if (type === 'msagl') {
+          const graph = msagl.parseDot(dot);
+          renderer.setGraph(graph);
+        }
+      });
+      // tell parent, we're ready
+      if (window.parent && window.parent !== window)
+        window.parent.postMessage({
+          type: 'msagl',
+          state: 'ready',
+        });
+    </script>
+  </body>
 </html>
 ```
 

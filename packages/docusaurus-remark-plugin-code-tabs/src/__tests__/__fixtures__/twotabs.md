@@ -1,19 +1,19 @@
 Some snippets
 
 ```js tabs title="JavaScript!"
-js
+js;
 ```
 
 ```ts
-ts
+ts;
 ```
 
 and lazy
 
 ```js tabs title="JavaScript!" lazy
-js
+js;
 ```
 
 ```ts
-ts
+ts;
 ```

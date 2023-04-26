@@ -1,6 +1,6 @@
 {
   "extends": "../tsconfig.json",
-  "references": [{"path": "./tsconfig.client.json"}],
+  "references": [{ "path": "./tsconfig.client.json" }],
   "compilerOptions": {
     "noEmit": false,
     "incremental": true,

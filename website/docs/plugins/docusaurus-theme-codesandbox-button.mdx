@@ -2,8 +2,8 @@
 sidebar_position: 3
 ---
 
-import BrowserWindow from "@site/src/theme/BrowserWindow";
-import CodeSandboxButton from "@theme/CodeSandboxButton";
+import BrowserWindow from '@site/src/theme/BrowserWindow';
+import CodeSandboxButton from '@theme/CodeSandboxButton';
 
 # 📦 theme-codesandbox-button
 
@@ -61,20 +61,20 @@ const config = {
 In a MDX page, first add the import on top of the page.
 
 ```tsx
-import CodeSandboxButton from "@theme/CodeSandboxButton";
+import CodeSandboxButton from '@theme/CodeSandboxButton';
 ```
 
 Then insert the button in the page. The `files` argument is documented in the [CodeSandbox define API docs](https://codesandbox.io/docs/learn/getting-started/your-first-sandbox#define-api).
 
 ```tsx
 <CodeSandboxButton
-    startFile="main.ts"
-    template="node18"
-    files={{
-        "main.ts": {
-            content: "console.log('hello')",
-        },
-    }}
+  startFile="main.ts"
+  template="node18"
+  files={{
+    'main.ts': {
+      content: "console.log('hello')",
+    },
+  }}
 />
 ```
 
@@ -83,13 +83,13 @@ Here is the button in action.
 <BrowserWindow>
 
 <CodeSandboxButton
-    startFile="main.ts"
-    template="node18"
-    files={{
-        "main.ts": {
-            content: "console.log('hello')",
-        },
-    }}
+  startFile="main.ts"
+  template="node18"
+  files={{
+    'main.ts': {
+      content: "console.log('hello')",
+    },
+  }}
 />
 
 </BrowserWindow>

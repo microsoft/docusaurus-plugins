@@ -2,8 +2,8 @@
 sidebar_position: 3
 ---
 
-import BrowserWindow from "@theme/BrowserWindow";
-import SideEditorButton from "@theme/SideEditorButton";
+import BrowserWindow from '@theme/BrowserWindow';
+import SideEditorButton from '@theme/SideEditorButton';
 
 # 📦 theme-side-editor
 
@@ -16,7 +16,7 @@ Read the [Side Editor documentation](/docs/markdown-features/side-editor).
 You can also inject the button using MDX. Add the global import at the start of the `.mdx` file.
 
 ```jsx
-import SideEditorButton from "@theme/SideEditorButton";
+import SideEditorButton from '@theme/SideEditorButton';
 ```
 
 Then use the `SideEditorButton` element in your page.
@@ -26,7 +26,7 @@ Then use the `SideEditorButton` element in your page.
 ```
 
 <BrowserWindow>
-    <SideEditorButton editorId="devicescript" text={`console.log("hello")`} />
+  <SideEditorButton editorId="devicescript" text={`console.log("hello")`} />
 </BrowserWindow>
 
 ## Configuration
@@ -41,10 +41,10 @@ Add the theme to your theme list.
 
 ```js
 const config = {
-    plugins: [
-        // highlight-start
-        ["@rise4fun/docusaurus-theme-side-editor", {}],
-        // highlight-end
-    ],
+  plugins: [
+    // highlight-start
+    ['@rise4fun/docusaurus-theme-side-editor', {}],
+    // highlight-end
+  ],
 };
 ```

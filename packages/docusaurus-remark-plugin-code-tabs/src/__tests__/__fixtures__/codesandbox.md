@@ -1,17 +1,17 @@
 Tabs with codesandbox
 
 ```js tabs codesandbox title="main.js"
-js
+js;
 ```
 
 ```ts title="main.ts"
-ts
+ts;
 ```
 
 Codesandbox alone
 
 ```js codesandbox
-console.log("show codesandbox button")
+console.log('show codesandbox button');
 ```
 
 ```js

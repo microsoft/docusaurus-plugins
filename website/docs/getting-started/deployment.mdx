@@ -18,11 +18,11 @@ Add a root level `package.json` file that declares the `website` folder as a `ya
 
 ```json title="package.json"
 {
-    "private": true,
-    "workspaces": ["packages/*", "website"],
-    "scripts": {
-        "build": "cd website && yarn build"
-    }
+  "private": true,
+  "workspaces": ["packages/*", "website"],
+  "scripts": {
+    "build": "cd website && yarn build"
+  }
 }
 ```
 

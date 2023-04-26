@@ -1,11 +1,11 @@
 Some snippets
 
 ```js tabs=group
-jsvalue
+jsvalue;
 ```
 
 ```ts
-tsvalue
+tsvalue;
 ```
 
 And a paragraph and another tabs group

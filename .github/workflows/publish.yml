@@ -1,34 +1,34 @@
 name: Publish Node Packages
 
 on:
-    push:
-        tags:
-            - "v*"
-    workflow_dispatch: {}
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch: {}
 
 jobs:
-    publish:
-        runs-on: ubuntu-latest
+  publish:
+    runs-on: ubuntu-latest
 
-        steps:
-            - uses: actions/checkout@v3
-            - uses: volta-cli/action@v1
+    steps:
+      - uses: actions/checkout@v3
+      - uses: volta-cli/action@v1
 
-            - name: yarn install
-              run: yarn install --frozen-lockfile
+      - name: yarn install
+        run: yarn install --frozen-lockfile
 
-            - name: Build all
-              run: yarn build
+      - name: Build all
+        run: yarn build
 
-            - name: Loop through packages and publish
-              run: |
-                  cd packages
-                  for package in $(ls -d */); do
-                    echo "Publishing $package..."
-                    cd $package
-                    echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" >> .npmrc
-                    npm publish . --no-workspaces
-                    cd ..
-                  done
-              env:
-                NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Loop through packages and publish
+        run: |
+          cd packages
+          for package in $(ls -d */); do
+            echo "Publishing $package..."
+            cd $package
+            echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" >> .npmrc
+            npm publish . --no-workspaces
+            cd ..
+          done
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
