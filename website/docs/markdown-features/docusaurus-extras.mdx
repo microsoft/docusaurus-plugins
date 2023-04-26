@@ -3,9 +3,9 @@ title: Docusaurus Extras
 sidebar_position: 0.5
 ---
 
-import BrowserWindow from '@site/src/theme/BrowserWindow'
+import BrowserWindow from '@site/src/theme/BrowserWindow';
 
-export const Highlight = ({children, color}) => (
+export const Highlight = ({ children, color }) => (
   <span
     style={{
       backgroundColor: color,
@@ -16,7 +16,8 @@ export const Highlight = ({children, color}) => (
     }}
     onClick={() => {
       alert(`You clicked the color ${color} with label ${children}`);
-    }}>
+    }}
+  >
     {children}
   </span>
 );
@@ -85,9 +86,7 @@ Markdown code blocks are supported with Syntax highlighting.
 ````markdown
 ```jsx title="src/components/HelloDocusaurus.js"
 function HelloDocusaurus() {
-    return (
-        <h1>Hello, Docusaurus!</h1>
-    )
+  return <h1>Hello, Docusaurus!</h1>;
 }
 ```
 ````
@@ -163,4 +162,3 @@ This is <Highlight color="#25c2a0">Docusaurus green</Highlight> !
 This is <Highlight color="#25c2a0">Docusaurus green</Highlight> !
 
 </BrowserWindow>
-

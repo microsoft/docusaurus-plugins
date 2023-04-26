@@ -2,7 +2,7 @@
 sidebar_position: 6
 ---
 
-import BrowserWindow from "@site/src/theme/BrowserWindow";
+import BrowserWindow from '@site/src/theme/BrowserWindow';
 
 # Code Element
 
@@ -10,15 +10,11 @@ This features provides a convinient way to map a fenced code region to a custom 
 In this example, we map `cow` to rendering element `Cow`.
 
 ```tsx title="./src/theme/Cow/index.tsx"
-import React from "react";
+import React from 'react';
 
-export default function Cow(props: {
-    lang: string;
-    meta: object;
-    value: string;
-}) {
-    const { value } = props;
-    return <pre>cow says: {value}</pre>;
+export default function Cow(props: { lang: string; meta: object; value: string }) {
+  const { value } = props;
+  return <pre>cow says: {value}</pre>;
 }
 ```
 

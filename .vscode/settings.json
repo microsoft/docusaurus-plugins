@@ -1,12 +1,6 @@
 {
-    "files.associations": {
-        "*.mdp": "mdx"
-    },
-    "cSpell.words": [
-        "codesandbox",
-        "codesandboxes",
-        "descriptscript",
-        "devicescript",
-        "yacl"
-    ]
+  "files.associations": {
+    "*.mdp": "mdx"
+  },
+  "cSpell.words": ["codesandbox", "codesandboxes", "descriptscript", "devicescript", "yacl"]
 }

@@ -12,4 +12,3 @@ world
 foo
 bar
 ```
-

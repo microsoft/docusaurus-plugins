@@ -1,13 +1,12 @@
 .mr1 {
-    margin-right: 0.5rem;
-    margin-bottom: 1rem;
+  margin-right: 0.5rem;
+  margin-bottom: 1rem;
 }
 
 .hidemobile {
-
 }
 @media screen and (max-width: 996px) {
-    .hidemobile {
-        display: none !important;
-    }
+  .hidemobile {
+    display: none !important;
+  }
 }

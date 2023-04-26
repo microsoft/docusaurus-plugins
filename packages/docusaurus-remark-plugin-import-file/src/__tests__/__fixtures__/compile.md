@@ -1,11 +1,10 @@
 Some snippets
 
-
 test.md
 
 {@import ./test.md}
 
-Missing 
+Missing
 
 {@import optional ./missing.md}
 
