@@ -7,22 +7,7 @@ test.md
 
 this is imported.
 
-Missing 
-
-
-
-More snippets
-"
-`;
-
-exports[`compile-code plugin works on compile file 1`] = `
-"Some snippets
-
-test.md
-
-this is imported.
-
-Missing 
+Missing
 
 
 

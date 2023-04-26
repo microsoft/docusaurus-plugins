@@ -10,14 +10,3 @@ Some snippets
 <Dot lang={\\"dot\\"} meta={{\\"meta\\":true,\\"meta1\\":0,\\"meta2\\":\\"hello\\",\\"metaf\\":false,\\"metat\\":true}} value={\\"foo\\"} />
 "
 `;
-
-exports[`compile-code plugin works on compile file 1`] = `
-"import Dot from '@theme/Dot';
-
-Some snippets
-
-<Dot lang={"dot"} meta={{}} value={"foo"} />
-
-<Dot lang={"dot"} meta={{"meta":true,"meta1":0,"meta2":"hello","metaf":false,"metat":true}} value={"foo"} />
-"
-`;

@@ -66,7 +66,7 @@ exports[`compile-code plugin > works on nodebin file 1`] = `
 "Some snippets
 
 \`\`\`ts
-let x = 0
+let x = 0;
 \`\`\`
 
 next, broken
@@ -100,132 +100,6 @@ foo
 `;
 
 exports[`compile-code plugin > works on puppet file 1`] = `
-"\`\`\`puppet
-hello world
-\`\`\`
-
-    browser says: hello world
-
-\`\`\`puppet
-hello world 2
-\`\`\`
-
-    browser says: hello world 2
-
-\`\`\`puppet
-hello
-world
-foo
-bar
-\`\`\`
-
-    browser says: hello
-    world
-    foo
-    bar
-"
-`;
-
-exports[`compile-code plugin works on compile file 1`] = `
-"Some snippets
-
-\`\`\`lisp
-foo
-\`\`\`
-
-    prefix
-
-    foo
-"
-`;
-
-exports[`compile-code plugin works on meta file 1`] = `
-"Testing meta
-
-\`\`\`fail skip foo
-don't run this
-\`\`\`
-
-next, broken
-
-\`\`\`fail ignore-errors foo
-ignore errors
-\`\`\`
-
-\`\`\`console  title="Error"
-Error: fail
-\`\`\`
-
-missing lang meta
-
-\`\`\`fail
-fail
-\`\`\`
-
-prefix
-
-\`\`\`lisp prefix
-
-\`\`\`
-
-    prefix
-
-\`\`\`lisp prefix
-prefix
-\`\`\`
-
-    prefix
-
-\`\`\`meta bar
-baz
-\`\`\`
-
-    baz
-
-\`\`\`meta
-don't run this
-\`\`\`
-"
-`;
-
-exports[`compile-code plugin works on nodebin file 1`] = `
-"Some snippets
-
-\`\`\`ts
-let x = 0
-\`\`\`
-
-next, broken
-
-\`\`\`ts ignore-errors
-sadfj asd fasdf
-\`\`\`
-
-    input.ts(1,1): error TS1434: Unexpected keyword or identifier.
-    input.ts(1,7): error TS1434: Unexpected keyword or identifier.
-"
-`;
-
-exports[`compile-code plugin works on nodes file 1`] = `
-"Some snippets reflected in files
-
-\`\`\`echonode
-foo
-\`\`\`
-
-    extra --> foo
-
-\`\`\`json
-{
-  "lang": "echonode",
-  "meta": "",
-  "cwd": ".docusaurus/docusaurus-remark-plugin-compile-code/cache/echonode/15c18188e8e42d94e4918be26812eeecda6b3bdc"
-}
-\`\`\`
-"
-`;
-
-exports[`compile-code plugin works on puppet file 1`] = `
 "\`\`\`puppet
 hello world
 \`\`\`
