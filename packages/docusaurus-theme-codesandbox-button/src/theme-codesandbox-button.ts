@@ -1,6 +1,6 @@
 /// <reference types="@docusaurus/module-type-aliases" />
 
-declare module '@rise4fun/docusaurus-theme-codesandbox-button' {
+declare module '@microsoft/docusaurus-theme-codesandbox-button' {
   export interface CodeSandboxFileOptions {
     content: string | object;
   }

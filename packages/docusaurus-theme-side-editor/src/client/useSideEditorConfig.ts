@@ -1,4 +1,4 @@
-import type { ThemeConfig } from '@rise4fun/docusaurus-theme-side-editor';
+import type { ThemeConfig } from '@microsoft/docusaurus-theme-side-editor';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 
 export default function useSideEditorConfig() {
