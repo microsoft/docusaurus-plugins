@@ -1,6 +1,17 @@
 # Changelog
 
 
+
+## v3.1.0 (2023-04-27)
+
+#### :rocket: Enhancement
+* `docusaurus-plugin-application-insights`
+  * [#38](https://github.com/microsoft/docusaurus-plugins/pull/38) Using expanded type for App Insights options ([@scalvert](https://github.com/scalvert))
+
+#### Committers: 1
+- Steve Calvert ([@scalvert](https://github.com/scalvert))
+
+
 ## v3.0.0 (2023-04-26)
 
 ## v3.0.0 (2023-04-26)
