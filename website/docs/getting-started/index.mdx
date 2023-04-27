@@ -43,17 +43,17 @@ Let's work on the docusaurus website folder.
 cd website
 ```
 
-Install the [rise4fun plugin](https://www.npmjs.com/package/@microsoft/docusaurus-plugin-rise4fun)
+Install the [rise4fun plugin](https://www.npmjs.com/package/@rise4fun/docusaurus-plugin-rise4fun)
 
 ```bash
-yarn add @microsoft/docusaurus-plugin-rise4fun
+yarn add @rise4fun/docusaurus-plugin-rise4fun
 ```
 
 Open `./docusaurus.config.js` and update it as follows.
 
 ```js title="./docusaurus.config.js"
 // highlight-next-line
-const { configure } = require("@microsoft/docusaurus-plugin-rise4fun");
+const { configure } = require("@rise4fun/docusaurus-plugin-rise4fun");
 ...
 // highlight-next-line
 const config = configure(
@@ -81,7 +81,7 @@ The default Docusaurus template comes with a lot of content. Make sure to give a
 Microsoft projects: make sure that `organizationName` is set to `microsoft`, to enable automatic legal footer injection
 
 ```js title="website/docusaurus.config.js"
-const { configure } = require("@microsoft/docusaurus-plugin-rise4fun");
+const { configure } = require("@rise4fun/docusaurus-plugin-rise4fun");
 ...
 const config = configure(
     {

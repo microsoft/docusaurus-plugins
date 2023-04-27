@@ -1,5 +1,5 @@
 {
-  "name": "@microsoft/docusaurus-remark-plugin-import-file",
+  "name": "@rise4fun/docusaurus-remark-plugin-import-file",
   "version": "3.0.0",
   "description": "Import markdown file",
   "keywords": [

@@ -1,6 +1,6 @@
-# `@microsoft/docusaurus-plugins`
+# `@rise4fun/docusaurus-plugins`
 
-Docusaurus plugin for Microsoft Research Rise4fun web sites ([npm.js](https://www.npmjs.com/package/@microsoft/docusaurus-plugin-rise4fun)).
+Docusaurus plugin for Microsoft Research Rise4fun web sites ([npm.js](https://www.npmjs.com/package/@rise4fun/docusaurus-plugin-rise4fun)).
 
 ## Usage
 

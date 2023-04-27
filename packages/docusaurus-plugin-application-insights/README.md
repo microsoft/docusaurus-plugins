@@ -1,6 +1,6 @@
-# `@microsoft/docusaurus-plugin-application-insights`
+# `@rise4fun/docusaurus-plugin-application-insights`
 
-Docusaurus plugin to support Microsoft Application Insights ([npm.js](https://www.npmjs.com/package/@microsoft/docusaurus-plugin-application-insights)).
+Docusaurus plugin to support Microsoft Application Insights ([npm.js](https://www.npmjs.com/package/@rise4fun/docusaurus-plugin-application-insights)).
 
 ## Usage
 

@@ -1,6 +1,6 @@
 import SideEditorRoot from '@theme/SideEditorRoot';
 import React, { createContext, ReactNode, useContext, useState } from 'react';
-import type { SideEditorConfig } from '@microsoft/docusaurus-theme-side-editor';
+import type { SideEditorConfig } from '@rise4fun/docusaurus-theme-side-editor';
 import useSideEditorConfig from './useSideEditorConfig';
 
 export interface SideEditorSource {

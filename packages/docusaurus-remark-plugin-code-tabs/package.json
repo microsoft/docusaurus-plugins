@@ -1,5 +1,5 @@
 {
-  "name": "@microsoft/docusaurus-remark-plugin-code-tabs",
+  "name": "@rise4fun/docusaurus-remark-plugin-code-tabs",
   "version": "3.0.0",
   "description": "Remark docusaurus plugin that assembles code sections in tabs.",
   "keywords": [
