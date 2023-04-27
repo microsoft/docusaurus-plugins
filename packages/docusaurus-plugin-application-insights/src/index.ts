@@ -37,6 +37,28 @@ export default function pluginApplicationInsights(
 const pluginOptionsSchema = Joi.object<ApplicationInsightsOptions>({
   instrumentationKey: Joi.string().empty(''),
   connectionString: Joi.string().empty(''),
+  diagnosticLogInterval: Joi.number().optional(),
+  maxMessageLimit: Joi.number().optional(),
+  loggingLevelConsole: Joi.number().optional(),
+  loggingLevelTelemetry: Joi.number().optional(),
+  enableDebug: Joi.boolean().optional(),
+  enableDebugExceptions: Joi.boolean().optional(),
+  endpointUrl: Joi.string().optional(),
+  extensionConfig: Joi.object().optional(),
+  extensions: Joi.array().optional(),
+  channels: Joi.array().optional(),
+  disableInstrumentationKeyValidation: Joi.boolean().optional(),
+  enablePerfMgr: Joi.boolean().optional(),
+  createPerfMgr: Joi.func().optional(),
+  perfEvtsSendAll: Joi.boolean().optional(),
+  idLength: Joi.number().optional(),
+  cookieDomain: Joi.string().optional(),
+  cookiePath: Joi.string().optional(),
+  disableCookiesUsage: Joi.boolean().optional(),
+  cookieCfg: Joi.object().optional(),
+  disablePageUnloadEvents: Joi.array().items(Joi.string()).optional(),
+  disablePageShowEvents: Joi.array().items(Joi.string()).optional(),
+  disableDbgExt: Joi.boolean().optional(),
 }).xor('instrumentationKey', 'connectionString');
 
 export function validateOptions({
