@@ -1,12 +1,12 @@
 import { describe, it, expect } from 'vitest';
 import { normalizePluginOptions } from '@docusaurus/utils-validation';
 import { validateOptions } from '../index';
-import type { Options, ApplicationInsightsOptions } from '../options';
+import { Options, PluginOptions, normalizeConfig } from '../options';
 import type { Validate } from '@docusaurus/types';
 
 function testValidateOptions(options: Options) {
   return validateOptions({
-    validate: normalizePluginOptions as Validate<Options, ApplicationInsightsOptions>,
+    validate: normalizePluginOptions as Validate<Options, PluginOptions>,
     options,
   });
 }
@@ -16,9 +16,7 @@ describe('application-insights options', () => {
     expect(
       // @ts-expect-error: TS should error
       () => testValidateOptions(undefined)
-    ).toThrowErrorMatchingInlineSnapshot(
-      '"\\"value\\" must contain at least one of [instrumentationKey, connectionString]"'
-    );
+    ).toThrowErrorMatchingInlineSnapshot('"\\"config\\" is required"');
   });
 
   it('throws for null options', () => {
@@ -29,8 +27,8 @@ describe('application-insights options', () => {
   });
 
   it('throws for empty object options', () => {
-    expect(() => testValidateOptions({})).toThrowErrorMatchingInlineSnapshot(
-      '"\\"value\\" must contain at least one of [instrumentationKey, connectionString]"'
+    expect(() => testValidateOptions({} as unknown as Options)).toThrowErrorMatchingInlineSnapshot(
+      '"\\"config\\" is required"'
     );
   });
 
@@ -44,72 +42,88 @@ describe('application-insights options', () => {
   it('throws for null instrumentationKey', () => {
     expect(
       // @ts-expect-error: TS should error
-      () => testValidateOptions({ instrumentationKey: null })
-    ).toThrowErrorMatchingInlineSnapshot('"\\"instrumentationKey\\" must be a string"');
+      () => testValidateOptions({ config: { instrumentationKey: null } })
+    ).toThrowErrorMatchingInlineSnapshot('"\\"config.instrumentationKey\\" must be a string"');
   });
 
   it('throws for number instrumentationKey', () => {
     expect(
       // @ts-expect-error: TS should error
-      () => testValidateOptions({ instrumentationKey: 42 })
-    ).toThrowErrorMatchingInlineSnapshot('"\\"instrumentationKey\\" must be a string"');
+      () => testValidateOptions({ config: { instrumentationKey: 42 } })
+    ).toThrowErrorMatchingInlineSnapshot('"\\"config.instrumentationKey\\" must be a string"');
   });
 
   it('throws for null connectionString', () => {
     expect(
       // @ts-expect-error: TS should error
-      () => testValidateOptions({ connectionString: null })
-    ).toThrowErrorMatchingInlineSnapshot('"\\"connectionString\\" must be a string"');
+      () => testValidateOptions({ config: { connectionString: null } })
+    ).toThrowErrorMatchingInlineSnapshot('"\\"config.connectionString\\" must be a string"');
   });
 
   it('throws for number connectionString', () => {
     expect(
       // @ts-expect-error: TS should error
-      () => testValidateOptions({ connectionString: 42 })
-    ).toThrowErrorMatchingInlineSnapshot('"\\"connectionString\\" must be a string"');
+      () => testValidateOptions({ config: { connectionString: 42 } })
+    ).toThrowErrorMatchingInlineSnapshot('"\\"config.connectionString\\" must be a string"');
   });
 
   it('validates missing options', () => {
-    let options = {};
-
-    expect(() => {
-      testValidateOptions(options);
-    }).toThrowErrorMatchingInlineSnapshot(
-      '"\\"value\\" must contain at least one of [instrumentationKey, connectionString]"'
-    );
-  });
-
-  it('validates if xor options are used together', () => {
     let options = {
-      instrumentationKey: 'KEY',
-      connectionString: 'CONNECTION_STRING',
+      config: {},
     };
 
     expect(() => {
       testValidateOptions(options);
     }).toThrowErrorMatchingInlineSnapshot(
-      '"\\"value\\" contains a conflict between exclusive peers [instrumentationKey, connectionString]"'
+      '"\\"config\\" must contain at least one of [instrumentationKey, connectionString]"'
     );
   });
 
-  it.each([
-    [
-      'instrumentationKey',
-      {
+  it('validates if xor options are used together', () => {
+    let options = {
+      config: {
         instrumentationKey: 'KEY',
-        connectionString: '',
-      },
-      { id: 'default', instrumentationKey: 'KEY' },
-    ],
-    [
-      'connectionString',
-      {
-        instrumentationKey: '',
         connectionString: 'CONNECTION_STRING',
       },
-      { id: 'default', connectionString: 'CONNECTION_STRING' },
-    ],
-  ])('validates if %s option is individually valid', (_, options, expected) => {
-    expect(testValidateOptions(options)).toEqual(expected);
+    };
+
+    expect(() => {
+      testValidateOptions(options);
+    }).toThrowErrorMatchingInlineSnapshot(
+      '"\\"config\\" contains a conflict between exclusive peers [instrumentationKey, connectionString]"'
+    );
+  });
+
+  it('normalizeConfig returns options when new configuration format used', () => {
+    let options = {
+      config: {
+        instrumentationKey: 'KEY',
+      },
+      enableClickAnalytics: true,
+    };
+
+    expect(normalizeConfig(options)).toMatchInlineSnapshot(`
+      {
+        "config": {
+          "instrumentationKey": "KEY",
+        },
+        "enableClickAnalytics": true,
+      }
+    `);
+  });
+
+  it('normalizeConfig returns new configuration format when legacy configuration format used', () => {
+    let options = {
+      instrumentationKey: 'KEY',
+    };
+
+    expect(normalizeConfig(options)).toMatchInlineSnapshot(`
+      {
+        "config": {
+          "instrumentationKey": "KEY",
+        },
+        "enableClickAnalytics": false,
+      }
+    `);
   });
 });

@@ -24,7 +24,8 @@
     "watch": "tsc --build --watch"
   },
   "dependencies": {
-    "@microsoft/applicationinsights-web": "^2.8.9",
+    "@microsoft/applicationinsights-clickanalytics-js": "^3.0.2",
+    "@microsoft/applicationinsights-web": "^3.0.2",
     "tslib": "^2.5.0",
     "validate-peer-dependencies": "^2.2.0"
   },

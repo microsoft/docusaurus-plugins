@@ -97,7 +97,7 @@ const plugin: Plugin<[PluginOptions?]> = (options = undefined) => {
     let { page, pendingRequests } = puppets[langOptions.lang] || {};
     if (!page) {
       pendingRequests = {};
-      const browser = await puppeteer.launch({ headless: true });
+      const browser = await puppeteer.launch({ headless: 'new' });
       const puppeteerVersion = await browser.version();
       const msgp = `${langOptions.lang}:driver> `;
       console.info(`${msgp}starting browser ${puppeteerVersion}`);

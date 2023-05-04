@@ -99,11 +99,13 @@ export async function configure(
   if (importFile !== false) injectBeforeDefaultRemarkPlugin(importFilePlugin, importFile);
 
   // inject app insights
-  if (appInsights)
-    injectPlugin(appInsightPlugin, {
-      disableCookiesUsage: true,
-      ...appInsights,
-    });
+  if (appInsights) {
+    if (!('disableCookiesUsage' in appInsights.config)) {
+      appInsights.config.disableCookiesUsage = true;
+    }
+
+    injectPlugin(appInsightPlugin, appInsights);
+  }
 
   //  npm2yarn
   if (npm2yarn !== false) injectRemarkPlugin(npm2yarnPlugin, { sync: true }); // npm/yarn
