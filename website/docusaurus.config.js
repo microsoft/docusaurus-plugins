@@ -98,7 +98,9 @@ const config = configure(
       indexName: 'rise4fun',
     },
     appInsights: {
-      instrumentationKey: 'ec147bad-05d9-4959-922d-e5fc3dd0930b',
+      config: {
+        instrumentationKey: 'ec147bad-05d9-4959-922d-e5fc3dd0930b',
+      },
     },
     codeTabs: {
       langTitles: {

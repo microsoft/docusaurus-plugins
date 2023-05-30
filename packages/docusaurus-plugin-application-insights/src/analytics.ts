@@ -1,12 +1,33 @@
+import { ClickAnalyticsPlugin } from '@microsoft/applicationinsights-clickanalytics-js';
 import { ApplicationInsights } from '@microsoft/applicationinsights-web';
 import type { ClientModule } from '@docusaurus/types';
 
 let appInsights: ApplicationInsights;
+
 if (typeof window !== 'undefined') {
-  const config = (window as any).appInsightsConfig;
-  if (config) {
+  const pluginConfig = (window as any).appInsightsPluginConfig;
+
+  if (pluginConfig) {
+    if (pluginConfig.enableClickAnalytics) {
+      const clickPluginInstance = new ClickAnalyticsPlugin();
+
+      pluginConfig.config = {
+        ...pluginConfig.config,
+        extensions: [clickPluginInstance],
+        extensionConfig: {
+          [clickPluginInstance.identifier]: {
+            autoCapture: true,
+            dataTags: {
+              useDefaultContentNameOrId: true,
+            },
+            urlCollectQuery: true,
+          },
+        },
+      };
+    }
+
     appInsights = new ApplicationInsights({
-      config,
+      config: pluginConfig.config,
     });
     appInsights.loadAppInsights();
     appInsights.trackPageView();
