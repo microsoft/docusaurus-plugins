@@ -1,3 +1,4 @@
+import { ClickAnalyticsPlugin } from '@microsoft/applicationinsights-clickanalytics-js';
 import { ApplicationInsights } from '@microsoft/applicationinsights-web';
 import type { ClientModule } from '@docusaurus/types';
 
@@ -8,9 +9,6 @@ if (typeof window !== 'undefined') {
 
   if (pluginConfig) {
     if (pluginConfig.enableClickAnalytics) {
-      const { ClickAnalyticsPlugin } = await import(
-        '@microsoft/applicationinsights-clickanalytics-js'
-      );
       const clickPluginInstance = new ClickAnalyticsPlugin();
 
       pluginConfig.config = {
