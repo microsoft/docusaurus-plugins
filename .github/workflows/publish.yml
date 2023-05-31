@@ -12,7 +12,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - uses: volta-cli/action@v1
+      - uses: volta-cli/action@v4
 
       - name: yarn install
         run: yarn install --frozen-lockfile
@@ -20,7 +20,7 @@ jobs:
       - name: Build all
         run: yarn build
 
-      - name: Loop through packages and publish
+      - name: Publish Packages
         run: |
           cd packages
           for package in $(ls -d */); do
