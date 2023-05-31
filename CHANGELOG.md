@@ -2,6 +2,30 @@
 
 
 
+
+## v4.0.0 (2023-05-31)
+
+#### :boom: Breaking Change
+* `docusaurus-plugin-application-insights`, `docusaurus-plugin-rise4fun`, `docusaurus-remark-plugin-compile-code`
+  * [#39](https://github.com/microsoft/docusaurus-plugins/pull/39) Widen app insights configuration options. Add optional click analytics plugin instantiation. ([@scalvert](https://github.com/scalvert))
+
+#### :rocket: Enhancement
+* `docusaurus-plugin-application-insights`, `docusaurus-plugin-rise4fun`, `docusaurus-remark-plugin-compile-code`
+  * [#39](https://github.com/microsoft/docusaurus-plugins/pull/39) Widen app insights configuration options. Add optional click analytics plugin instantiation. ([@scalvert](https://github.com/scalvert))
+
+#### :memo: Documentation
+* [#44](https://github.com/microsoft/docusaurus-plugins/pull/44) Adding documentation for changes to App Insights plugin config ([@scalvert](https://github.com/scalvert))
+
+#### :house: Internal
+* Other
+  * [#43](https://github.com/microsoft/docusaurus-plugins/pull/43) Cleanup and separate Actions workflows ([@scalvert](https://github.com/scalvert))
+* `docusaurus-remark-plugin-compile-code`
+  * [#42](https://github.com/microsoft/docusaurus-plugins/pull/42) Reformats all files via prettier ([@scalvert](https://github.com/scalvert))
+
+#### Committers: 1
+- Steve Calvert ([@scalvert](https://github.com/scalvert))
+
+
 ## v3.1.0 (2023-04-27)
 
 #### :rocket: Enhancement
