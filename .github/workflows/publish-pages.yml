@@ -1,17 +1,14 @@
-name: Build and Test
+name: Publish Pages Site
 
 on:
   workflow_dispatch:
   push:
-    branches:
-      - main
     tags:
       - v*
-  pull_request: {}
 
 jobs:
   build:
-    name: Build and Test
+    name: Publish Pages Site
     runs-on: ubuntu-latest
     env:
       GITHUB_REPOSITORY: ${{ github.repository }}
@@ -37,3 +34,10 @@ jobs:
 
       - name: Test all
         run: yarn test
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: website/build
+          force_orphan: true

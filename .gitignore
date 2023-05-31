@@ -2,3 +2,5 @@ node_modules
 *.log
 .DS_Store
 docusaurus
+.yarn/cache
+.yarn/install-state.gz
