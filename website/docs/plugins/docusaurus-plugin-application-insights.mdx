@@ -24,7 +24,9 @@ const config = {
         ...,
         // highlight-start
         ["@rise4fun/docusaurus-plugin-application-insights", {
-            instrumentationKey: "YOUR INSTRUMENTATION KEY HERE"
+            config: {
+                instrumentationKey: "YOUR INSTRUMENTATION KEY HERE"
+            }
         }]
         // highlight-end
     ]
