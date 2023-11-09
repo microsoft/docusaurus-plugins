@@ -4,3 +4,4 @@ node_modules
 docusaurus
 .yarn/cache
 .yarn/install-state.gz
+.docusaurus/
