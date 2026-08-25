@@ -19,12 +19,12 @@ jobs:
       GITHUB_SHA: ${{ github.sha }}
 
     steps:
-      - uses: actions/checkout@a37ce9120846195fa4ece8f58b268e6043cb2f26 # v3.7.0
-      - uses: volta-cli/action@5c175f92dea6f48441c436471e6479dbc192e194 # v4.2.1
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: volta-cli/action@615a78f6c83e116339c53b94f3f82b4d6c0b7d18 # v5.0.0
 
       - name: Cache ris4fun compile code
         id: docusaurus-rise4fun-compile-code
-        uses: actions/cache@6f8efc29b200d32929f49075959781ed54ec270c # v3.5.0
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: website/.docusaurus/docusaurus-remark-plugin-compile-code/
           key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
